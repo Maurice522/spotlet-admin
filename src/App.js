@@ -9,6 +9,7 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Deactivation from "./components/Deactivation/Deactivation";
+import Location1 from "./components/Locations/Location1";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path="deact">
               <Route index element={<Deactivation />} />
+            </Route>
+            <Route path="locations">
+              <Route index element={<Location1/>} />
             </Route>
           </Route>
         </Routes>

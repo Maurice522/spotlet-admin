@@ -50,10 +50,12 @@ const Sidebar = () => {
             <span>Notifications</span>
           </li>
           <p className="title">Location Management</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>Locations</span>
-          </li>
+          <Link to="/locations" style={{ textDecoration: "none" }}>
+            <li>
+              <StoreIcon className="icon" />
+              <span>Locations</span>
+            </li>
+          </Link>
           <li>
             <PsychologyOutlinedIcon className="icon" />
             <span>Requests</span>
