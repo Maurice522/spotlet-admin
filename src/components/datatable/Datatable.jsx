@@ -40,7 +40,6 @@ const Datatable = () => {
 			.get("https://gorecce-backend.herokuapp.com/users")
 			.then((response) => {
 				const data = response.data;
-				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 					const user = {
 						id: i + 1,
@@ -65,8 +64,6 @@ const Datatable = () => {
 				setData(data2);
 			});
 	}, []);
-
-	console.log(data);
 
 	const handleDelete = (id) => {
 		setData(data.filter((item) => item.id !== id));
