@@ -1,13 +1,12 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Datatable = () => {
   const userColumns = [
-    { field: "id", headerName: "ID", width: 20 },
+    { field: "id", headerName: "ID", width: 70 },
     {
       field: "user",
       headerName: "User",
@@ -15,7 +14,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellWithImg">
-            <img className="cellImg" src={params.row.img} alt="" />
+            <img className="cellImg" src={params.row.img} alt="avatar" />
             {params.row.username}
           </div>
         );
@@ -29,34 +28,25 @@ const Datatable = () => {
     {
       field: "mobile",
       headerName: "Phone Number",
-      width: 150,
-    },
+      width: 200,
+    }
   ];
   const [data, setData] = useState([]);
 
   useEffect(() => {
     var data2 = [];
     axios
-      .get("https://gorecce-backend.herokuapp.com/users")
+      .get("https://gorecce-admin.herokuapp.com/deletereq")
       .then((response) => {
         const data = response.data;
         console.log(data);
         for (let i = 0; i < data.length; i++) {
           const user = {
             id: i + 1,
-            email: data[i].personalInfo.email,
-            username: data[i].personalInfo.fullName,
-            mobile: data[i].personalInfo.mobile,
-            img: data[i].personalInfo.profile_pic,
-            JoinedAs: data[i].personalInfo.booking_type,
-            Address: "",
-            Country: "India",
-            BankName: "lorem ipsum 1",
-            IFSC_Code: "ABC12345",
-            AcNo: "123456",
-            UPI: "ABC123",
-            UserID: data[i].id,
-            bookingInfo: data[i].listedLocations,
+            email: data[i].CustomerEmail,
+            username: data[i].CustomerName,
+            mobile: data[i].Mobile,
+            img: data[i].CustomerImage,
           };
           data2 = [...data2, user];
         }
@@ -76,13 +66,21 @@ const Datatable = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 400,
       renderCell: (params) => {
         return (
           <div className="cellAction">
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
+            <div className="viewButton">Deactivate</div>
+
+            <div
+              className="deleteButton"
+              onClick={() => handleDelete(params.row.id)}
+            >
+              Reject
+            </div>
           </div>
         );
       },
@@ -91,12 +89,7 @@ const Datatable = () => {
 
   return (
     <div className="datatable">
-      <div className="datatableTitle">
-        Users
-        <Link to="/users/new" className="link">
-          Add New
-        </Link>
-      </div>
+      <div className="datatableTitle">Deactivate Account</div>
       <DataGrid
         className="datagrid"
         rows={data}
