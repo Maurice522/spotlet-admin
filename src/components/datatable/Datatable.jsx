@@ -42,7 +42,7 @@ const Datatable = () => {
 				const data = response.data;
 				for (let i = 0; i < data.length; i++) {
 					const user = {
-						id: i + 1,
+						id: data[i].id,
 						email: data[i].personalInfo.email,
 						username: data[i].personalInfo.fullName,
 						mobile: data[i].personalInfo.mobile,
@@ -77,7 +77,7 @@ const Datatable = () => {
 			renderCell: (params) => {
 				return (
 					<div className="cellAction">
-						<Link to="/users/test" style={{ textDecoration: "none" }}>
+						<Link to={`/users/${params.id}`} style={{ textDecoration: "none" }}>
 							<div className="viewButton">View</div>
 						</Link>
 					</div>

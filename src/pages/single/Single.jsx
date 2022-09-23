@@ -1,10 +1,10 @@
 import "./single.scss";
-import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link, useParams } from "react-router-dom";
+import { Button, Avatar } from "@mui/material";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Chart from "../../components/chart/Chart";
-import List from "../../components/table/Table";
 import { GoPrimitiveDot } from "react-icons/go";
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -45,7 +45,6 @@ const Single = () => {
 
 	const gridBookingStatus = (props) => {
 		let color;
-		console.log(props);
 		if (props.row.Status === "Under Review") color = "#E8B500";
 		else if (props.row.Status === "Approved") color = "#0079D7";
 		else if (props.row.Status === "Cancelled") color = "#E20000";
@@ -332,6 +331,50 @@ const Single = () => {
 		},
 	];
 
+	const params = useParams();
+
+	const [value, setValue] = useState({
+		userName: "Jane Doe",
+		email: "janedoe@gmail.com",
+		mobile: "1234567890",
+		image: "",
+		joinedAs: "Individual",
+		address: "",
+		country: "India",
+		BankName: "lorem ipsum 1",
+		IFSC_Code: "ABC12345",
+		AcNo: "123456",
+		UPI: "ABC123",
+		UserID: "",
+		bookingInfo: "",
+	});
+
+	useEffect(() => {
+		axios
+			.get("https://gorecce-backend.herokuapp.com/users")
+			.then((response) => {
+				const data = response.data;
+				const result = data.filter((item) => item.id == params.userId);
+				const user = {
+					email: result[0].personalInfo.email,
+					userName: result[0].personalInfo.fullName,
+					mobile: result[0].personalInfo.mobile,
+					image: result[0].personalInfo.profile_pic,
+					joinedAs: result[0].personalInfo.booking_type,
+					address: "",
+					country: "India",
+					bankName: "lorem ipsum 1",
+					IFSC_Code: "ABC12345",
+					AcNo: "123456",
+					UPI: "ABC123",
+					UserID: result[0].id,
+					bookingInfo: result[0].listedLocations,
+				};
+
+				setValue(user);
+			});
+	}, []);
+
 	return (
 		<div className="single">
 			<Sidebar />
@@ -342,34 +385,38 @@ const Single = () => {
 						<div className="editButton">Edit</div>
 						<h1 className="title"> Personal Information</h1>
 						<div className="item">
-							<img
-								src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-								alt=""
-								className="itemImg"
-							/>
+							{value.image === "" ? (
+								<Avatar
+									sx={{
+										width: "100px",
+										height: "100px",
+										borderRadius: "50%",
+									}}
+								/>
+							) : (
+								<img src={value.image} alt="" className="itemImg" />
+							)}
 							<div className="details">
-								<h1 className="itemTitle">Jane Doe</h1>
+								<h1 className="itemTitle">{value.userName}</h1>
 								<div className="detailItem">
 									<span className="itemKey">Email:</span>
-									<span className="itemValue">janedoe@gmail.com</span>
+									<span className="itemValue">{value.email}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Phone:</span>
-									<span className="itemValue">+1 2345 67 89</span>
+									<span className="itemValue">{value.mobile}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Address:</span>
-									<span className="itemValue">
-										Elton St. 234 Garden Yd. NewYork
-									</span>
+									<span className="itemValue">{value.address}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Country:</span>
-									<span className="itemValue">USA</span>
+									<span className="itemValue">{value.country}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Joined As:</span>
-									<span className="itemValue">Individual</span>
+									<span className="itemValue">{value.joinedAs}</span>
 								</div>
 							</div>
 						</div>
@@ -380,19 +427,19 @@ const Single = () => {
 							<div className="details">
 								<div className="detailItem">
 									<span className="itemKey">Bank Name:</span>
-									<span className="itemValue">lorem ipsum</span>
+									<span className="itemValue">{value.bankName}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">IFSC Code</span>
-									<span className="itemValue">ABC123456</span>
+									<span className="itemValue">{value.IFSC_Code}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Account No.:</span>
-									<span className="itemValue">123456789</span>
+									<span className="itemValue">{value.AcNo}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">UPI:</span>
-									<span className="itemValue">ABC123</span>
+									<span className="itemValue">{value.UPI}</span>
 								</div>
 							</div>
 						</div>
