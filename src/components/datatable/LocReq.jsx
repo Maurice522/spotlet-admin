@@ -1,10 +1,13 @@
-import "./datatable.scss";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import "./datatable.scss";
 
-const Datatable = () => {
+const LocReq = () => {
+  const approveUser = (e) => {
+    
+  };
   const userColumns = [
     { field: "id", headerName: "ID", width: 70 },
     {
@@ -31,30 +34,22 @@ const Datatable = () => {
       width: 200,
     },
   ];
-  const deleteUser = (id) => {
-    axios
-      .delete("https://gorecce-admin.herokuapp.com/delete/" + id)
-      .then(console.log("Delete Successfull"));
-  };
-  const rejectUser = (id) => {
-    axios
-      .delete("https://gorecce-admin.herokuapp.com/rejectdeac/" + id)
-      .then(console.log("Rejected Successfull"));
-  };
+
   const [data, setData] = useState([]);
   useEffect(() => {
     var data2 = [];
     axios
-      .get("https://gorecce-admin.herokuapp.com/deletereq")
+      .get("http://localhost:8000/locreqs")
       .then((response) => {
         const data = response.data;
-        for (let i = 0; i < data.length; i++) {
+        console.log(data);
+        for (let i = 0; i < data.locations.length; i++) {
           const user = {
-            id: data[i].id,
-            email: data[i].CustomerEmail,
-            username: data[i].CustomerName,
-            mobile: data[i].Mobile,
-            img: data[i].CustomerImage,
+            id: data.locations[i].location_id,
+            email: data.locations[i].contact_det.email,
+            username: data.locations[i].contact_det.name,
+            mobile: data.locations[i].contact_det.mobile_num,
+            img: data.locations[i].contact_det.img,
           };
           data2 = [...data2, user];
         }
@@ -62,12 +57,12 @@ const Datatable = () => {
       .then(() => {
         setData(data2);
       });
-  }, [data]);
+  }, []);
 
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
+      headerName: "View",
       width: 400,
       renderCell: (params) => {
         return (
@@ -75,15 +70,21 @@ const Datatable = () => {
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
+            <div
+              className="viewButton"
+              onClick={() => approveUser(params.row.id)}
+            >
+              Approve
+            </div>
+            <div className="deleteButton">Incomplete</div>
           </div>
         );
       },
     },
   ];
-
   return (
     <div className="datatable">
-      <div className="datatableTitle">Deactivate Account</div>
+      <div className="datatableTitle">Requests</div>
       <DataGrid
         className="datagrid"
         rows={data}
@@ -96,4 +97,4 @@ const Datatable = () => {
   );
 };
 
-export default Datatable;
+export default LocReq;

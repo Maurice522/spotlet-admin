@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Deactivation from "./components/Deactivation/Deactivation";
 import Location1 from "./components/Locations/Location1";
+import LocaReq from "./components/LocReq/LocaReq";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -34,6 +35,9 @@ function App() {
             </Route>
             <Route path="locations">
               <Route index element={<Location1/>} />
+            </Route>
+            <Route path="locreq">
+              <Route index element={<LocaReq/>} />
             </Route>
           </Route>
         </Routes>
