@@ -10,36 +10,38 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Deactivation from "./components/Deactivation/Deactivation";
 import Location1 from "./components/Locations/Location1";
+import LocationDetails from "./pages/single/LocationDetails";
 
 function App() {
-  const { darkMode } = useContext(DarkModeContext);
+	const { darkMode } = useContext(DarkModeContext);
 
-  return (
-    <div className={darkMode ? "app dark" : "app"}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="users">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
-              <Route
-                path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
-              />
-            </Route>
-            <Route path="deact">
-              <Route index element={<Deactivation />} />
-            </Route>
-            <Route path="locations">
-              <Route index element={<Location1/>} />
-            </Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+	return (
+		<div className={darkMode ? "app dark" : "app"}>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/">
+						<Route index element={<Home />} />
+						<Route path="login" element={<Login />} />
+						<Route path="users">
+							<Route index element={<List />} />
+							<Route path=":userId" element={<Single />} />
+							<Route
+								path="new"
+								element={<New inputs={userInputs} title="Add New User" />}
+							/>
+						</Route>
+						<Route path="deact">
+							<Route index element={<Deactivation />} />
+						</Route>
+						<Route path="locations">
+							<Route index element={<Location1 />} />
+							<Route path=":locationId" element={<LocationDetails />} />
+						</Route>
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default App;

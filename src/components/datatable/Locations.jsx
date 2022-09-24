@@ -34,13 +34,14 @@ const Locations = () => {
 	];
 
 	const [data, setData] = useState([]);
+
 	useEffect(() => {
 		var data2 = [];
 		axios
 			.get("https://gorecce-backend.herokuapp.com/getlocations")
 			.then((response) => {
 				const data = response.data;
-				console.log("Data", data);
+				console.log("Location Data", data);
 				for (let i = 0; i < data.locations.length; i++) {
 					const user = {
 						id: data.locations[i].location_id,
@@ -62,7 +63,6 @@ const Locations = () => {
 			headerName: "View",
 			width: 400,
 			renderCell: (params) => {
-				console.log("Params", params);
 				return (
 					<div className="cellAction">
 						<Link
