@@ -45,10 +45,6 @@ const Sidebar = () => {
               <span>Deactivation</span>
             </li>
           </Link>
-          <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
-          </li>
           <p className="title">Location Management</p>
           <Link to="/locations" style={{ textDecoration: "none" }}>
             <li>
@@ -56,14 +52,18 @@ const Sidebar = () => {
               <span>Locations</span>
             </li>
           </Link>
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Requests</span>
-          </li>
-          <li>
-            <SettingsApplicationsIcon className="icon" />
-            <span></span>
-          </li>
+          <Link to="/locreq" style={{ textDecoration: "none" }}>
+            <li>
+              <StoreIcon className="icon" />
+              <span>Requests</span>
+            </li>
+          </Link>
+          <Link to="/locations" style={{ textDecoration: "none" }}>
+            <li>
+              <StoreIcon className="icon" />
+              <span>Incomplete Listings</span>
+            </li>
+          </Link>
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />

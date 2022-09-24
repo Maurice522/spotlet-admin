@@ -11,6 +11,7 @@ import { DarkModeContext } from "./context/darkModeContext";
 import Deactivation from "./components/Deactivation/Deactivation";
 import Location1 from "./components/Locations/Location1";
 import LocationDetails from "./pages/single/LocationDetails";
+import LocaReq from "./components/LocReq/LocaReq";
 
 function App() {
 	const { darkMode } = useContext(DarkModeContext);

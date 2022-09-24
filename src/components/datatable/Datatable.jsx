@@ -40,7 +40,6 @@ const Datatable = () => {
 			.get("https://gorecce-backend.herokuapp.com/users")
 			.then((response) => {
 				const data = response.data;
-				console.log("User Data", data);
 				for (let i = 0; i < data.length; i++) {
 					const user = {
 						id: data[i].id,
