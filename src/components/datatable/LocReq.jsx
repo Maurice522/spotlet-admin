@@ -7,7 +7,7 @@ import "./datatable.scss";
 const LocReq = () => {
   const approveUser = (id) => {
     axios
-    .put("http://localhost:8000/approveloc/"+id)
+    .put("https://gorecce-backend.herokuapp.com/approveloc/"+id)
     .then(console.log("Approve Location"));
   };
   const userColumns = [
@@ -41,7 +41,7 @@ const LocReq = () => {
   useEffect(() => {
     var data2 = [];
     axios
-      .get("http://localhost:8000/locreqs")
+      .get("https://gorecce-backend.herokuapp.com/locreqs")
       .then((response) => {
         const data = response.data;
         for (let i = 0; i < data.locations.length; i++) {

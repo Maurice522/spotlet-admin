@@ -43,7 +43,7 @@ const Datatable = () => {
 				for (let i = 0; i < data.length; i++) {
 					const user = {
 						id: data[i].id,
-						email: data[i].personalInfo.email,
+						email: data[i].email,
 						username: data[i].personalInfo.fullName,
 						mobile: data[i].personalInfo.mobile,
 						img: data[i].personalInfo.profile_pic,

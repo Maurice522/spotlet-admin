@@ -13,6 +13,7 @@ import Location1 from "./components/Locations/Location1";
 import LocationDetails from "./pages/single/LocationDetails";
 import LocaReq from "./components/LocReq/LocaReq";
 import Incomplete from "./components/Incomplete";
+import LocReq from "./components/LocReq/LocaReq";
 
 function App() {
 	const { darkMode } = useContext(DarkModeContext);
@@ -23,7 +24,9 @@ function App() {
 				<Routes>
 					<Route path="/">
 						<Route index element={<Home />} />
+            
 						<Route path="login" element={<Login />} />
+						<Route path="locreq" element={<LocReq />} />
 						<Route path="users">
 							<Route index element={<List />} />
 							<Route path=":userId" element={<Single />} />

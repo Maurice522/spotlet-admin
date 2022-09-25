@@ -40,35 +40,7 @@ export const userColumns = [
 	},
 ];
 
-//temporary data
-var data2 = [];
-axios.get("https://gorecce-backend.herokuapp.com/users").then((response) => {
-	const data = response.data;
-	console.log(data);
-	for (let i = 0; i < data.length; i++) {
-		const user = {
-			id: i + 1,
-			email: data[i].personalInfo.email,
-			username: data[i].personalInfo.fullName,
-			Mobile: data[i].personalInfo.mobile,
-			img: data[i].personalInfo.profile_pic,
-			JoinedAs: data[i].personalInfo.booking_type,
-			Address: "",
-			Country: "India",
-			BankName: "lorem ipsum 1",
-			IFSC_Code: "ABC12345",
-			AcNo: "123456",
-			UPI: "ABC123",
-			UserID: data[i].id,
-			bookingInfo: data[i].listedLocations,
-		};
-		// console.log(user);
-		data2 = [...data2, user];
-	}
-});
 
-// console.log(data2);
-export const userRows = data2;
 
 export const userRows2 = [
 	{
