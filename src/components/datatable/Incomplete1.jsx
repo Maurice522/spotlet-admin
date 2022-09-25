@@ -4,12 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import "./datatable.scss";
 
-const LocReq = () => {
-  const approveUser = (id) => {
-    axios
-    .put("http://localhost:8000/approveloc/"+id)
-    .then(console.log("Approve Location"));
-  };
+const Incomplete1 = () => {
   const userColumns = [
     { field: "id", headerName: "ID", width: 70 },
     {
@@ -41,16 +36,12 @@ const LocReq = () => {
   useEffect(() => {
     var data2 = [];
     axios
-      .get("http://localhost:8000/locreqs")
+      .get("http://localhost:8000/incomplist")
       .then((response) => {
         const data = response.data;
-        for (let i = 0; i < data.locations.length; i++) {
+        for (let i = 0; i < data.length; i++) {
           const user = {
-            id: data.locations[i].location_id,
-            email: data.locations[i].contact_det.email,
-            username: data.locations[i].contact_det.name,
-            mobile: data.locations[i].contact_det.mobile_num,
-            img: data.locations[i].contact_det.img,
+            id: data[i].id,
           };
           data2 = [...data2, user];
         }
@@ -58,7 +49,7 @@ const LocReq = () => {
       .then(() => {
         setData(data2);
       });
-  }, [data]);
+  }, []);
 
   const actionColumn = [
     {
@@ -71,13 +62,6 @@ const LocReq = () => {
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div
-              className="viewButton"
-              onClick={() => approveUser(params.row.id)}
-            >
-              Approve
-            </div>
-            <div className="deleteButton">Incomplete</div>
           </div>
         );
       },
@@ -85,17 +69,17 @@ const LocReq = () => {
   ];
   return (
     <div className="datatable">
-      <div className="datatableTitle">Requests</div>
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
-        checkboxSelection
-      />
-    </div>
-  );
-};
+    <div className="datatableTitle">Requests</div>
+    <DataGrid
+      className="datagrid"
+      rows={data}
+      columns={userColumns.concat(actionColumn)}
+      pageSize={9}
+      rowsPerPageOptions={[9]}
+      checkboxSelection
+    />
+  </div>
+  )
+}
 
-export default LocReq;
+export default Incomplete1

@@ -12,6 +12,7 @@ import Deactivation from "./components/Deactivation/Deactivation";
 import Location1 from "./components/Locations/Location1";
 import LocationDetails from "./pages/single/LocationDetails";
 import LocaReq from "./components/LocReq/LocaReq";
+import Incomplete from "./components/Incomplete";
 
 function App() {
 	const { darkMode } = useContext(DarkModeContext);
@@ -38,6 +39,9 @@ function App() {
 							<Route index element={<Location1 />} />
 							<Route path=":locationId" element={<LocationDetails />} />
 						</Route>
+            <Route path="incomp">
+              <Route index element={<Incomplete/>} />
+            </Route>
 					</Route>
 				</Routes>
 			</BrowserRouter>

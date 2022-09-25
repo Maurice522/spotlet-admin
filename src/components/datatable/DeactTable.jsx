@@ -62,7 +62,7 @@ const Datatable = () => {
       .then(() => {
         setData(data2);
       });
-  }, [data]);
+  }, []);
 
   const actionColumn = [
     {
@@ -75,6 +75,8 @@ const Datatable = () => {
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
+            <button className="deleteButton" onClick={()=>deleteUser(params.row.id)}>Deactivate</button>
+            <button className="deleteButton" onClick={()=>rejectUser(params.row.id)}>Reject</button>
           </div>
         );
       },

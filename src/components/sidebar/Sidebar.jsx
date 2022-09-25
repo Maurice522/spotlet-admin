@@ -58,7 +58,7 @@ const Sidebar = () => {
               <span>Requests</span>
             </li>
           </Link>
-          <Link to="/locations" style={{ textDecoration: "none" }}>
+          <Link to="/incomp" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
               <span>Incomplete Listings</span>
