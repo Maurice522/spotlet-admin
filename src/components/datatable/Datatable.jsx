@@ -40,10 +40,11 @@ const Datatable = () => {
 			.get("https://gorecce-backend.herokuapp.com/users")
 			.then((response) => {
 				const data = response.data;
+				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 					const user = {
 						id: data[i].id,
-						email: data[i].email,
+						email: data[i].personalInfo.email,
 						username: data[i].personalInfo.fullName,
 						mobile: data[i].personalInfo.mobile,
 						img: data[i].personalInfo.profile_pic,

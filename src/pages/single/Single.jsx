@@ -333,21 +333,7 @@ const Single = () => {
 
 	const params = useParams();
 
-	const [value, setValue] = useState({
-		userName: "Jane Doe",
-		email: "janedoe@gmail.com",
-		mobile: "1234567890",
-		image: "",
-		joinedAs: "Individual",
-		address: "",
-		country: "India",
-		BankName: "lorem ipsum 1",
-		IFSC_Code: "ABC12345",
-		AcNo: "123456",
-		UPI: "ABC123",
-		UserID: "",
-		bookingInfo: "",
-	});
+	const [value, setValue] = useState({});
 
 	useEffect(() => {
 		axios
