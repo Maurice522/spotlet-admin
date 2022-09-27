@@ -1,16 +1,14 @@
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
-import InsertChartIcon from "@mui/icons-material/InsertChart";
-import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
-import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
+import AddLocationIcon from '@mui/icons-material/AddLocation';
+import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt';
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -41,14 +39,28 @@ const Sidebar = () => {
           </Link>
           <Link to="/deact" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
+              <DeleteIcon className="icon" />
               <span>Deactivation</span>
             </li>
           </Link>
+          <Link to="/contactus" style={{ textDecoration: "none" }}>
+            <li>
+              <ContactPageIcon className="icon" />
+              <span>Contact Us</span>
+            </li>
+          </Link>
+          
+          <Link to="/photoshoot" style={{ textDecoration: "none" }}>
+            <li>
+              <AddToPhotosIcon className="icon" />
+              <span>Photoshoot Req</span>
+            </li>
+          </Link>
+
           <p className="title">Location Management</p>
           <Link to="/locations" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
+              <AddLocationIcon className="icon" />
               <span>Locations</span>
             </li>
           </Link>
@@ -60,7 +72,7 @@ const Sidebar = () => {
           </Link>
           <Link to="/incomp" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
+              <EditLocationAltIcon className="icon" />
               <span>Incomplete Listings</span>
             </li>
           </Link>
@@ -74,16 +86,6 @@ const Sidebar = () => {
             <span>Logout</span>
           </li>
         </ul>
-      </div>
-      <div className="bottom">
-        <div
-          className="colorOption"
-          onClick={() => dispatch({ type: "LIGHT" })}
-        ></div>
-        <div
-          className="colorOption"
-          onClick={() => dispatch({ type: "DARK" })}
-        ></div>
       </div>
     </div>
   );

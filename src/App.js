@@ -8,12 +8,13 @@ import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
-import Deactivation from "./components/Deactivation/Deactivation";
+import Deactivation from "./components/Sidebar Files/Deactivation";
 import Location1 from "./components/Locations/Location1";
 import LocationDetails from "./pages/single/LocationDetails";
-import LocaReq from "./components/LocReq/LocaReq";
-import Incomplete from "./components/Incomplete";
-import LocReq from "./components/LocReq/LocaReq";
+import Incomplete from "./components/Sidebar Files/Incomplete";
+import LocReq from "./components/Sidebar Files/LocaReq";
+import Photoshoot from "./components/Sidebar Files/Photoshoot";
+import Contactus from "./components/Sidebar Files/Contactus";
 
 function App() {
 	const { darkMode } = useContext(DarkModeContext);
@@ -24,7 +25,6 @@ function App() {
 				<Routes>
 					<Route path="/">
 						<Route index element={<Home />} />
-            
 						<Route path="login" element={<Login />} />
 						<Route path="locreq" element={<LocReq />} />
 						<Route path="users">
@@ -42,9 +42,15 @@ function App() {
 							<Route index element={<Location1 />} />
 							<Route path=":locationId" element={<LocationDetails />} />
 						</Route>
-            <Route path="incomp">
-              <Route index element={<Incomplete/>} />
-            </Route>
+						<Route path="incomp">
+							<Route index element={<Incomplete />} />
+						</Route>
+						<Route path="contactus">
+							<Route index element={<Contactus/>} />
+						</Route>
+						<Route path="photoshoot">
+							<Route index element={<Photoshoot/>} />
+						</Route>
 					</Route>
 				</Routes>
 			</BrowserRouter>
