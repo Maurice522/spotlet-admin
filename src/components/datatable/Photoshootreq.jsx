@@ -42,7 +42,7 @@ const Photoshootreq = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:8000/getPhotoshoot")
+			.get("https://gorecce-backend.herokuapp.com/getPhotoshoot")
 			.then((response) => {
 				const data = response.data;
 				console.log(data);
