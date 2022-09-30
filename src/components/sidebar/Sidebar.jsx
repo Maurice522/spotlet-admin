@@ -6,6 +6,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
+import ChatIcon from '@mui/icons-material/Chat';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt';
@@ -74,6 +75,13 @@ const Sidebar = () => {
             <li>
               <EditLocationAltIcon className="icon" />
               <span>Incomplete Listings</span>
+            </li>
+          </Link>
+          <p className="title">All Messages</p>
+          <Link to="/allmessages" style={{textDecoration : "none"}}>
+            <li>
+              <ChatIcon className="icon"/>
+              <span>Messages</span>
             </li>
           </Link>
           <p className="title">USER</p>

@@ -15,6 +15,7 @@ import Incomplete from "./components/Sidebar Files/Incomplete";
 import LocReq from "./components/Sidebar Files/LocaReq";
 import Photoshoot from "./components/Sidebar Files/Photoshoot";
 import Contactus from "./components/Sidebar Files/Contactus";
+import Messages from "./pages/Messages";
 
 function App() {
 	const { darkMode } = useContext(DarkModeContext);
@@ -50,6 +51,9 @@ function App() {
 						</Route>
 						<Route path="photoshoot">
 							<Route index element={<Photoshoot/>} />
+						</Route>
+						<Route path="allmessages">
+							<Route index element={<Messages/>}/>
 						</Route>
 					</Route>
 				</Routes>
