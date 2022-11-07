@@ -36,7 +36,7 @@ const Incomplete1 = () => {
   useEffect(() => {
     var data2 = [];
     axios
-      .get("https://gorecce-backend.herokuapp.com/incomplist")
+      .get("https://nipunbacky.herokuapp.com/incomplist")
       .then((response) => {
         const data = response.data;
         for (let i = 0; i < data.length; i++) {
@@ -69,17 +69,17 @@ const Incomplete1 = () => {
   ];
   return (
     <div className="datatable">
-    <div className="datatableTitle">Requests</div>
-    <DataGrid
-      className="datagrid"
-      rows={data}
-      columns={userColumns.concat(actionColumn)}
-      pageSize={9}
-      rowsPerPageOptions={[9]}
-      checkboxSelection
-    />
-  </div>
-  )
-}
+      <div className="datatableTitle">Requests</div>
+      <DataGrid
+        className="datagrid"
+        rows={data}
+        columns={userColumns.concat(actionColumn)}
+        pageSize={9}
+        rowsPerPageOptions={[9]}
+        checkboxSelection
+      />
+    </div>
+  );
+};
 
-export default Incomplete1
+export default Incomplete1;

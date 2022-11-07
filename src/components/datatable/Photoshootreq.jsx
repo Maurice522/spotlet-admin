@@ -5,77 +5,70 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
 const Photoshootreq = () => {
-    const userColumns = [
-		{ field: "id", headerName: "ID", width: 20 },
-		{
-			field: "user",
-			headerName: "User",
-			width: 130,
-			renderCell: (params) => {
-				return (
-					<div className="cellWithImg">
-						{params.row.username}
-					</div>
-				);
-			},
-		},
-		{
-			field: "email",
-			headerName: "Email",
-			width: 200,
-		},
-		{
-			field: "mobile",
-			headerName: "Phone Number",
-			width: 150,
-		},
-        {
-			field: "address",
-			headerName: "Address",
-			width: 330,
-		},
-	];
-	const [data, setData] = useState([]);
+  const userColumns = [
+    { field: "id", headerName: "ID", width: 20 },
+    {
+      field: "user",
+      headerName: "User",
+      width: 130,
+      renderCell: (params) => {
+        return <div className="cellWithImg">{params.row.username}</div>;
+      },
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 200,
+    },
+    {
+      field: "mobile",
+      headerName: "Phone Number",
+      width: 150,
+    },
+    {
+      field: "address",
+      headerName: "Address",
+      width: 330,
+    },
+  ];
+  const [data, setData] = useState([]);
 
-	useEffect(() => {
-		var data2 = [];
-		axios
-			.get("https://gorecce-backend.herokuapp.com/getPhotoshoot")
-			.then((response) => {
-				const data = response.data;
-				console.log(data);
-				for (let i = 0; i < data.length; i++) {
-					const user = {
-						id: data[i].id,
-						email: data[i].email,
-						username: data[i].fullName,
-						mobile: data[i].mobile,
-						address:data[i].address
-					};
-					data2 = [...data2, user];
-				}
-			})
-			.then(() => {
-				setData(data2);
-			});
-	}, []);
+  useEffect(() => {
+    var data2 = [];
+    axios
+      .get("https://nipunbacky.herokuapp.com/getPhotoshoot")
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          const user = {
+            id: data[i].id,
+            email: data[i].email,
+            username: data[i].fullName,
+            mobile: data[i].mobile,
+            address: data[i].address,
+          };
+          data2 = [...data2, user];
+        }
+      })
+      .then(() => {
+        setData(data2);
+      });
+  }, []);
   return (
     <div className="datatable">
-			<div className="datatableTitle">
-				Photoshoot Requests
-			</div>
-			<DataGrid
-				className="datagrid"
-				rows={data}
-				columns={userColumns}
-				pageSize={9}
-				rowsPerPageOptions={[9]}
-				checkboxSelection
-			/>
-		</div>
-  )
-}
+      <div className="datatableTitle">Photoshoot Requests</div>
+      <DataGrid
+        className="datagrid"
+        rows={data}
+        columns={userColumns}
+        pageSize={9}
+        rowsPerPageOptions={[9]}
+        checkboxSelection
+      />
+    </div>
+  );
+};
 
-export default Photoshootreq
+export default Photoshootreq;
