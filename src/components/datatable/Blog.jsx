@@ -5,36 +5,30 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
-const Photoshootreq = () => {
+const Blog = () => {
     const userColumns = [
 		{ field: "id", headerName: "ID", width: 20 },
 		{
-			field: "user",
-			headerName: "User",
+			field: "title",
+			headerName: "Title",
 			width: 130,
 			renderCell: (params) => {
 				return (
 					<div className="cellWithImg">
-						{params.row.username}
+						{params.row.title}
 					</div>
 				);
 			},
 		},
 		{
-			field: "email",
-			headerName: "Email",
+			field: "subheading",
+			headerName: "SubHeading",
 			width: 200,
 		},
 		{
-			field: "mobile",
-			headerName: "Phone Number",
+			field: "date",
+			headerName: "Date",
 			width: 150,
-		},
-        {
-			field: "address",
-			headerName: "Address",
-			width: 330,
 		},
 	];
 	const [data, setData] = useState([]);
@@ -42,17 +36,16 @@ const Photoshootreq = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://nipunbacky.herokuapp.com/getPhotoshoot")
+			.get("https://nipunbacky.herokuapp.com/getBlogs")
 			.then((response) => {
 				const data = response.data;
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 					const user = {
 						id: data[i].id,
-						email: data[i].email,
-						username: data[i].fullName,
-						mobile: data[i].mobile,
-						address:data[i].address
+						title: data[i].title,
+						subheading: data[i].subheading,
+						date: data[i].date,
 					};
 					data2 = [...data2, user];
 				}
@@ -64,7 +57,10 @@ const Photoshootreq = () => {
   return (
     <div className="datatable">
 			<div className="datatableTitle">
-				Photoshoot Requests
+				Blogs
+				<Link to="/createblog" className="link">
+					Add Blog
+				</Link>
 			</div>
 			<DataGrid
 				className="datagrid"
@@ -77,4 +73,4 @@ const Photoshootreq = () => {
   )
 }
 
-export default Photoshootreq
+export default Blog

@@ -33,19 +33,19 @@ const Datatable = () => {
   ];
   const deleteUser = (id) => {
     axios
-      .delete("https://gorecce-admin.herokuapp.com/delete/" + id)
+      .delete("https://nipunbacky.herokuapp.com/delete/" + id)
       .then(console.log("Delete Successfull"));
   };
   const rejectUser = (id) => {
     axios
-      .delete("https://gorecce-admin.herokuapp.com/rejectdeac/" + id)
+      .delete("https://nipunbacky.herokuapp.com/rejectdeac/" + id)
       .then(console.log("Rejected Successfull"));
   };
   const [data, setData] = useState([]);
   useEffect(() => {
     var data2 = [];
     axios
-      .get("https://gorecce-admin.herokuapp.com/deletereq")
+      .get("https://nipunbacky.herokuapp.com/deletereq")
       .then((response) => {
         const data = response.data;
         for (let i = 0; i < data.length; i++) {
@@ -92,7 +92,6 @@ const Datatable = () => {
         columns={userColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
-        checkboxSelection
       />
     </div>
   );

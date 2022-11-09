@@ -69,17 +69,16 @@ const Incomplete1 = () => {
   ];
   return (
     <div className="datatable">
-      <div className="datatableTitle">Requests</div>
-      <DataGrid
-        className="datagrid"
-        rows={data}
-        columns={userColumns.concat(actionColumn)}
-        pageSize={9}
-        rowsPerPageOptions={[9]}
-        checkboxSelection
-      />
-    </div>
-  );
-};
+    <div className="datatableTitle">Requests</div>
+    <DataGrid
+      className="datagrid"
+      rows={data}
+      columns={userColumns.concat(actionColumn)}
+      pageSize={9}
+      rowsPerPageOptions={[9]}
+    />
+  </div>
+  )
+}
 
-export default Incomplete1;
+export default Incomplete1

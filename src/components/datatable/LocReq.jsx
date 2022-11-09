@@ -7,8 +7,8 @@ import "./datatable.scss";
 const LocReq = () => {
   const approveUser = (id) => {
     axios
-      .put("https://nipunbacky.herokuapp.com/approveloc/" + id)
-      .then(console.log("Approve Location"));
+    .put("https://nipunbacky.herokuapp.com/approveloc/"+id)
+    .then(console.log("Approve Location"));
   };
   const userColumns = [
     { field: "id", headerName: "ID", width: 70 },
@@ -92,7 +92,6 @@ const LocReq = () => {
         columns={userColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
-        checkboxSelection
       />
     </div>
   );

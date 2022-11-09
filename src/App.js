@@ -15,7 +15,13 @@ import Incomplete from "./components/Sidebar Files/Incomplete";
 import LocReq from "./components/Sidebar Files/LocaReq";
 import Photoshoot from "./components/Sidebar Files/Photoshoot";
 import Contactus from "./components/Sidebar Files/Contactus";
-import Messages from "./pages/Messages";
+import Blogs from "./components/Sidebar Files/Blogs";
+import CreateBlog from "./components/Sidebar Files/CreateBlog";
+
+// const express = require("express");
+// const app = express();
+// const cors = require("cors");
+// app.use(cors());
 
 function App() {
 	const { darkMode } = useContext(DarkModeContext);
@@ -28,6 +34,7 @@ function App() {
 						<Route index element={<Home />} />
 						<Route path="login" element={<Login />} />
 						<Route path="locreq" element={<LocReq />} />
+						<Route path="users/:userid/:locationId" element={<LocationDetails />} />
 						<Route path="users">
 							<Route index element={<List />} />
 							<Route path=":userId" element={<Single />} />
@@ -47,13 +54,16 @@ function App() {
 							<Route index element={<Incomplete />} />
 						</Route>
 						<Route path="contactus">
-							<Route index element={<Contactus/>} />
+							<Route index element={<Contactus />} />
 						</Route>
 						<Route path="photoshoot">
-							<Route index element={<Photoshoot/>} />
+							<Route index element={<Photoshoot />} />
 						</Route>
-						<Route path="allmessages">
-							<Route index element={<Messages/>}/>
+						<Route path="blogs">
+							<Route index element={<Blogs />} />
+						</Route>
+						<Route path="createblog">
+							<Route index element={<CreateBlog />} />
 						</Route>
 					</Route>
 				</Routes>
