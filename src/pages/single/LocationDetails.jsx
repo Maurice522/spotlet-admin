@@ -41,18 +41,19 @@ const ListingPlace = () => {
 	const [data, setData] = useState("");
 
 	useEffect(() => {
-		var data2 = [];
-		axios.get("http://localhost:8000/listalllocatons").then((response) => {
-			const data = response.data;
-			console.log("Response", data);
-			console.log(params);
-			const value = data.locations.filter(
-				(item) => item.location_id === params?.locationId
-			);
-			console.log(value);
-			setData(value);
-			console.log(data);
-		});
+		axios
+			.get("https://nipunbacky.herokuapp.com/listalllocatons")
+			.then((response) => {
+				const data = response.data;
+				console.log("Response", data);
+				console.log(params);
+				const value = data.locations.filter(
+					(item) => item.location_id === params?.locationId
+				);
+				console.log(value);
+				setData(value);
+				console.log(data);
+			});
 	}, []);
 
 	if (data === "") {

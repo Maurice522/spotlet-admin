@@ -12,8 +12,7 @@ const LocaReq = () => {
                     <Navbar />
                     <LocReq/>
                 </div>
-            </div>
-            )
+            </div>            
         </div>
   )
 }

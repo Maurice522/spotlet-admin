@@ -9,12 +9,10 @@ import ContactPageIcon from "@mui/icons-material/ContactPage";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import EditLocationAltIcon from "@mui/icons-material/EditLocationAlt";
+import ContactMailSharpIcon from "@mui/icons-material/ContactMailSharp";
 import { Link } from "react-router-dom";
-import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
 
 const Sidebar = () => {
-	const { dispatch } = useContext(DarkModeContext);
 	return (
 		<div className="sidebar">
 			<div className="top">
@@ -85,6 +83,14 @@ const Sidebar = () => {
 						<li>
 							<EditLocationAltIcon className="icon" />
 							<span>Blogs</span>
+						</li>
+					</Link>
+
+					<p className="title">Contact </p>
+					<Link to="/contactusers" style={{ textDecoration: "none" }}>
+						<li>
+							<ContactMailSharpIcon className="icon" />
+							<span>Contact Users</span>
 						</li>
 					</Link>
 

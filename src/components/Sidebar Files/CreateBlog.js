@@ -20,6 +20,11 @@ const CreateBlog = () => {
     });
     const onSubmit = () => {
         var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = mm + '/' + dd + '/' + yyyy;
         setblog({ ...blog, date: today })
         console.log(blog);
         axios.post('https://nipunbacky.herokuapp.com/createblog',blog)

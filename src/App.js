@@ -17,6 +17,7 @@ import Photoshoot from "./components/Sidebar Files/Photoshoot";
 import Contactus from "./components/Sidebar Files/Contactus";
 import Blogs from "./components/Sidebar Files/Blogs";
 import CreateBlog from "./components/Sidebar Files/CreateBlog";
+import ContactUsers from "./components/Sidebar Files/ContactUsers";
 
 // const express = require("express");
 // const app = express();
@@ -61,6 +62,9 @@ function App() {
 						</Route>
 						<Route path="blogs">
 							<Route index element={<Blogs />} />
+						</Route>
+						<Route path="contactusers">
+							<Route index element={<ContactUsers />} />
 						</Route>
 						<Route path="createblog">
 							<Route index element={<CreateBlog />} />

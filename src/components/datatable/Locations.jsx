@@ -31,6 +31,11 @@ const Locations = () => {
 			headerName: "Phone Number",
 			width: 200,
 		},
+		{
+			field: "date",
+			headerName: "Date",
+			width: 200,
+		},
 	];
 
 	const [data, setData] = useState([]);
@@ -43,17 +48,26 @@ const Locations = () => {
 				const data = response.data;
 				console.log("Location Data", data);
 				for (let i = 0; i < data.locations.length; i++) {
+					const date = new Date(data.locations[i]?.timestamp?._seconds * 1000);
+					const yyyy = date.getFullYear();
+					let mm = date.getMonth() + 1; // Months start at 0!
+					let dd = date.getDate();
+
+					if (dd && dd < 10) dd = "0" + dd;
+					if (mm && mm < 10) mm = "0" + mm;
+
+					const formattedToday = dd + "/" + mm + "/" + yyyy;
 					const user = {
 						id: data.locations[i].location_id,
 						email: data.locations[i].contact_det.email,
 						username: data.locations[i].contact_det.name,
 						mobile: data.locations[i].contact_det.mobile_num,
+						date: formattedToday,
 						img: data.locations[i].contact_det.img,
 					};
 					data2 = [...data2, user];
-
-					setData(data2);
 				}
+				setData(data2);
 			});
 	}, []);
 
@@ -61,7 +75,7 @@ const Locations = () => {
 		{
 			field: "action",
 			headerName: "View",
-			width: 400,
+			width: 200,
 			renderCell: (params) => {
 				return (
 					<div className="cellAction">
