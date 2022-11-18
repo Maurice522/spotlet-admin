@@ -14,7 +14,8 @@ const ContactUsers = () => {
     const [form, setform] = useState({
         title: "",
         date: "",
-        content: ""
+        content: "",
+        admin: true
     });
     const [data, setData] = useState([]);
 
@@ -39,18 +40,25 @@ const ContactUsers = () => {
             });
     }, []);
 
-    const onSubmit = async () => {
+    useEffect(() => {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
 
         today = dd + '/' + mm + '/' + yyyy;
-        setform({ ...form, date: today, admin: true })
+        setform({ ...form, date: today })
+
+    }, [])
+
+
+    const onSubmit = async () => {
         try {
+            // console.log(form);
             const res = await Announcement({ form, data });
             toast.success(res.data)
             console.log(res.data);
+            window.location.reload(true);
         } catch (error) {
             console.log(error);
         }
