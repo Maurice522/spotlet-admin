@@ -8,11 +8,11 @@ import axios from "axios";
 
 const Photoshootreq = () => {
     const userColumns = [
-		{ field: "id", headerName: "ID", width: 20 },
+		{ field: "id", headerName: "ID", width: 250 },
 		{
 			field: "user",
 			headerName: "User",
-			width: 130,
+			width: 200,
 			renderCell: (params) => {
 				return (
 					<div className="cellWithImg">

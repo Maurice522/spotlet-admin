@@ -7,7 +7,7 @@ import { logDOM } from "@testing-library/react";
 
 const Locations = () => {
 	const userColumns = [
-		{ field: "id", headerName: "ID", width: 70 },
+		{ field: "id", headerName: "ID", width: 150 },
 		{
 			field: "user",
 			headerName: "User",

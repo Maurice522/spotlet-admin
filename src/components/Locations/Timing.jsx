@@ -101,9 +101,18 @@ const Timing = ({ data }) => {
 	};
 
 	const [friTimings, setFriTimings] = useState(
-		data.property_desc.location_type
+		data.timings.friday.open === false
+			? "Closed"
+			: data.timings.friday.isSetHours === false
+			? "Open all day"
+			: `Open from ${data.timings.friday.time.start} to ${data.timings.friday.time.end}`
 	);
-	let tmp_friTimings = data.property_desc.location_type;
+	let tmp_friTimings =
+		data.timings.friday.open === false
+			? "Closed"
+			: data.timings.friday.isSetHours === false
+			? "Open all day"
+			: `Open from ${data.timings.friday.time.start} to ${data.timings.friday.time.end}`;
 	const handleClickFriTimings = (e) => {
 		tmp_friTimings = e.target.value;
 	};
@@ -174,7 +183,8 @@ const Timing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#ff6767" />
 						<div className="location-secondary-heading ">Monday:</div>
 					</div>
@@ -207,7 +217,8 @@ const Timing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#ff6767" />
 						<div className="location-secondary-heading ">Tuesday:</div>
 					</div>
@@ -240,7 +251,8 @@ const Timing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#ff6767" />
 						<div className="location-secondary-heading ">Wednesday:</div>
 					</div>
@@ -273,7 +285,8 @@ const Timing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#ff6767" />
 						<div className="location-secondary-heading ">Thursday:</div>
 					</div>
@@ -306,7 +319,8 @@ const Timing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#ff6767" />
 						<div className="location-secondary-heading ">Friday:</div>
 					</div>
@@ -339,7 +353,8 @@ const Timing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#ff6767" />
 						<div className="location-secondary-heading ">Saturday:</div>
 					</div>
@@ -372,7 +387,8 @@ const Timing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#ff6767" />
 						<div className="location-secondary-heading ">Sunday:</div>
 					</div>

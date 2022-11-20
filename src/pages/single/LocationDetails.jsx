@@ -15,6 +15,7 @@ import Contact from "../../components/Locations/Contact";
 import Gst from "../../components/Locations/Gst";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { getTempLocation } from "../../services/api";
 
 const ListingPlace = () => {
 	const [section, showSection] = useState("Details & Description");
@@ -39,6 +40,7 @@ const ListingPlace = () => {
 	const params = useParams();
 
 	const [data, setData] = useState("");
+	const [tempData, setTempData] = useState("");
 
 	useEffect(() => {
 		axios
@@ -47,14 +49,21 @@ const ListingPlace = () => {
 				const data = response.data;
 				console.log("Response", data);
 				console.log(params);
-				const value = data.locations.filter(
+				const loc = data.locations.filter(
 					(item) => item.location_id === params?.locationId
 				);
-				console.log(value);
-				setData(value);
-				console.log(data);
-			});
-	}, []);
+				console.log(loc[0]);
+				setData(loc[0]);
+			})
+			.then(
+				data?.length == 0 &&
+					getTempLocation(params?.locationId).then((res) => {
+						const data = res.data;
+						console.log("Response", data);
+						setTempData(data);
+					})
+			);
+	}, [params]);
 
 	if (data === "") {
 		return "";
@@ -80,57 +89,63 @@ const ListingPlace = () => {
 						</div>
 						<div className="content">
 							{section === "Details & Description" ? (
-								<Details showSection={handlesection} data={data[0]} />
+								<Details
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
 							{section === "Location" ? (
-								<Location showSection={handlesection} data={data[0]} />
+								<Location
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
 							{section === "Amenities" ? (
-								<Amenities showSection={handlesection} data={data[0]} />
+								<Amenities showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}
 							{section === "Photo" ? (
-								<Photo showSection={handlesection} data={data[0]} />
+								<Photo showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}
 							{section === "Features" ? (
-								<Features showSection={handlesection} data={data[0]} />
+								<Features showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}
 							{section === "Do's & Don'ts" ? (
-								<Dondont showSection={handlesection} data={data[0]} />
+								<Dondont showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}
 							{section === "Pricing" ? (
-								<Pricing showSection={handlesection} data={data[0]} />
+								<Pricing showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}
 							{section === "Rules of the Host" ? (
-								<Rules showSection={handlesection} data={data[0]} />
+								<Rules showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}
 							{section === "Timings" ? (
-								<Timings showSection={handlesection} data={data[0]} />
+								<Timings showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}
 							{section === "Contact Details" ? (
-								<Contact showSection={handlesection} data={data[0]} />
+								<Contact showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}
 							{section === "GST Details" ? (
-								<Gst showSection={handlesection} data={data[0]} />
+								<Gst showSection={handlesection} data={data ? data : tempData} />
 							) : (
 								""
 							)}

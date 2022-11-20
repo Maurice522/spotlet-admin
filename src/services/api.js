@@ -44,3 +44,8 @@ export const getLocation = ({ userId, locationId }) => {
 export const Announcement = ({ form, data }) => {
     return axios.post(server_domain + "/announcement/", { form: form, userlist: data });
 };
+
+//get temp location
+export const getTempLocation = (location_id) => {
+    return axios.get(server_domain + "/templocation/" + location_id);
+}

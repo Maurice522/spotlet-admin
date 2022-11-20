@@ -5,10 +5,10 @@ import { TextField } from "@mui/material";
 
 const Pricing = ({ data }) => {
 	const [corp_availability, setCorp_availability] = useState(
-		data.pricing.corporate.isPresent === false ? "Not Available" : "Available"
+		data?.pricing?.corporate?.isPresent === false ? "Not Available" : "Available"
 	);
 	let tmp_corp_availability =
-		data.pricing.corporate.isPresent === false ? "Not Available" : "Available";
+		data?.pricing?.corporate?.isPresent === false ? "Not Available" : "Available";
 	const handleClickCorp_availability = (e) => {
 		tmp_corp_availability = e.target.value;
 	};
@@ -20,8 +20,8 @@ const Pricing = ({ data }) => {
 		setCorp_availability(tmp_corp_availability);
 	};
 
-	const [corp_hr, setCorp_hr] = useState(data.pricing.corporate.hourly_rate);
-	let tmp_corp_hr = data.pricing.corporate.hourly_rate;
+	const [corp_hr, setCorp_hr] = useState(data?.pricing?.corporate?.hourly_rate);
+	let tmp_corp_hr = data?.pricing?.corporate?.hourly_rate;
 	const handleClickCorp_hr = (e) => {
 		tmp_corp_hr = e.target.value;
 	};
@@ -34,8 +34,8 @@ const Pricing = ({ data }) => {
 		setCorp_hr(tmp_corp_hr);
 	};
 
-	const [corp_type, setCorp_type] = useState(data.pricing.corporate.type);
-	let tmp_corp_type = data.pricing.corporate.type;
+	const [corp_type, setCorp_type] = useState(data?.pricing?.corporate?.type);
+	let tmp_corp_type = data?.pricing?.corporate?.type;
 	const handleClickCorp_type = (e) => {
 		tmp_corp_type = e.target.value;
 	};
@@ -48,12 +48,12 @@ const Pricing = ({ data }) => {
 	};
 
 	const [film_availability, setFilm_availability] = useState(
-		data.pricing.film_webseries_ad.isPresent === false
+		data?.pricing?.film_webseries_ad?.isPresent === false
 			? "Not Available"
 			: "Available"
 	);
 	let tmp_film_availability =
-		data.pricing.film_webseries_ad.isPresent === false
+		data?.pricing?.film_webseries_ad?.isPresent === false
 			? "Not Available"
 			: "Available";
 	const handleClickFilm_availability = (e) => {
@@ -68,9 +68,9 @@ const Pricing = ({ data }) => {
 	};
 
 	const [film_hr, setFilm_hr] = useState(
-		data.pricing.film_webseries_ad.hourly_rate
+		data?.pricing?.film_webseries_ad?.hourly_rate
 	);
-	let tmp_film_hr = data.pricing.film_webseries_ad.hourly_rate;
+	let tmp_film_hr = data?.pricing?.film_webseries_ad?.hourly_rate;
 	const handleClickFilm_hr = (e) => {
 		tmp_film_hr = e.target.value;
 	};
@@ -84,9 +84,9 @@ const Pricing = ({ data }) => {
 	};
 
 	const [film_type, setFilm_type] = useState(
-		data.pricing.film_webseries_ad.type
+		data?.pricing?.film_webseries_ad?.type
 	);
-	let tmp_film_type = data.pricing.film_webseries_ad.type;
+	let tmp_film_type = data?.pricing?.film_webseries_ad?.type;
 	const handleClickFilm_type = (e) => {
 		tmp_film_type = e.target.value;
 	};
@@ -99,12 +99,12 @@ const Pricing = ({ data }) => {
 	};
 
 	const [Tv_availability, setTv_availability] = useState(
-		data.pricing.tv_series_other.isPresent === false
+		data?.pricing?.tv_series_other?.isPresent === false
 			? "Not Available"
 			: "Available"
 	);
 	let tmp_Tv_availability =
-		data.pricing.tv_series_other.isPresent === false
+		data?.pricing?.tv_series_other?.isPresent === false
 			? "Not Available"
 			: "Available";
 	const handleClickTv_availability = (e) => {
@@ -118,8 +118,8 @@ const Pricing = ({ data }) => {
 		setTv_availability(tmp_Tv_availability);
 	};
 
-	const [Tv_hr, setTv_hr] = useState(data.pricing.tv_series_other.hourly_rate);
-	let tmp_Tv_hr = data.pricing.tv_series_other.hourly_rate;
+	const [Tv_hr, setTv_hr] = useState(data?.pricing?.tv_series_other?.hourly_rate);
+	let tmp_Tv_hr = data?.pricing?.tv_series_other?.hourly_rate;
 	const handleClickTv_hr = (e) => {
 		tmp_Tv_hr = e.target.value;
 	};
@@ -132,8 +132,8 @@ const Pricing = ({ data }) => {
 		setTv_hr(tmp_Tv_hr);
 	};
 
-	const [Tv_type, setTv_type] = useState(data.pricing.tv_series_other.type);
-	let tmp_Tv_type = data.pricing.tv_series_other.type;
+	const [Tv_type, setTv_type] = useState(data?.pricing?.tv_series_other?.type);
+	let tmp_Tv_type = data?.pricing?.tv_series_other?.type;
 	const handleClickTv_type = (e) => {
 		tmp_Tv_type = e.target.value;
 	};

@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Datatable = () => {
 	const userColumns = [
-		{ field: "id", headerName: "ID", width: 20 },
+		{ field: "id", headerName: "ID", width: 250 },
 		{
 			field: "user",
 			headerName: "User",
@@ -91,9 +91,9 @@ const Datatable = () => {
 		<div className="datatable">
 			<div className="datatableTitle">
 				Users
-				<Link to="/users/new" className="link">
+				{/* <Link to="/users/new" className="link">
 					Add New
-				</Link>
+				</Link> */}
 			</div>
 			<DataGrid
 				className="datagrid"

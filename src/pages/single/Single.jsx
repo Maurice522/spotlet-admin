@@ -216,8 +216,8 @@ const Single = () => {
 								<TableHead>
 									<TableRow>
 										<TableCell className="tableCell">Booking ID</TableCell>
-										<TableCell className="tableCell">OwnerID</TableCell>
-										<TableCell className="tableCell">UserId</TableCell>
+										<TableCell className="tableCell">Owner ID</TableCell>
+										<TableCell className="tableCell">User Name</TableCell>
 										<TableCell className="tableCell">Date</TableCell>
 
 										{/* <TableCell className="tableCell">Action</TableCell> */}
@@ -267,7 +267,7 @@ const Single = () => {
 								<TableHead>
 									<TableRow>
 										<TableCell className="tableCell">Location</TableCell>
-										<TableCell className="tableCell">UserId</TableCell>
+										<TableCell className="tableCell">Location ID</TableCell>
 										<TableCell className="tableCell">Date</TableCell>
 										<TableCell className="tableCell">Status</TableCell>
 

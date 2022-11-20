@@ -5,8 +5,8 @@ import Buttons from "./Buttons";
 import { TextField } from "@mui/material";
 
 const Gst = ({ data }) => {
-	const [name, setname] = useState(data.gst.doc_no);
-	let tmp_name = data.gst.doc_no;
+	const [name, setname] = useState(data?.gst?.doc_no);
+	let tmp_name = data?.gst?.doc_no;
 	const handleClickname = (e) => {
 		tmp_name = e.target.value;
 	};
@@ -18,8 +18,8 @@ const Gst = ({ data }) => {
 		setname(tmp_name);
 	};
 
-	const [mobile_no, setmobile_no] = useState(data.gst.docs[0]);
-	let tmp_mobile_no = data.gst.docs[0];
+	const [mobile_no, setmobile_no] = useState(data?.gst?.docs[0]);
+	let tmp_mobile_no = data?.gst?.docs[0];
 	const handleClickmobile_no = (e) => {
 		tmp_mobile_no = e.target.value;
 	};

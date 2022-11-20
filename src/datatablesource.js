@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const userColumns = [
-	{ field: "id", headerName: "ID", width: 70 },
+	{ field: "id", headerName: "ID", width: 250 },
 	{
 		field: "user",
 		headerName: "User",

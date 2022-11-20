@@ -14,7 +14,7 @@ const LocReq = () => {
 			.then(console.log("Approve Location"));
 	};
 	const userColumns = [
-		{ field: "id", headerName: "ID", width: 70 },
+		{ field: "id", headerName: "ID", width: 150 },
 		{
 			field: "user",
 			headerName: "User",
@@ -83,7 +83,7 @@ const LocReq = () => {
 		{
 			field: "action",
 			headerName: "View",
-			width: 300,
+			width: 250,
 			renderCell: (params) => {
 				const link = `/locations/${params.id}`;
 				// console.log(link);

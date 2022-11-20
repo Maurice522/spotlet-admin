@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Blog = () => {
     const userColumns = [
-		{ field: "id", headerName: "ID", width: 20 },
+		{ field: "id", headerName: "ID", width: 250 },
 		{
 			field: "title",
 			headerName: "Title",

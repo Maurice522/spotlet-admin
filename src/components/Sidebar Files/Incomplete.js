@@ -12,8 +12,7 @@ const Incomplete = () => {
                     <Navbar />
                     <Incomplete1/>
                 </div>
-            </div>
-            )
+            </div>            
         </div>
   )
 }

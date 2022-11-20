@@ -5,8 +5,8 @@ import Buttons from "./Buttons";
 import { TextField } from "@mui/material";
 
 const Contact = ({ data }) => {
-	const [name, setname] = useState(data.contact_det.name);
-	let tmp_name = data.contact_det.name;
+	const [name, setname] = useState(data?.contact_det?.name);
+	let tmp_name = data?.contact_det?.name;
 	const handleClickname = (e) => {
 		tmp_name = e.target.value;
 	};
@@ -18,8 +18,8 @@ const Contact = ({ data }) => {
 		setname(tmp_name);
 	};
 
-	const [mobile_no, setmobile_no] = useState(data.contact_det.mobile_num);
-	let tmp_mobile_no = data.contact_det.mobile_num;
+	const [mobile_no, setmobile_no] = useState(data?.contact_det?.mobile_num);
+	let tmp_mobile_no = data?.contact_det?.mobile_num;
 	const handleClickmobile_no = (e) => {
 		tmp_mobile_no = e.target.value;
 	};
@@ -32,8 +32,8 @@ const Contact = ({ data }) => {
 		setmobile_no(tmp_mobile_no);
 	};
 
-	const [email, setemail] = useState(data.contact_det.email);
-	let tmp_email = data.contact_det.email;
+	const [email, setemail] = useState(data?.contact_det?.email);
+	let tmp_email = data?.contact_det?.email;
 	const handleClickemail = (e) => {
 		tmp_email = e.target.value;
 	};
@@ -46,9 +46,9 @@ const Contact = ({ data }) => {
 	};
 
 	const [alt_name, setalt_name] = useState(
-		data.contact_det.alt_name ? data.contact_det.alt_name : ""
+		data?.contact_det?.alt_name ? data?.contact_det?.alt_name : ""
 	);
-	let tmp_alt_name = data.contact_det.alt_name ? data.contact_det.alt_name : "";
+	let tmp_alt_name = data?.contact_det?.alt_name ? data?.contact_det?.alt_name : "";
 	const handleClickalt_name = (e) => {
 		tmp_alt_name = e.target.value;
 	};
@@ -61,10 +61,10 @@ const Contact = ({ data }) => {
 	};
 
 	const [alt_mobile, setalt_mobile] = useState(
-		data.contact_det.alt_mobile ? data.contact_det.alt_mobile : ""
+		data?.contact_det?.alt_mobile ? data?.contact_det?.alt_mobile : ""
 	);
-	let tmp_alt_mobile = data.contact_det.alt_mobile
-		? data.contact_det.alt_mobile
+	let tmp_alt_mobile = data?.contact_det?.alt_mobile
+		? data?.contact_det?.alt_mobile
 		: "";
 	const handleClickalt_mobile = (e) => {
 		tmp_alt_mobile = e.target.value;
@@ -88,7 +88,7 @@ const Contact = ({ data }) => {
 						height: "102px",
 						marginBottom: "30px",
 					}}
-					src={data.contact_det.img}
+					src={data?.contact_det?.img}
 					alt="User-Profile"
 				/>
 				<div className="location-subcontent-wrapper">
@@ -184,7 +184,7 @@ const Contact = ({ data }) => {
 						<Buttons save={handleSaveemail} discard={handleDiscardemail} />
 					</div>
 				</div>
-				{data.contact_det.alt_name && (
+				{data?.contact_det?.alt_name && (
 					<div className="location-subcontent-wrapper">
 						<div
 							style={{
@@ -216,11 +216,11 @@ const Contact = ({ data }) => {
 								save={handleSavealt_name}
 								discard={handleDiscardalt_name}
 							/>
-							{data.contact_det.alt_name}
+							{data?.contact_det?.alt_name}
 						</div>
 					</div>
 				)}
-				{data.contact_det.alt_mobile && (
+				{data?.contact_det?.alt_mobile && (
 					<div className="location-subcontent-wrapper">
 						<div
 							style={{
@@ -253,7 +253,7 @@ const Contact = ({ data }) => {
 								save={handleSavealt_mobile}
 								discard={handleDiscardalt_mobile}
 							/>
-							{data.contact_det.alt_mobile}
+							{data?.contact_det?.alt_mobile}
 						</div>
 					</div>
 				)}

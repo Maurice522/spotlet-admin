@@ -40,8 +40,8 @@ const Details = ({ data }) => {
 		setProp_info(tmp_prop_info);
 	};
 
-	const [prop_size, setProp_size] = useState(data.property_desc.property_size);
-	let tmp_prop_size = data.property_desc.property_size;
+	const [prop_size, setProp_size] = useState(data?.property_desc?.property_size);
+	let tmp_prop_size = data?.property_desc?.property_size;
 	const handleClickProp_size = (e) => {
 		tmp_prop_size = e.target.value;
 	};
@@ -54,9 +54,9 @@ const Details = ({ data }) => {
 	};
 
 	const [sec_camera, setSec_camera] = useState(
-		data.property_desc.security_camera
+		data?.property_desc?.security_camera
 	);
-	let tmp_sec_camera = data.property_desc.security_camera;
+	let tmp_sec_camera = data?.property_desc?.security_camera;
 	const handleClickSec_camera = (e) => {
 		tmp_sec_camera = e.target.value;
 	};
@@ -69,9 +69,9 @@ const Details = ({ data }) => {
 	};
 
 	const [street_parking, setStreet_parking] = useState(
-		data.property_desc.street_parking
+		data?.property_desc?.street_parking
 	);
-	let tmp_street_parking = data.property_desc.street_parking;
+	let tmp_street_parking = data?.property_desc?.street_parking;
 	const handleClickStreet_parking = (e) => {
 		tmp_street_parking = e.target.value;
 	};
@@ -102,7 +102,7 @@ const Details = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							select
+							// select
 							onClick={handleClickLoc_type}
 							value={loc_type}
 							fullWidth
@@ -285,7 +285,7 @@ const Details = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={data.property_desc.user_id}
+							value={data?.property_desc?.user_id}
 							fullWidth
 							size="small"
 							sx={{

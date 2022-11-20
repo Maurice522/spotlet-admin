@@ -4,8 +4,8 @@ import Buttons from "./Buttons";
 import { TextField } from "@mui/material";
 
 const Location = ({ data }) => {
-	const [address, setAddress] = useState(data.property_address.address);
-	let tmp_address = data.property_address.address;
+	const [address, setAddress] = useState(data?.property_address?.address);
+	let tmp_address = data?.property_address?.address;
 	const handleClickAddress = (e) => {
 		tmp_address = e.target.value;
 	};
@@ -17,8 +17,8 @@ const Location = ({ data }) => {
 		setAddress(tmp_address);
 	};
 
-	const [city, setCity] = useState(data.property_address.city);
-	let tmp_city = data.property_address.city;
+	const [city, setCity] = useState(data?.property_address?.city);
+	let tmp_city = data?.property_address?.city;
 	const handleClickCity = (e) => {
 		tmp_city = e.target.value;
 	};
@@ -31,8 +31,8 @@ const Location = ({ data }) => {
 		setCity(tmp_city);
 	};
 
-	const [state, setState] = useState(data.property_address.state);
-	let tmp_state = data.property_address.state;
+	const [state, setState] = useState(data?.property_address?.state);
+	let tmp_state = data?.property_address?.state;
 	const handleClickState = (e) => {
 		tmp_state = e.target.value;
 	};
@@ -44,8 +44,8 @@ const Location = ({ data }) => {
 		setState(tmp_state);
 	};
 
-	const [country, setCountry] = useState(data.property_address.country);
-	let tmp_country = data.property_address.country;
+	const [country, setCountry] = useState(data?.property_address?.country);
+	let tmp_country = data?.property_address?.country;
 	const handleClickCountry = (e) => {
 		tmp_country = e.target.value;
 	};
@@ -57,8 +57,8 @@ const Location = ({ data }) => {
 		setCountry(tmp_country);
 	};
 
-	const [landmark, setLandmark] = useState(data.property_address.landmark);
-	let tmp_landmark = data.property_address.landmark;
+	const [landmark, setLandmark] = useState(data?.property_address?.landmark);
+	let tmp_landmark = data?.property_address?.landmark;
 	const handleClickLandmark = (e) => {
 		tmp_landmark = e.target.value;
 	};
@@ -71,9 +71,9 @@ const Location = ({ data }) => {
 	};
 
 	const [loc_details, setLoc_details] = useState(
-		data.property_address.location_detail
+		data?.property_address?.location_detail
 	);
-	let tmp_loc_details = data.property_address.location_detail;
+	let tmp_loc_details = data?.property_address?.location_detail;
 	const handleClickLoc_details = (e) => {
 		tmp_loc_details = e.target.value;
 	};
@@ -85,8 +85,8 @@ const Location = ({ data }) => {
 		setLoc_details(tmp_loc_details);
 	};
 
-	const [pincode, setPincode] = useState(data.property_address.pincode);
-	let tmp_pincode = data.property_address.pincode;
+	const [pincode, setPincode] = useState(data?.property_address?.pincode);
+	let tmp_pincode = data?.property_address?.pincode;
 	const handleClickPincode = (e) => {
 		tmp_pincode = e.target.value;
 	};

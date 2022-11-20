@@ -10,7 +10,7 @@ const Photo = ({ data }) => {
 		<div>
 			<div className="location-primary-heading">Photo Gallery</div>
 			<div className="location-photo-gallery">
-				{data.imagesData?.map((item, ind) => (
+				{data?.imagesData?.map((item, ind) => (
 					<>
 						{console.log(item)}
 						<img

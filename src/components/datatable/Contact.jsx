@@ -7,11 +7,11 @@ import axios from "axios";
 
 const Contact = () => {
     const userColumns = [
-		{ field: "id", headerName: "ID", width: 20 },
+		{ field: "id", headerName: "ID", width: 250 },
 		{
 			field: "user",
 			headerName: "User",
-			width: 130,
+			width: 200,
 			renderCell: (params) => {
 				return (
 					<div className="cellWithImg">
@@ -63,10 +63,10 @@ const Contact = () => {
   return (
     <div className="datatable">
 			<div className="datatableTitle">
-				Users
-				<Link to="/users/new" className="link">
+				Contacted Users
+				{/* <Link to="/users/new" className="link">
 					Add New
-				</Link>
+				</Link> */}
 			</div>
 			<DataGrid
 				className="datagrid"

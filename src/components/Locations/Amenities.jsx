@@ -41,7 +41,7 @@ const Amenities = ({ data }) => {
 		<div>
 			<div className="location-primary-heading">Amenities</div>
 			<div className="location-content">
-				{data.amenities.map((item, index) => (
+				{data?.amenities?.map((item, index) => (
 					<div
 						key={index}
 						style={{

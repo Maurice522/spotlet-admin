@@ -41,7 +41,7 @@ const Rules = ({ data }) => {
 		<div>
 			<div className="location-primary-heading">Rules</div>
 			<div className="location-content">
-				{data.rules.map((item, index) => (
+				{data?.rules?.map((item, index) => (
 					<div
 						key={index}
 						style={{

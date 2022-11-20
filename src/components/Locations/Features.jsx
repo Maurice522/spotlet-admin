@@ -41,7 +41,7 @@ const Features = ({ data }) => {
 		<div>
 			<div className="location-primary-heading">Features</div>
 			<div className="location-content">
-				{data.features.map((item, index) => (
+				{data?.features?.map((item, index) => (
 					<div
 						key={index}
 						style={{
