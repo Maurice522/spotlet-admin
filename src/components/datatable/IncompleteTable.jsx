@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./datatable.scss";
 import { getUserData } from "../../services/api";
 
-const Incomplete1 = () => {
+const IncompleteTable = () => {
 	const userColumns = [
 		{ field: "id", headerName: "Location ID", width: 250 },
 		{
@@ -42,7 +42,7 @@ const Incomplete1 = () => {
 				const data = response.data;
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
-					console.log(data[i]?.property_desc?.user_id);
+					// console.log(data[i]?.property_desc?.user_id);
 					getUserData(data[i]?.property_desc?.user_id)
 						.then((res) => {
 							console.log(res.data);
@@ -97,4 +97,4 @@ const Incomplete1 = () => {
 	);
 };
 
-export default Incomplete1;
+export default IncompleteTable;

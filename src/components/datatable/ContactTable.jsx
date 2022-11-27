@@ -1,23 +1,17 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../datatablesource";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Contact = () => {
-    const userColumns = [
+const ContactTable = () => {
+	const userColumns = [
 		{ field: "id", headerName: "ID", width: 250 },
 		{
 			field: "user",
 			headerName: "User",
 			width: 200,
 			renderCell: (params) => {
-				return (
-					<div className="cellWithImg">
-						{params.row.username}
-					</div>
-				);
+				return <div className="cellWithImg">{params.row.username}</div>;
 			},
 		},
 		{
@@ -30,7 +24,7 @@ const Contact = () => {
 			headerName: "Phone Number",
 			width: 150,
 		},
-        {
+		{
 			field: "message",
 			headerName: "Message",
 			width: 330,
@@ -60,8 +54,8 @@ const Contact = () => {
 				setData(data2);
 			});
 	}, []);
-  return (
-    <div className="datatable">
+	return (
+		<div className="datatable">
 			<div className="datatableTitle">
 				Contacted Users
 				{/* <Link to="/users/new" className="link">
@@ -76,7 +70,7 @@ const Contact = () => {
 				rowsPerPageOptions={[9]}
 			/>
 		</div>
-  )
-}
+	);
+};
 
-export default Contact
+export default ContactTable;

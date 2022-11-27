@@ -1,8 +1,7 @@
 import React from "react";
 import Sidebar from "../sidebar/Sidebar";
 import Navbar from "../navbar/Navbar";
-import Photoshootreq from "../datatable/Photoshootreq";
-
+import Photoshootreq from "../datatable/PhotoShootReqTable";
 
 const Photoshoot = () => {
   return (
@@ -11,7 +10,7 @@ const Photoshoot = () => {
         <Sidebar />
         <div className="listContainer">
           <Navbar />
-          <Photoshootreq/>
+          <Photoshootreq />
         </div>
       </div>
     </div>

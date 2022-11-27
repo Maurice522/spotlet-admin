@@ -2,151 +2,144 @@ import React, { useState } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import Buttons from "./Buttons";
 import { TextField } from "@mui/material";
+import { toast } from "react-toastify";
+import { updateLocation } from "../../services/api";
 
 const Pricing = ({ data }) => {
-	const [corp_availability, setCorp_availability] = useState(
-		data?.pricing?.corporate?.isPresent === false ? "Not Available" : "Available"
-	);
-	let tmp_corp_availability =
-		data?.pricing?.corporate?.isPresent === false ? "Not Available" : "Available";
-	const handleClickCorp_availability = (e) => {
-		tmp_corp_availability = e.target.value;
-	};
-	const handleSaveCorp_availability = () => {
-		console.log("Edit data in backend");
-		tmp_corp_availability = corp_availability;
-	};
-	const handleDiscardCorp_availability = () => {
-		setCorp_availability(tmp_corp_availability);
+	// console.log(data);
+
+	const initialState = {
+		cleaningFee: data?.pricing?.cleaningFee,
+		corporate: {
+			hourly_rate: data?.pricing?.corporate?.hourly_rate,
+			isPresent: data?.pricing?.corporate?.isPresent,
+		},
+		film_webseries_ad: {
+			hourly_rate: data?.pricing?.film_webseries_ad?.hourly_rate,
+			isPresent: data?.pricing?.film_webseries_ad?.isPresent,
+		},
+		individual: {
+			hourly_rate: data?.pricing?.individual?.hourly_rate,
+			isPresent: data?.pricing?.individual?.isPresent,
+		},
+		tv_series_other: {
+			hourly_rate: data?.pricing?.tv_series_other?.hourly_rate,
+			isPresent: data?.pricing?.tv_series_other?.isPresent,
+		},
 	};
 
-	const [corp_hr, setCorp_hr] = useState(data?.pricing?.corporate?.hourly_rate);
-	let tmp_corp_hr = data?.pricing?.corporate?.hourly_rate;
-	const handleClickCorp_hr = (e) => {
-		tmp_corp_hr = e.target.value;
-	};
-	const handleSaveCorp_hr = () => {
-		console.log("Edit data in backend");
-		tmp_corp_hr = corp_hr;
-	};
-	const handleDiscardCorp_hr = () => {
-		console.log(tmp_corp_hr);
-		setCorp_hr(tmp_corp_hr);
+	const [pricing, setPricing] = useState(initialState);
+
+	const cleaningFeeChange = (e) => {
+		setPricing({
+			...pricing,
+			cleaningFee: e.target.value,
+		});
 	};
 
-	const [corp_type, setCorp_type] = useState(data?.pricing?.corporate?.type);
-	let tmp_corp_type = data?.pricing?.corporate?.type;
-	const handleClickCorp_type = (e) => {
-		tmp_corp_type = e.target.value;
-	};
-	const handleSaveCorp_type = () => {
-		console.log("Edit data in backend");
-		tmp_corp_type = corp_type;
-	};
-	const handleDiscardCorp_type = () => {
-		setCorp_type(tmp_corp_type);
+	const corporateChange = (e) => {
+		setPricing({
+			...pricing,
+			corporate: {
+				...pricing.corporate,
+				[e.target.name]: e.target.value,
+			},
+		});
 	};
 
-	const [film_availability, setFilm_availability] = useState(
-		data?.pricing?.film_webseries_ad?.isPresent === false
-			? "Not Available"
-			: "Available"
-	);
-	let tmp_film_availability =
-		data?.pricing?.film_webseries_ad?.isPresent === false
-			? "Not Available"
-			: "Available";
-	const handleClickFilm_availability = (e) => {
-		tmp_film_availability = e.target.value;
-	};
-	const handleSaveFilm_availability = () => {
-		console.log("Edit data in backend");
-		tmp_film_availability = film_availability;
-	};
-	const handleDiscardFilm_availability = () => {
-		setFilm_availability(tmp_film_availability);
+	const film_webseries_adChange = (e) => {
+		setPricing({
+			...pricing,
+			film_webseries_ad: {
+				...pricing.film_webseries_ad,
+				[e.target.name]: e.target.value,
+			},
+		});
 	};
 
-	const [film_hr, setFilm_hr] = useState(
-		data?.pricing?.film_webseries_ad?.hourly_rate
-	);
-	let tmp_film_hr = data?.pricing?.film_webseries_ad?.hourly_rate;
-	const handleClickFilm_hr = (e) => {
-		tmp_film_hr = e.target.value;
-	};
-	const handleSaveFilm_hr = () => {
-		console.log("Edit data in backend");
-		tmp_film_hr = film_hr;
-	};
-	const handleDiscardFilm_hr = () => {
-		console.log(tmp_film_hr);
-		setFilm_hr(tmp_film_hr);
+	const individualChange = (e) => {
+		setPricing({
+			...pricing,
+			individual: {
+				...pricing.individual,
+				[e.target.name]: e.target.value,
+			},
+		});
 	};
 
-	const [film_type, setFilm_type] = useState(
-		data?.pricing?.film_webseries_ad?.type
-	);
-	let tmp_film_type = data?.pricing?.film_webseries_ad?.type;
-	const handleClickFilm_type = (e) => {
-		tmp_film_type = e.target.value;
-	};
-	const handleSaveFilm_type = () => {
-		console.log("Edit data in backend");
-		tmp_film_type = film_type;
-	};
-	const handleDiscardFilm_type = () => {
-		setFilm_type(tmp_film_type);
+	const tv_series_otherChange = (e) => {
+		setPricing({
+			...pricing,
+			tv_series_other: {
+				...pricing.tv_series_other,
+				[e.target.name]: e.target.value,
+			},
+		});
 	};
 
-	const [Tv_availability, setTv_availability] = useState(
-		data?.pricing?.tv_series_other?.isPresent === false
-			? "Not Available"
-			: "Available"
-	);
-	let tmp_Tv_availability =
-		data?.pricing?.tv_series_other?.isPresent === false
-			? "Not Available"
-			: "Available";
-	const handleClickTv_availability = (e) => {
-		tmp_Tv_availability = e.target.value;
-	};
-	const handleSaveTv_availability = () => {
-		console.log("Edit data in backend");
-		tmp_Tv_availability = Tv_availability;
-	};
-	const handleDiscardTv_availability = () => {
-		setTv_availability(tmp_Tv_availability);
-	};
-
-	const [Tv_hr, setTv_hr] = useState(data?.pricing?.tv_series_other?.hourly_rate);
-	let tmp_Tv_hr = data?.pricing?.tv_series_other?.hourly_rate;
-	const handleClickTv_hr = (e) => {
-		tmp_Tv_hr = e.target.value;
-	};
-	const handleSaveTv_hr = () => {
-		console.log("Edit data in backend");
-		tmp_Tv_hr = Tv_hr;
-	};
-	const handleDiscardTv_hr = () => {
-		console.log(tmp_Tv_hr);
-		setTv_hr(tmp_Tv_hr);
+	const handleSave = async (e) => {
+		e.preventDefault();
+		if (
+			!pricing?.corporate?.hourly_rate &&
+			!pricing?.film_webseries_ad?.hourly_rate &&
+			!pricing?.individual?.hourly_rate &&
+			!pricing?.tv_series_other?.hourly_rate
+		)
+			return toast.error("Please fill atleast one pricing!!!");
+		const form = {
+			newLocData: {
+				...data,
+				pricing,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		try {
+			const response = await updateLocation(form);
+			window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 	};
 
-	const [Tv_type, setTv_type] = useState(data?.pricing?.tv_series_other?.type);
-	let tmp_Tv_type = data?.pricing?.tv_series_other?.type;
-	const handleClickTv_type = (e) => {
-		tmp_Tv_type = e.target.value;
-	};
-	const handleSaveTv_type = () => {
-		console.log("Edit data in backend");
-		tmp_Tv_type = Tv_type;
-	};
-	const handleDiscardTv_type = () => {
-		setTv_type(tmp_Tv_type);
+	const handleDiscard = (e) => {
+		setPricing(initialState);
 	};
 
 	return (
 		<div>
+			<div className="location-content">
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">Cleaning Fee:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="cleaningFee"
+							value={pricing.cleaningFee}
+							// onClick={handleClickCorp_availability}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={cleaningFeeChange}
+							variant="outlined"
+						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+				</div>
+			</div>
 			<div className="location-primary-heading">Corporate Pricings</div>
 			<div className="location-content">
 				<div className="location-subcontent-wrapper">
@@ -156,30 +149,26 @@ const Pricing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Availability:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={corp_availability}
-							onClick={handleClickCorp_availability}
+							name="isPresent"
+							value={pricing.corporate.isPresent}
+							// onClick={handleClickCorp_availability}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setCorp_availability(e.target.value);
-							}}
+							onChange={corporateChange}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveCorp_availability}
-							discard={handleDiscardCorp_availability}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -189,45 +178,45 @@ const Pricing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading">Hourly Rates:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={corp_hr}
-							onClick={handleClickCorp_hr}
+							name="hourly_rate"
+							value={pricing.corporate.hourly_rate}
+							// onClick={handleClickCorp_hr}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setCorp_hr(e.target.value);
-							}}
+							onChange={corporateChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSaveCorp_hr} discard={handleDiscardCorp_hr} />
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
-				<div className="location-subcontent-wrapper">
+				{/* <div className="location-subcontent-wrapper">
 					<div
 						style={{
 							display: "flex",
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Type:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={corp_type}
-							onClick={handleClickCorp_type}
+							// value={corp_type}
+							// onClick={handleClickCorp_type}
 							fullWidth
 							size="small"
 							sx={{
@@ -235,16 +224,16 @@ const Pricing = ({ data }) => {
 							}}
 							onChange={(e) => {
 								console.log(e.target.value);
-								setCorp_type(e.target.value);
+								// setCorp_type(e.target.value);
 							}}
 							variant="outlined"
 						/>
 						<Buttons
-							save={handleSaveCorp_type}
-							discard={handleDiscardCorp_type}
+							// save={handleSaveCorp_type}
+							// discard={handleDiscardCorp_type}
 						/>
 					</div>
-				</div>
+				</div> */}
 			</div>
 			<div className="location-primary-heading">
 				Film/Web-Series/Ad Pricings
@@ -257,30 +246,26 @@ const Pricing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Availability:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={film_availability}
-							onClick={handleClickFilm_availability}
+							name="isPresent"
+							value={pricing.film_webseries_ad.isPresent}
+							// onClick={handleClickFilm_availability}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setFilm_availability(e.target.value);
-							}}
+							onChange={film_webseries_adChange}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveFilm_availability}
-							discard={handleDiscardFilm_availability}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -290,37 +275,37 @@ const Pricing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Hourly Rates:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={film_hr}
-							onClick={handleClickFilm_hr}
+							name="hourly_rate"
+							value={pricing.film_webseries_ad.hourly_rate}
+							// onClick={handleClickFilm_hr}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setFilm_hr(e.target.value);
-							}}
+							onChange={film_webseries_adChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSaveFilm_hr} discard={handleDiscardFilm_hr} />
+						<Buttons save={handleSave} discard={handleSave} />
 					</div>
 				</div>
-				<div className="location-subcontent-wrapper">
+				{/* <div className="location-subcontent-wrapper">
 					<div
 						style={{
 							display: "flex",
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Type:</div>
 					</div>
@@ -345,9 +330,9 @@ const Pricing = ({ data }) => {
 							discard={handleDiscardFilm_type}
 						/>
 					</div>
-				</div>
+				</div> */}
 			</div>
-			<div className="location-primary-heading">TV-Shows/Others Pricings</div>
+			<div className="location-primary-heading">Individual Pricings</div>
 			<div className="location-content">
 				<div className="location-subcontent-wrapper">
 					<div
@@ -356,30 +341,26 @@ const Pricing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Availability:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={Tv_availability}
-							onClick={handleClickTv_availability}
+							name="isPresent"
+							value={pricing.individual.isPresent}
+							// onClick={handleClickTv_availability}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setTv_availability(e.target.value);
-							}}
+							onChange={individualChange}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveTv_availability}
-							discard={handleDiscardTv_availability}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -389,37 +370,37 @@ const Pricing = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Hourly Rates:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={Tv_hr}
-							onClick={handleClickTv_hr}
+							name="hourly_rate"
+							value={pricing.individual.hourly_rate}
+							// onClick={handleClickTv_hr}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setTv_hr(e.target.value);
-							}}
+							onChange={individualChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSaveTv_hr} discard={handleDiscardTv_hr} />
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
-				<div className="location-subcontent-wrapper">
+				{/* <div className="location-subcontent-wrapper">
 					<div
 						style={{
 							display: "flex",
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Type:</div>
 					</div>
@@ -441,7 +422,99 @@ const Pricing = ({ data }) => {
 						/>
 						<Buttons save={handleSaveTv_type} discard={handleDiscardTv_type} />
 					</div>
+				</div> */}
+			</div>
+			<div className="location-primary-heading">TV-Series/Others Pricings</div>
+			<div className="location-content">
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">Availability:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="isPresent"
+							value={pricing.tv_series_other.isPresent}
+							// onClick={handleClickTv_availability}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={tv_series_otherChange}
+							variant="outlined"
+						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
 				</div>
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">Hourly Rates:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="hourly_rate"
+							value={pricing.tv_series_other.hourly_rate}
+							// onClick={handleClickTv_hr}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={tv_series_otherChange}
+							variant="outlined"
+						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+				</div>
+				{/* <div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">Type:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							value={Tv_type}
+							onClick={handleClickTv_type}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={(e) => {
+								console.log(e.target.value);
+								setTv_type(e.target.value);
+							}}
+							variant="outlined"
+						/>
+						<Buttons save={handleSaveTv_type} discard={handleDiscardTv_type} />
+					</div>
+				</div> */}
 			</div>
 		</div>
 	);

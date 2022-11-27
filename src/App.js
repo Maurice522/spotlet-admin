@@ -1,7 +1,7 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
-import Single from "./pages/single/Single";
+import UserDetails from "./pages/single/UserDetails";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
@@ -9,7 +9,7 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Deactivation from "./components/Sidebar Files/Deactivation";
-import Location1 from "./components/Locations/Location1";
+import Locations from "./components/Sidebar Files/Locations";
 import LocationDetails from "./pages/single/LocationDetails";
 import Incomplete from "./components/Sidebar Files/Incomplete";
 import LocReq from "./components/Sidebar Files/LocaReq";
@@ -38,7 +38,7 @@ function App() {
 						<Route path="users/:userid/:locationId" element={<LocationDetails />} />
 						<Route path="users">
 							<Route index element={<List />} />
-							<Route path=":userId" element={<Single />} />
+							<Route path=":userId" element={<UserDetails />} />
 							<Route
 								path="new"
 								element={<New inputs={userInputs} title="Add New User" />}
@@ -48,7 +48,7 @@ function App() {
 							<Route index element={<Deactivation />} />
 						</Route>
 						<Route path="locations">
-							<Route index element={<Location1 />} />
+							<Route index element={<Locations />} />
 							<Route path=":locationId" element={<LocationDetails />} />
 						</Route>
 						<Route path="incomp">

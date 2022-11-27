@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Datatable = () => {
+const DeactTable = () => {
 	const userColumns = [
 		{ field: "id", headerName: "ID", width: 250 },
 		{
@@ -114,4 +114,4 @@ const Datatable = () => {
 	);
 };
 
-export default Datatable;
+export default DeactTable;

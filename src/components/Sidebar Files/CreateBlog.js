@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import "./datatable.scss";
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize'
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Sidebar from '../sidebar/Sidebar'

@@ -10,39 +10,114 @@ import {
 	DialogTitle,
 	TextField,
 } from "@mui/material";
-import { toHaveStyle } from "@testing-library/jest-dom/dist/matchers";
+import { updateLocation } from "../../services/api";
+import { toast } from "react-toastify";
 
 const Dodont = ({ data }) => {
-	const [open, setOpen] = useState(false);
-	const [open2, setOpen2] = useState(false);
+	// console.log(data);
 
-	const [rule, setRule] = useState("");
+	const initialState = data?.do_and_dont;
 
-	const handleClickOpen = () => {
-		if (rule !== "") {
-			setOpen(true);
+	const [do_s, setDo_s] = useState(initialState?.do_s);
+	const [dont_s, setDont_s] = useState(initialState?.dont_s);
+	const [do_, setDo_] = useState("");
+	const [dont_, setDont_] = useState("");
+
+	const [openDelete, setOpenDelete] = useState(false);
+	const [openCreate, setOpenCreate] = useState(false);
+
+	const handleDeletePopUp = () => {
+		setOpenDelete(true);
+	};
+	const handleCloseDelete = () => {
+		setOpenDelete(false);
+	};
+
+	const handleDelete = async () => {
+		console.log(do_);
+		console.log(dont_);
+		if (!do_) {
+			setDont_s((prev) => prev.filter((element) => element !== dont_));
+		}
+		if (!dont_) {
+			setDo_s((prev) => prev.filter((element) => element !== do_));
+		}
+		// console.log(do_and_dont);
+		// const form = {
+		// 	newLocData: {
+		// 		...data,
+		// 		do_and_dont,
+		// 	},
+		// 	location_id: data.location_id,
+		// };
+		// console.log(form);
+		// try {
+		// 	const response = await updateLocation(form);
+		// 	window.location.reload(true);
+		// 	toast.success(response.data);
+		// } catch (error) {
+		// 	toast.error(error.response.data);
+		// }
+		setOpenDelete(false);
+	};
+
+	const handleCreatePopUp = () => {
+		if (do_ !== "") {
+			setOpenCreate(true);
+		}
+		if (dont_ !== "") {
+			setOpenCreate(true);
 		}
 	};
-	const handleClose = () => {
-		console.log("Delete this rule");
-		setOpen(false);
+	const handleCloseCreate = () => {
+		setOpenCreate(false);
 	};
 
-	const handleClickOpen2 = () => {
-		if (rule !== "") {
-			setOpen2(true);
+	const handleCreate = async () => {
+		console.log(do_);
+		console.log(dont_);
+
+		if (do_s.includes(do_)) {
+			setOpenCreate(false);
+			return toast.error("Rule Already Exsist");
 		}
-	};
-	const handleClose2 = () => {
-		console.log("Add this rule", rule);
-		setOpen2(false);
+		if (dont_s.includes(dont_)) {
+			setOpenCreate(false);
+			return toast.error("Rule Already Exsist");
+		}
+		if (do_ !== "") {
+			console.log("do");
+			setDo_s((prev) => [...prev, do_]);
+		}
+		if (dont_ !== "") {
+			console.log("dont");
+			setDont_s((prev) => [...prev, dont_]);
+		}
+
+		// console.log(do_and_dont);
+		// const form = {
+		// 	newLocData: {
+		// 		...data,
+		// 		do_and_dont,
+		// 	},
+		// 	location_id: data.location_id,
+		// };
+		// console.log(form);
+		// try {
+		// 	const response = await updateLocation(form);
+		// 	window.location.reload(true);
+		// 	toast.success(response.data);
+		// } catch (error) {
+		// 	toast.error(error.response.data);
+		// }
+		setOpenCreate(false);
 	};
 
 	return (
 		<div>
 			<div className="location-primary-heading">DOs</div>
 			<div className="location-content">
-				{data?.do_and_dont?.do_s?.map((item, index) => (
+				{do_s?.map((item, index) => (
 					<div
 						key={index}
 						style={{
@@ -50,7 +125,8 @@ const Dodont = ({ data }) => {
 							gridTemplateColumns: "0.01fr 0.5fr auto",
 							gap: "5px",
 							marginBottom: "15px",
-						}}>
+						}}
+					>
 						<FiberManualRecordIcon
 							sx={{
 								marginTop: "6px",
@@ -66,18 +142,22 @@ const Dodont = ({ data }) => {
 								marginLeft: "10px",
 								cursor: "pointer",
 							}}
-							onClick={handleClickOpen}
+							onClick={() => {
+								setDo_(item);
+								handleDeletePopUp();
+							}}
 						/>
 					</div>
 				))}
+
 				<TextField
 					fullWidth
 					size="small"
 					variant="outlined"
-					label="Type in new rule"
+					label="Type in Rule"
 					sx={{ marginTop: "10px" }}
 					onChange={(e) => {
-						setRule(e.target.value);
+						setDo_(e.target.value);
 					}}
 				/>
 				<Button
@@ -87,13 +167,14 @@ const Dodont = ({ data }) => {
 						color: "#fff",
 						marginTop: "10px",
 					}}
-					onClick={handleClickOpen2}>
-					Add new rule
+					onClick={handleCreatePopUp}
+				>
+					Add Rule
 				</Button>
 			</div>
 			<div className="location-primary-heading">DON'Ts</div>
 			<div className="location-content">
-				{data?.do_and_dont?.dont_s?.map((item, index) => (
+				{dont_s?.map((item, index) => (
 					<div
 						key={index}
 						style={{
@@ -101,7 +182,8 @@ const Dodont = ({ data }) => {
 							gridTemplateColumns: "0.01fr 0.5fr auto",
 							gap: "5px",
 							marginBottom: "15px",
-						}}>
+						}}
+					>
 						<FiberManualRecordIcon
 							sx={{
 								marginTop: "6px",
@@ -117,7 +199,10 @@ const Dodont = ({ data }) => {
 								marginLeft: "10px",
 								cursor: "pointer",
 							}}
-							onClick={handleClickOpen}
+							onClick={() => {
+								setDont_(item);
+								handleDeletePopUp();
+							}}
 						/>
 					</div>
 				))}
@@ -125,10 +210,10 @@ const Dodont = ({ data }) => {
 					fullWidth
 					size="small"
 					variant="outlined"
-					label="Type in new rule"
+					label="Type in Rule"
 					sx={{ marginTop: "10px" }}
 					onChange={(e) => {
-						setRule(e.target.value);
+						setDont_(e.target.value);
 					}}
 				/>
 				<Button
@@ -138,50 +223,54 @@ const Dodont = ({ data }) => {
 						color: "#fff",
 						marginTop: "10px",
 					}}
-					onClick={handleClickOpen2}>
-					Add new rule
+					onClick={handleCreatePopUp}
+				>
+					Add Rule
 				</Button>
 			</div>
 
 			<Dialog
-				open={open}
-				onClose={handleClose}
+				open={openDelete}
+				onClose={handleCloseDelete}
 				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description">
+				aria-describedby="alert-dialog-description"
+			>
 				<DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						Do you want to delete this rule from the respective list.
+						Do you want to delete this Rule from the respective list.
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>Disagree</Button>
+					<Button onClick={handleCloseDelete}>Disagree</Button>
 					<Button
-						onClick={handleClose}
+						onClick={handleDelete}
 						autoFocus
 						color="error"
-						variant="outlined">
+						variant="outlined"
+					>
 						Delete
 					</Button>
 				</DialogActions>
 			</Dialog>
 
 			<Dialog
-				open={open2}
-				onClose={handleClose2}
+				open={openCreate}
+				onClose={handleCloseCreate}
 				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description">
+				aria-describedby="alert-dialog-description"
+			>
 				<DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						Do you want to add this new rule to the respective list.
+						Do you want to add this Rule to the respective list.
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose2} color="error">
+					<Button onClick={handleCloseCreate} color="error">
 						No
 					</Button>
-					<Button onClick={handleClose2} autoFocus variant="contained">
+					<Button onClick={handleCreate} autoFocus variant="contained">
 						Yes
 					</Button>
 				</DialogActions>

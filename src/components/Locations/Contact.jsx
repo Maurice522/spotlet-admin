@@ -3,78 +3,63 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { Avatar } from "@mui/material";
 import Buttons from "./Buttons";
 import { TextField } from "@mui/material";
+import { updateLocation } from "../../services/api";
+import { toast } from "react-toastify";
 
 const Contact = ({ data }) => {
-	const [name, setname] = useState(data?.contact_det?.name);
-	let tmp_name = data?.contact_det?.name;
-	const handleClickname = (e) => {
-		tmp_name = e.target.value;
-	};
-	const handleSavename = () => {
-		console.log("Edit data in backend");
-		tmp_name = name;
-	};
-	const handleDiscardname = () => {
-		setname(tmp_name);
+	// console.log(data);
+
+	const initialState = {
+		contact_name: data?.contact_det?.contact_name,
+		designation: data?.contact_det?.designation,
+		mobile_num: data?.contact_det?.mobile_num,
+		email: data?.contact_det?.email,
+		alt_name: data?.contact_det?.alt_name,
+		alt_mobile: data?.contact_det?.alt_mobile,
+		pan_no: data?.contact_det?.pan_no,
+		aadhar_no: data?.contact_det?.aadhar_no,
+		img: data?.personalInfo?.profile_pic,
 	};
 
-	const [mobile_no, setmobile_no] = useState(data?.contact_det?.mobile_num);
-	let tmp_mobile_no = data?.contact_det?.mobile_num;
-	const handleClickmobile_no = (e) => {
-		tmp_mobile_no = e.target.value;
-	};
-	const handleSavemobile_no = () => {
-		console.log("Edit data in backend");
-		tmp_mobile_no = mobile_no;
-	};
-	const handleDiscardmobile_no = () => {
-		console.log(tmp_mobile_no);
-		setmobile_no(tmp_mobile_no);
+	const [contact_det, setContact_det] = useState(initialState);
+
+	const handleChange = (e) => {
+		setContact_det({
+			...contact_det,
+			[e.target.name]: e.target.value,
+		});
 	};
 
-	const [email, setemail] = useState(data?.contact_det?.email);
-	let tmp_email = data?.contact_det?.email;
-	const handleClickemail = (e) => {
-		tmp_email = e.target.value;
-	};
-	const handleSaveemail = () => {
-		console.log("Edit data in backend");
-		tmp_email = email;
-	};
-	const handleDiscardemail = () => {
-		setemail(tmp_email);
+	const handleSave = async (e) => {
+		e.preventDefault();
+		if (
+			!contact_det.contact_name.length ||
+			!contact_det.designation.length ||
+			!contact_det.mobile_num.length ||
+			!contact_det.email.length ||
+			!contact_det.pan_no.length ||
+			!contact_det.aadhar_no.length
+		)
+			return toast.error("Please fill all required fields!!!");
+		const form = {
+			newLocData: {
+				...data,
+				contact_det,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		try {
+			const response = await updateLocation(form);
+			window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 	};
 
-	const [alt_name, setalt_name] = useState(
-		data?.contact_det?.alt_name ? data?.contact_det?.alt_name : ""
-	);
-	let tmp_alt_name = data?.contact_det?.alt_name ? data?.contact_det?.alt_name : "";
-	const handleClickalt_name = (e) => {
-		tmp_alt_name = e.target.value;
-	};
-	const handleSavealt_name = () => {
-		console.log("Edit data in backend");
-		tmp_alt_name = alt_name;
-	};
-	const handleDiscardalt_name = () => {
-		setalt_name(tmp_alt_name);
-	};
-
-	const [alt_mobile, setalt_mobile] = useState(
-		data?.contact_det?.alt_mobile ? data?.contact_det?.alt_mobile : ""
-	);
-	let tmp_alt_mobile = data?.contact_det?.alt_mobile
-		? data?.contact_det?.alt_mobile
-		: "";
-	const handleClickalt_mobile = (e) => {
-		tmp_alt_mobile = e.target.value;
-	};
-	const handleSavealt_mobile = () => {
-		console.log("Edit data in backend");
-		tmp_alt_mobile = alt_mobile;
-	};
-	const handleDiscardalt_mobile = () => {
-		setalt_mobile(tmp_alt_mobile);
+	const handleDiscard = (e) => {
+		setContact_det(initialState);
 	};
 
 	return (
@@ -88,7 +73,7 @@ const Contact = ({ data }) => {
 						height: "102px",
 						marginBottom: "30px",
 					}}
-					src={data?.contact_det?.img}
+					src={data?.initialState?.img}
 					alt="User-Profile"
 				/>
 				<div className="location-subcontent-wrapper">
@@ -98,27 +83,26 @@ const Contact = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Name:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={name}
-							onClick={handleClickname}
+							name="contact_name"
+							value={contact_det.contact_name}
+							// onClick={handleClickname}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setname(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSavename} discard={handleDiscardname} />
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -128,30 +112,26 @@ const Contact = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Mobile Number:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={mobile_no}
-							onClick={handleClickmobile_no}
+							name="mobile_num"
+							value={contact_det.mobile_num}
+							// onClick={handleClickmobile_no}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setmobile_no(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSavemobile_no}
-							discard={handleDiscardmobile_no}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -161,27 +141,113 @@ const Contact = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Email:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={email}
-							onClick={handleClickemail}
+							name="email"
+							value={contact_det.email}
+							// onClick={handleClickemail}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setemail(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSaveemail} discard={handleDiscardemail} />
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+				</div>
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">Designation:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="designation"
+							value={contact_det.designation}
+							// onClick={handleClickemail}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={handleChange}
+							variant="outlined"
+						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+				</div>
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">Pan Noumber:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="pan_no"
+							value={contact_det.pan_no}
+							// onClick={handleClickemail}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={handleChange}
+							variant="outlined"
+						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+				</div>
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">Aadhar Number:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="aadhar_no"
+							value={contact_det.aadhar_no}
+							// onClick={handleClickemail}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={handleChange}
+							variant="outlined"
+						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				{data?.contact_det?.alt_name && (
@@ -192,31 +258,26 @@ const Contact = ({ data }) => {
 								alignItems: "center",
 								gap: "5px",
 								marginBottom: "0px",
-							}}>
+							}}
+						>
 							<GoPrimitiveDot color="#6439ff" />
 							<div className="location-secondary-heading ">Alternate Name:</div>
 						</div>
 						<div className="location-info">
 							<TextField
 								id="filled-select-currency"
-								value={alt_name}
-								onClick={handleClickalt_name}
+								name="alt_name"
+								value={contact_det.alt_name}
+								// onClick={handleClickalt_name}
 								fullWidth
 								size="small"
 								sx={{
 									padding: "8px",
 								}}
-								onChange={(e) => {
-									console.log(e.target.value);
-									setalt_name(e.target.value);
-								}}
+								onChange={handleChange}
 								variant="outlined"
 							/>
-							<Buttons
-								save={handleSavealt_name}
-								discard={handleDiscardalt_name}
-							/>
-							{data?.contact_det?.alt_name}
+							<Buttons save={handleSave} discard={handleDiscard} />
 						</div>
 					</div>
 				)}
@@ -228,7 +289,8 @@ const Contact = ({ data }) => {
 								alignItems: "center",
 								gap: "5px",
 								marginBottom: "0px",
-							}}>
+							}}
+						>
 							<GoPrimitiveDot color="#6439ff" />
 							<div className="location-secondary-heading "></div>
 							Alternate Mobile Number:
@@ -236,24 +298,18 @@ const Contact = ({ data }) => {
 						<div className="location-info">
 							<TextField
 								id="filled-select-currency"
-								value={alt_mobile}
-								onClick={handleClickalt_mobile}
+								name="alt_mobile"
+								value={contact_det.alt_mobile}
+								// onClick={handleClickalt_mobile}
 								fullWidth
 								size="small"
 								sx={{
 									padding: "8px",
 								}}
-								onChange={(e) => {
-									console.log(e.target.value);
-									setalt_mobile(e.target.value);
-								}}
+								onChange={handleChange}
 								variant="outlined"
 							/>
-							<Buttons
-								save={handleSavealt_mobile}
-								discard={handleDiscardalt_mobile}
-							/>
-							{data?.contact_det?.alt_mobile}
+							<Buttons save={handleSave} discard={handleDiscard} />
 						</div>
 					</div>
 				)}

@@ -4,7 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import "./datatable.scss";
 
-const LocReq = () => {
+const LocReqTable = () => {
 	const approveUser = (id, userid) => {
 		// console.log(userid);
 		axios
@@ -63,13 +63,13 @@ const LocReq = () => {
 
 					const formattedToday = dd + "/" + mm + "/" + yyyy;
 					const user = {
-						userid: data.locations[i].property_desc?.user_id,
-						id: data.locations[i].location_id,
-						email: data.locations[i].contact_det.email,
-						username: data.locations[i].contact_det.name,
-						mobile: data.locations[i].contact_det.mobile_num,
+						userid: data.locations[i]?.property_desc?.user_id,
+						id: data.locations[i]?.location_id,
+						email: data.locations[i]?.contact_det?.email,
+						username: data.locations[i]?.contact_det?.name,
+						mobile: data.locations[i]?.contact_det?.mobile_num,
 						date: formattedToday,
-						img: data.locations[i].contact_det.img,
+						img: data.locations[i]?.contact_det?.img,
 					};
 					data2 = [...data2, user];
 				}
@@ -118,4 +118,4 @@ const LocReq = () => {
 	);
 };
 
-export default LocReq;
+export default LocReqTable;

@@ -1,34 +1,33 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../datatablesource";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Blog = () => {
-    const userColumns = [
+const PhotoShootReqTable = () => {
+	const userColumns = [
 		{ field: "id", headerName: "ID", width: 250 },
 		{
-			field: "title",
-			headerName: "Title",
-			width: 130,
+			field: "user",
+			headerName: "User",
+			width: 200,
 			renderCell: (params) => {
-				return (
-					<div className="cellWithImg">
-						{params.row.title}
-					</div>
-				);
+				return <div className="cellWithImg">{params.row.username}</div>;
 			},
 		},
 		{
-			field: "subheading",
-			headerName: "SubHeading",
+			field: "email",
+			headerName: "Email",
 			width: 200,
 		},
 		{
-			field: "date",
-			headerName: "Date",
+			field: "mobile",
+			headerName: "Phone Number",
 			width: 150,
+		},
+		{
+			field: "address",
+			headerName: "Address",
+			width: 330,
 		},
 	];
 	const [data, setData] = useState([]);
@@ -36,16 +35,17 @@ const Blog = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://nipunbacky.herokuapp.com/getBlogs")
+			.get("https://nipunbacky.herokuapp.com/getPhotoshoot")
 			.then((response) => {
 				const data = response.data;
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 					const user = {
 						id: data[i].id,
-						title: data[i].title,
-						subheading: data[i].subheading,
-						date: data[i].date,
+						email: data[i].email,
+						username: data[i].fullName,
+						mobile: data[i].mobile,
+						address: data[i].address,
 					};
 					data2 = [...data2, user];
 				}
@@ -54,14 +54,9 @@ const Blog = () => {
 				setData(data2);
 			});
 	}, []);
-  return (
-    <div className="datatable">
-			<div className="datatableTitle">
-				Blogs
-				<Link to="/createblog" className="link">
-					Add Blog
-				</Link>
-			</div>
+	return (
+		<div className="datatable">
+			<div className="datatableTitle">Photoshoot Requests</div>
 			<DataGrid
 				className="datagrid"
 				rows={data}
@@ -70,7 +65,7 @@ const Blog = () => {
 				rowsPerPageOptions={[9]}
 			/>
 		</div>
-  )
-}
+	);
+};
 
-export default Blog
+export default PhotoShootReqTable;

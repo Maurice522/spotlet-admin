@@ -10,38 +10,86 @@ import {
 	DialogTitle,
 	TextField,
 } from "@mui/material";
+import { updateLocation } from "../../services/api";
+import { toast } from "react-toastify";
 
 const Rules = ({ data }) => {
-	const [open, setOpen] = useState(false);
-	const [open2, setOpen2] = useState(false);
+	// console.log(data);
 
+	const initialState = data?.rules;
+
+	const [rules, setRules] = useState(initialState);
 	const [rule, setRule] = useState("");
 
-	const handleClickOpen = () => {
-		if (rule !== "") {
-			setOpen(true);
-		}
+	const [openDelete, setOpenDelete] = useState(false);
+	const [openCreate, setOpenCreate] = useState(false);
+
+	const handleDeletePopUp = () => {
+		setOpenDelete(true);
 	};
-	const handleClose = () => {
-		console.log("Delete this rule");
-		setOpen(false);
+	const handleCloseDelete = () => {
+		setOpenDelete(false);
 	};
 
-	const handleClickOpen2 = () => {
+	const handleDelete = async () => {
+		setRules((prev) => prev.filter((element) => element !== rule));
+		console.log(rules);
+		const form = {
+			newLocData: {
+				...data,
+				rules,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		// try {
+		// 	const response = await updateLocation(form);
+		// 	window.location.reload(true);
+		// 	toast.success(response.data);
+		// } catch (error) {
+		// 	toast.error(error.response.data);
+		// }
+		setOpenDelete(false);
+	};
+
+	const handleCreatePopUp = () => {
 		if (rule !== "") {
-			setOpen2(true);
+			setOpenCreate(true);
 		}
 	};
-	const handleClose2 = () => {
-		console.log("Add this rule", rule);
-		setOpen2(false);
+	const handleCloseCreate = () => {
+		setOpenCreate(false);
+	};
+	const handleCreate = async () => {
+		if (rules.includes(rule)) {
+			setOpenCreate(false);
+			return toast.error("Rule Already Exsist");
+		}
+		setRules((prev) => [...prev, rule]);
+		console.log(rules);
+		const form = {
+			newLocData: {
+				...data,
+				rules,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		// try {
+		// const response = await updateLocation(form);
+		// 	window.location.reload(true);
+		// 	toast.success(response.data);
+		// } catch (error) {
+		// toast.error(error.response.data);
+		// }
+		setOpenCreate(false);
 	};
 
 	return (
 		<div>
 			<div className="location-primary-heading">Rules</div>
 			<div className="location-content">
-				{data?.rules?.map((item, index) => (
+				{rules?.map((item, index) => (
 					<div
 						key={index}
 						style={{
@@ -49,7 +97,8 @@ const Rules = ({ data }) => {
 							gridTemplateColumns: "0.01fr 1fr auto",
 							gap: "5px",
 							marginBottom: "15px",
-						}}>
+						}}
+					>
 						<FiberManualRecordIcon
 							sx={{
 								marginTop: "6px",
@@ -65,10 +114,14 @@ const Rules = ({ data }) => {
 								marginLeft: "10px",
 								cursor: "pointer",
 							}}
-							onClick={handleClickOpen}
+							onClick={() => {
+								setRule(item);
+								handleDeletePopUp();
+							}}
 						/>
 					</div>
 				))}
+
 				<TextField
 					fullWidth
 					size="small"
@@ -86,15 +139,17 @@ const Rules = ({ data }) => {
 						color: "#fff",
 						marginTop: "10px",
 					}}
-					onClick={handleClickOpen2}>
+					onClick={handleCreatePopUp}
+				>
 					Add new rule
 				</Button>
 
 				<Dialog
-					open={open}
-					onClose={handleClose}
+					open={openDelete}
+					onClose={handleCloseDelete}
 					aria-labelledby="alert-dialog-title"
-					aria-describedby="alert-dialog-description">
+					aria-describedby="alert-dialog-description"
+				>
 					<DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
 					<DialogContent>
 						<DialogContentText id="alert-dialog-description">
@@ -102,22 +157,24 @@ const Rules = ({ data }) => {
 						</DialogContentText>
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={handleClose}>Disagree</Button>
+						<Button onClick={handleCloseDelete}>Disagree</Button>
 						<Button
-							onClick={handleClose}
+							onClick={handleDelete}
 							autoFocus
 							color="error"
-							variant="outlined">
+							variant="outlined"
+						>
 							Delete
 						</Button>
 					</DialogActions>
 				</Dialog>
 
 				<Dialog
-					open={open2}
-					onClose={handleClose2}
+					open={openCreate}
+					onClose={handleCloseCreate}
 					aria-labelledby="alert-dialog-title"
-					aria-describedby="alert-dialog-description">
+					aria-describedby="alert-dialog-description"
+				>
 					<DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
 					<DialogContent>
 						<DialogContentText id="alert-dialog-description">
@@ -125,10 +182,10 @@ const Rules = ({ data }) => {
 						</DialogContentText>
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={handleClose2} color="error">
+						<Button onClick={handleCloseCreate} color="error">
 							No
 						</Button>
-						<Button onClick={handleClose2} autoFocus variant="contained">
+						<Button onClick={handleCreate} autoFocus variant="contained">
 							Yes
 						</Button>
 					</DialogActions>

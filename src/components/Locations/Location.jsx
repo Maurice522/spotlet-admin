@@ -2,103 +2,65 @@ import React, { useState } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import Buttons from "./Buttons";
 import { TextField } from "@mui/material";
+import { updateLocation } from "../../services/api";
+import { toast } from "react-toastify";
 
 const Location = ({ data }) => {
-	const [address, setAddress] = useState(data?.property_address?.address);
-	let tmp_address = data?.property_address?.address;
-	const handleClickAddress = (e) => {
-		tmp_address = e.target.value;
-	};
-	const handleSaveAddress = () => {
-		console.log("Edit data in backend");
-		tmp_address = address;
-	};
-	const handleDiscardAddress = () => {
-		setAddress(tmp_address);
+	// console.log(data);
+
+	const initialState = {
+		address: data?.property_address?.address,
+		area: data?.property_address?.area,
+		city: data?.property_address?.city,
+		state: data?.property_address?.state,
+		country: data?.property_address?.country,
+		pincode: data?.property_address?.pincode,
+		landmark: data?.property_address?.landmark,
+		location_detail: data?.property_address?.location_detail,
 	};
 
-	const [city, setCity] = useState(data?.property_address?.city);
-	let tmp_city = data?.property_address?.city;
-	const handleClickCity = (e) => {
-		tmp_city = e.target.value;
-	};
-	const handleSaveCity = () => {
-		console.log("Edit data in backend");
-		tmp_city = city;
-	};
-	const handleDiscardCity = () => {
-		console.log(tmp_city);
-		setCity(tmp_city);
+	const [property_address, setProperty_address] = useState(initialState);
+
+	const handleChange = (e) => {
+		setProperty_address({
+			...property_address,
+			[e.target.name]: e.target.value,
+		});
 	};
 
-	const [state, setState] = useState(data?.property_address?.state);
-	let tmp_state = data?.property_address?.state;
-	const handleClickState = (e) => {
-		tmp_state = e.target.value;
-	};
-	const handleSaveState = () => {
-		console.log("Edit data in backend");
-		tmp_state = state;
-	};
-	const handleDiscardState = () => {
-		setState(tmp_state);
-	};
-
-	const [country, setCountry] = useState(data?.property_address?.country);
-	let tmp_country = data?.property_address?.country;
-	const handleClickCountry = (e) => {
-		tmp_country = e.target.value;
-	};
-	const handleSaveCountry = () => {
-		console.log("Edit data in backend");
-		tmp_country = country;
-	};
-	const handleDiscardCountry = () => {
-		setCountry(tmp_country);
-	};
-
-	const [landmark, setLandmark] = useState(data?.property_address?.landmark);
-	let tmp_landmark = data?.property_address?.landmark;
-	const handleClickLandmark = (e) => {
-		tmp_landmark = e.target.value;
-	};
-	const handleSaveLandmark = () => {
-		console.log("Edit data in backend");
-		tmp_landmark = landmark;
-	};
-	const handleDiscardLandmark = () => {
-		setLandmark(tmp_landmark);
+	const handleSave = async (e) => {
+		e.preventDefault();
+		if (
+			!property_address?.city?.length ||
+			!property_address?.state?.length ||
+			!property_address?.area?.length ||
+			!property_address?.country?.length ||
+			!property_address?.pincode?.length ||
+			!property_address?.address?.length ||
+			!property_address?.address?.length
+		)
+			return toast.error("Please fill all required fields!!!");
+		const form = {
+			newLocData: {
+				...data,
+				property_address,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		try {
+			const response = await updateLocation(form);
+			window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 	};
 
-	const [loc_details, setLoc_details] = useState(
-		data?.property_address?.location_detail
-	);
-	let tmp_loc_details = data?.property_address?.location_detail;
-	const handleClickLoc_details = (e) => {
-		tmp_loc_details = e.target.value;
-	};
-	const handleSaveLoc_details = () => {
-		console.log("Edit data in backend");
-		tmp_loc_details = loc_details;
-	};
-	const handleDiscardLoc_details = () => {
-		setLoc_details(tmp_loc_details);
+	const handleDiscard = (e) => {
+		setProperty_address(initialState);
 	};
 
-	const [pincode, setPincode] = useState(data?.property_address?.pincode);
-	let tmp_pincode = data?.property_address?.pincode;
-	const handleClickPincode = (e) => {
-		tmp_pincode = e.target.value;
-	};
-	const handleSavePincode = () => {
-		console.log("Edit data in backend");
-		tmp_pincode = pincode;
-	};
-	const handleDiscardPincode = () => {
-		setPincode(tmp_pincode);
-	};
-
-	// data = data[0];
 	return (
 		<div>
 			<div className="location-primary-heading">Property Address</div>
@@ -110,7 +72,8 @@ const Location = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading">Address:</div>
 					</div>
@@ -118,20 +81,18 @@ const Location = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={address}
-							onClick={handleClickAddress}
+							name="address"
+							value={property_address.address}
+							// onClick={handleClickAddress}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setAddress(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSaveAddress} discard={handleDiscardAddress} />
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -141,27 +102,55 @@ const Location = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading">Area:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="area"
+							value={property_address.area}
+							// onClick={handleClickArea}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={handleChange}
+							variant="outlined"
+						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+				</div>
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading">City:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={city}
-							onClick={handleClickCity}
+							name="city"
+							value={property_address.city}
+							// onClick={handleClickCity}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setCity(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSaveCity} discard={handleDiscardCity} />
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -171,27 +160,26 @@ const Location = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading">State:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={state}
-							onClick={handleClickState}
+							name="state"
+							value={property_address.state}
+							// onClick={handleClickState}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setState(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSaveState} discard={handleDiscardState} />
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -201,27 +189,26 @@ const Location = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading">Country:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={country}
-							onClick={handleClickCountry}
+							name="country"
+							value={property_address.country}
+							// onClick={handleClickCountry}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setCountry(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSaveCountry} discard={handleDiscardCountry} />
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 				<div className="location-subcontent-wrapper">
@@ -231,32 +218,29 @@ const Location = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading">Landmark:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={landmark}
-							onClick={handleClickLandmark}
+							name="landmark"
+							value={property_address.landmark}
+							// onClick={handleClickLandmark}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setLandmark(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveLandmark}
-							discard={handleDiscardLandmark}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
+
 				<div className="location-subcontent-wrapper">
 					<div
 						style={{
@@ -264,60 +248,26 @@ const Location = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
-						<GoPrimitiveDot color="#6439ff" />
-						<div className="location-secondary-heading">Location Details:</div>
-					</div>
-					<div className="location-info">
-						<TextField
-							id="filled-select-currency"
-							value={loc_details}
-							onClick={handleClickLoc_details}
-							fullWidth
-							size="small"
-							sx={{
-								padding: "8px",
-							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setLoc_details(e.target.value);
-							}}
-							variant="outlined"
-						/>
-						<Buttons
-							save={handleSaveLoc_details}
-							discard={handleDiscardLoc_details}
-						/>
-					</div>
-				</div>
-				<div className="location-subcontent-wrapper">
-					<div
-						style={{
-							display: "flex",
-							alignItems: "center",
-							gap: "5px",
-							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading">Pincode:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={pincode}
-							onClick={handleClickPincode}
+							name="pincode"
+							value={property_address.pincode}
+							// onClick={handleClickPincode}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setPincode(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons save={handleSavePincode} discard={handleDiscardPincode} />
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 			</div>

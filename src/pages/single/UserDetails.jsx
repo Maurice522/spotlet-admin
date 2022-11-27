@@ -1,4 +1,4 @@
-import "./single.scss";
+import "./userDetails.scss";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -15,10 +15,10 @@ import {
 } from "@mui/material";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import { GoPrimitiveDot } from "react-icons/go";
+
 import { getUserData } from "../../services/api";
 
-const Single = () => {
+const UserDetails = () => {
 	const userId = useLocation().pathname.split("/")[2];
 	const [bookingsData, setBookingsData] = useState([]);
 	const [listingsData, setListingsData] = useState([]);
@@ -102,35 +102,33 @@ const Single = () => {
 	const [value, setValue] = useState({});
 
 	useEffect(() => {
-		axios
-			.get("https://gorecce-backend.herokuapp.com/users")
-			.then((response) => {
-				const data = response.data;
-				const result = data.filter((item) => item.id == params.userId);
-				const user = {
-					email: result[0].personalInfo.email,
-					userName: result[0].personalInfo.fullName,
-					mobile: result[0].personalInfo.mobile,
-					image: result[0].personalInfo.profile_pic,
-					joinedAs: result[0].personalInfo.booking_type,
-					address: "",
-					country: "India",
-					bankName: "lorem ipsum 1",
-					IFSC_Code: "ABC12345",
-					AcNo: "123456",
-					UPI: "ABC123",
-					UserID: result[0].id,
-					bookingInfo: result[0].listedLocations,
-				};
+		axios.get("https://nipunbacky.herokuapp.com/users").then((response) => {
+			const data = response.data;
+			const result = data.filter((item) => item.id === params.userId);
+			const user = {
+				email: result[0].personalInfo.email,
+				userName: result[0].personalInfo.fullName,
+				mobile: result[0].personalInfo.mobile,
+				image: result[0].personalInfo.profile_pic,
+				joinedAs: result[0].personalInfo.booking_type,
+				address: "",
+				country: "India",
+				bankName: "lorem ipsum 1",
+				IFSC_Code: "ABC12345",
+				AcNo: "123456",
+				UPI: "ABC123",
+				UserID: result[0].id,
+				bookingInfo: result[0].listedLocations,
+			};
 
-				setValue(user);
-			});
+			setValue(user);
+		});
 	}, []);
 
 	return (
-		<div className="single">
+		<div className="user">
 			<Sidebar />
-			<div className="singleContainer">
+			<div className="userContainer">
 				<Navbar />
 				<div className="top">
 					<div className="left">
@@ -304,4 +302,4 @@ const Single = () => {
 	);
 };
 
-export default Single;
+export default UserDetails;

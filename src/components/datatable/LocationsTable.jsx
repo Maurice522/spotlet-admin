@@ -3,9 +3,8 @@ import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import "./datatable.scss";
-import { logDOM } from "@testing-library/react";
 
-const Locations = () => {
+const LocationsTable = () => {
 	const userColumns = [
 		{ field: "id", headerName: "ID", width: 150 },
 		{
@@ -81,7 +80,8 @@ const Locations = () => {
 					<div className="cellAction">
 						<Link
 							to={`/locations/${params.id}`}
-							style={{ textDecoration: "none" }}>
+							style={{ textDecoration: "none" }}
+						>
 							<div className="viewButton">View</div>
 						</Link>
 					</div>
@@ -103,4 +103,4 @@ const Locations = () => {
 	);
 };
 
-export default Locations;
+export default LocationsTable;

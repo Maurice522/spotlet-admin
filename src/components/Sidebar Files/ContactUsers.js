@@ -22,7 +22,7 @@ const ContactUsers = () => {
     useEffect(() => {
         var data2 = [];
         axios
-            .get("https://gorecce-backend.herokuapp.com/users")
+            .get("https://nipunbacky.herokuapp.com/users")
             .then((response) => {
                 const data = response.data;
                 for (let i = 0; i < data.length; i++) {

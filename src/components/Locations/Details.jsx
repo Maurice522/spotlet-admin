@@ -1,86 +1,70 @@
 import React, { useState } from "react";
 import Buttons from "./Buttons";
 import { GoPrimitiveDot } from "react-icons/go";
-import { TextField, MenuItem } from "@mui/material";
+import { TextField, MenuItem, Select } from "@mui/material";
+import { toast } from "react-toastify";
+import { updateLocation } from "../../services/api";
 
 const Details = ({ data }) => {
-	console.log(data);
-	const options = [
-		{ value: "Airport", label: "Airport" },
-		{ value: "Amusement Park", label: "Amusement Park" },
-		{ value: "Apartment", label: "Apartment" },
-	];
+	// console.log(data);
 
-	const [loc_type, setLoc_type] = useState(data?.property_desc?.location_type);
-	let tmp_loc_type = data?.property_desc?.location_type;
-	const handleClickLoc_type = (e) => {
-		tmp_loc_type = e.target.value;
-	};
-	const handleSaveLoc_type = () => {
-		console.log("Edit data in backend");
-		tmp_loc_type = loc_type;
-	};
-	const handleDiscardLoc_type = () => {
-		setLoc_type(tmp_loc_type);
+	const initialState = {
+		user_id: data?.property_desc?.user_id,
+		location_type: data?.property_desc?.location_type,
+		property_name: data?.property_desc?.property_name,
+		property_size: data?.property_desc?.property_size,
+		property_info: data?.property_desc?.property_info,
+		street_parking: data?.property_desc?.street_parking,
+		house_parking: data?.property_desc?.house_parking,
+		security_camera: data?.property_desc?.security_camera,
 	};
 
-	const [prop_info, setProp_info] = useState(
-		data?.property_desc?.property_info
-	);
-	let tmp_prop_info = data?.property_desc?.property_info;
-	const handleClickProp_info = (e) => {
-		tmp_prop_info = e.target.value;
-	};
-	const handleSaveProp_info = () => {
-		console.log("Edit data in backend");
-		tmp_prop_info = prop_info;
-	};
-	const handleDiscardProp_info = () => {
-		console.log(tmp_prop_info);
-		setProp_info(tmp_prop_info);
+	const [property_desc, setPropertyDescr] = useState(initialState);
+
+	// const options = [
+	// 	{ value: "Airport", label: "Airport" },
+	// 	{ value: "Amusement Park", label: "Amusement Park" },
+	// 	{ value: "Apartment", label: "Apartment" },
+	// ];
+
+	const handleChange = (e) => {
+		setPropertyDescr({
+			...property_desc,
+			[e.target.name]: e.target.value,
+		});
 	};
 
-	const [prop_size, setProp_size] = useState(data?.property_desc?.property_size);
-	let tmp_prop_size = data?.property_desc?.property_size;
-	const handleClickProp_size = (e) => {
-		tmp_prop_size = e.target.value;
-	};
-	const handleSaveProp_size = () => {
-		console.log("Edit data in backend");
-		tmp_prop_size = prop_size;
-	};
-	const handleDiscardProp_size = () => {
-		setProp_size(tmp_prop_size);
+	const handleSave = async (e) => {
+		e.preventDefault();
+		if (
+			!property_desc?.location_type?.length ||
+			!property_desc?.property_name?.length ||
+			!property_desc?.property_info?.length ||
+			!property_desc?.property_size?.length ||
+			!property_desc?.security_camera?.length ||
+			!property_desc?.street_parking?.length ||
+			!property_desc?.house_parking?.length
+		)
+			return toast.error("Please fill all required fields!!!");
+		const form = {
+			newLocData: {
+				...data,
+				property_desc,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		try {
+			const response = await updateLocation(form);
+			window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 	};
 
-	const [sec_camera, setSec_camera] = useState(
-		data?.property_desc?.security_camera
-	);
-	let tmp_sec_camera = data?.property_desc?.security_camera;
-	const handleClickSec_camera = (e) => {
-		tmp_sec_camera = e.target.value;
-	};
-	const handleSaveSec_camera = () => {
-		console.log("Edit data in backend");
-		tmp_sec_camera = sec_camera;
-	};
-	const handleDiscardSec_camera = () => {
-		setSec_camera(tmp_sec_camera);
-	};
-
-	const [street_parking, setStreet_parking] = useState(
-		data?.property_desc?.street_parking
-	);
-	let tmp_street_parking = data?.property_desc?.street_parking;
-	const handleClickStreet_parking = (e) => {
-		tmp_street_parking = e.target.value;
-	};
-	const handleSaveStreet_parking = () => {
-		console.log("Edit data in backend");
-		tmp_street_parking = street_parking;
-	};
-	const handleDiscardStreet_parking = () => {
-		setStreet_parking(tmp_street_parking);
+	const handleDiscard = (e) => {
+		setPropertyDescr(initialState);
 	};
 
 	return (
@@ -102,30 +86,49 @@ const Details = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
+							name="location_type"
 							// select
-							onClick={handleClickLoc_type}
-							value={loc_type}
+							// onClick={handleClickLoc_type}
+							value={property_desc.location_type}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setLoc_type(e.target.value);
+							onChange={handleChange}
+							variant="outlined"
+						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+				</div>
+
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">Property Name:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="property_name"
+							value={property_desc?.property_name}
+							// onClick={handleClickSec_camera}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
 							}}
 							variant="outlined"
-						>
-							{options.map((option) => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</TextField>
-						<Buttons
-							save={handleSaveLoc_type}
-							discard={handleDiscardLoc_type}
+							onChange={handleChange}
 						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 
@@ -144,23 +147,18 @@ const Details = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={prop_info}
-							onClick={handleClickProp_info}
+							name="property_info"
+							value={property_desc?.property_info}
+							// onClick={handleClickProp_info}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setProp_info(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveProp_info}
-							discard={handleDiscardProp_info}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 
@@ -179,24 +177,19 @@ const Details = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={prop_size}
-							onClick={handleClickProp_size}
+							name="property_size"
+							value={property_desc?.property_size}
+							// onClick={handleClickProp_size}
 							fullWidth
 							size="small"
 							type={"number"}
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setProp_size(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveProp_size}
-							discard={handleDiscardProp_size}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 
@@ -215,23 +208,18 @@ const Details = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={sec_camera}
-							onClick={handleClickSec_camera}
+							name="security_camera"
+							value={property_desc.security_camera}
+							// onClick={handleClickSec_camera}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
 							variant="outlined"
-							onChange={(e) => {
-								console.log(e.target.value);
-								setSec_camera(e.target.value);
-							}}
+							onChange={handleChange}
 						/>
-						<Buttons
-							save={handleSaveSec_camera}
-							discard={handleDiscardSec_camera}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 
@@ -250,23 +238,48 @@ const Details = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={street_parking}
-							onClick={handleClickStreet_parking}
+							name="street_parking"
+							value={property_desc?.street_parking}
+							// onClick={handleClickStreet_parking}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
-							onChange={(e) => {
-								console.log(e.target.value);
-								setStreet_parking(e.target.value);
-							}}
+							onChange={handleChange}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveStreet_parking}
-							discard={handleDiscardStreet_parking}
+						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+				</div>
+
+				<div className="location-subcontent-wrapper">
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "5px",
+							marginBottom: "0px",
+						}}
+					>
+						<GoPrimitiveDot color="#6439ff" />
+						<div className="location-secondary-heading ">House Parking:</div>
+					</div>
+					<div className="location-info">
+						<TextField
+							id="filled-select-currency"
+							name="house_parking"
+							value={property_desc?.house_parking}
+							// onClick={handleClickHouseParking}
+							fullWidth
+							size="small"
+							sx={{
+								padding: "8px",
+							}}
+							onChange={handleChange}
+							variant="outlined"
 						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
 
@@ -285,7 +298,8 @@ const Details = ({ data }) => {
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={data?.property_desc?.user_id}
+							name="user_id"
+							value={property_desc?.user_id}
 							fullWidth
 							size="small"
 							sx={{
@@ -293,7 +307,11 @@ const Details = ({ data }) => {
 							}}
 							variant="outlined"
 						/>
-						<Buttons save={() => {}} discard={() => {}} />
+						<Buttons
+							styles={{ cursor: "not-allowed" }}
+							save={() => {}}
+							discard={() => {}}
+						/>
 					</div>
 				</div>
 			</div>

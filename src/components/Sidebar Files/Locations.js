@@ -1,9 +1,9 @@
 import React from "react";
 import Sidebar from "../sidebar/Sidebar";
 import Navbar from "../navbar/Navbar";
-import Location from "../datatable/Locations";
+import Location from "../datatable/LocationsTable";
 
-const Location1 = () => {
+const Locations = () => {
 	return (
 		<div>
 			<div className="list">
@@ -17,4 +17,4 @@ const Location1 = () => {
 	);
 };
 
-export default Location1;
+export default Locations;

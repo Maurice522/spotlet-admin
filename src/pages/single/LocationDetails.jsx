@@ -16,6 +16,7 @@ import Gst from "../../components/Locations/Gst";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { getTempLocation } from "../../services/api";
+import Bank from "../../components/Locations/Bank";
 
 const ListingPlace = () => {
 	const [section, showSection] = useState("Details & Description");
@@ -26,6 +27,8 @@ const ListingPlace = () => {
 	const menuItems = [
 		"Details & Description",
 		"Location",
+		"Contact Details",
+		"Bank Details",
 		"Amenities",
 		"Photo",
 		"Features",
@@ -33,7 +36,6 @@ const ListingPlace = () => {
 		"Pricing",
 		"Rules of the Host",
 		"Timings",
-		"Contact Details",
 		"GST Details",
 	];
 
@@ -47,16 +49,16 @@ const ListingPlace = () => {
 			.get("https://nipunbacky.herokuapp.com/listalllocatons")
 			.then((response) => {
 				const data = response.data;
-				console.log("Response", data);
-				console.log(params);
+				// console.log("Response", data);
+				// console.log(params);
 				const loc = data.locations.filter(
 					(item) => item.location_id === params?.locationId
 				);
-				console.log(loc[0]);
+				// console.log(loc[0]);
 				setData(loc[0]);
 			})
 			.then(
-				data?.length == 0 &&
+				data?.length === 0 &&
 					getTempLocation(params?.locationId).then((res) => {
 						const data = res.data;
 						console.log("Response", data);
@@ -104,48 +106,84 @@ const ListingPlace = () => {
 							) : (
 								""
 							)}
+							{section === "Contact Details" ? (
+								<Contact
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
+							) : (
+								""
+							)}
+							{section === "Bank Details" ? (
+								<Bank
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
+							) : (
+								""
+							)}
 							{section === "Amenities" ? (
-								<Amenities showSection={handlesection} data={data ? data : tempData} />
+								<Amenities
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
 							{section === "Photo" ? (
-								<Photo showSection={handlesection} data={data ? data : tempData} />
+								<Photo
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
 							{section === "Features" ? (
-								<Features showSection={handlesection} data={data ? data : tempData} />
+								<Features
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
 							{section === "Do's & Don'ts" ? (
-								<Dondont showSection={handlesection} data={data ? data : tempData} />
+								<Dondont
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
 							{section === "Pricing" ? (
-								<Pricing showSection={handlesection} data={data ? data : tempData} />
+								<Pricing
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
 							{section === "Rules of the Host" ? (
-								<Rules showSection={handlesection} data={data ? data : tempData} />
+								<Rules
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
 							{section === "Timings" ? (
-								<Timings showSection={handlesection} data={data ? data : tempData} />
+								<Timings
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}
-							{section === "Contact Details" ? (
-								<Contact showSection={handlesection} data={data ? data : tempData} />
-							) : (
-								""
-							)}
+
 							{section === "GST Details" ? (
-								<Gst showSection={handlesection} data={data ? data : tempData} />
+								<Gst
+									showSection={handlesection}
+									data={data ? data : tempData}
+								/>
 							) : (
 								""
 							)}

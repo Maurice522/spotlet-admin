@@ -18,18 +18,18 @@ const Gst = ({ data }) => {
 		setname(tmp_name);
 	};
 
-	const [mobile_no, setmobile_no] = useState(data?.gst?.docs[0]);
-	let tmp_mobile_no = data?.gst?.docs[0];
-	const handleClickmobile_no = (e) => {
-		tmp_mobile_no = e.target.value;
+	const [gstdoc, setgstdoc] = useState(data?.gst?.docs);
+	let tmp_gstdoc = data?.gst?.docs[0];
+	const handleClickgstdoc = (e) => {
+		tmp_gstdoc = e.target.value;
 	};
-	const handleSavemobile_no = () => {
+	const handleSavegstdoc = () => {
 		console.log("Edit data in backend");
-		tmp_mobile_no = mobile_no;
+		tmp_gstdoc = gstdoc;
 	};
-	const handleDiscardmobile_no = () => {
-		console.log(tmp_mobile_no);
-		setmobile_no(tmp_mobile_no);
+	const handleDiscardgstdoc = () => {
+		console.log(tmp_gstdoc);
+		setgstdoc(tmp_gstdoc);
 	};
 
 	return (
@@ -43,7 +43,8 @@ const Gst = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
 						<div className="location-secondary-heading ">Document Number:</div>
 					</div>
@@ -73,15 +74,17 @@ const Gst = ({ data }) => {
 							alignItems: "center",
 							gap: "5px",
 							marginBottom: "0px",
-						}}>
+						}}
+					>
 						<GoPrimitiveDot color="#6439ff" />
-						<div className="location-secondary-heading ">Document Link:</div>
+						<div className="location-secondary-heading ">Documents:</div>
 					</div>
-					<div className="location-info">
-						<TextField
+					{gstdoc?.map((doc, index) => (
+						<div className="location-info" key={index}>
+							{/* <TextField
 							id="filled-select-currency"
-							value={mobile_no}
-							onClick={handleClickmobile_no}
+							value={gstdoc}
+							onClick={handleClickgstdoc}
 							fullWidth
 							size="small"
 							sx={{
@@ -89,15 +92,14 @@ const Gst = ({ data }) => {
 							}}
 							onChange={(e) => {
 								console.log(e.target.value);
-								setmobile_no(e.target.value);
+								setgstdoc(e.target.value);
 							}}
 							variant="outlined"
-						/>
-						<Buttons
-							save={handleSavemobile_no}
-							discard={handleDiscardmobile_no}
-						/>
-					</div>
+						/> */}
+							<embed src={doc?.file} width="100%" height="450px" />
+							<Buttons save={handleSavegstdoc} discard={handleDiscardgstdoc} />
+						</div>
+					))}
 				</div>
 			</div>
 		</div>

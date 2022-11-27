@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../sidebar/Sidebar'
 import Navbar from "../navbar/Navbar"
-import Contact from '../datatable/Contact'
+import Contact from '../datatable/ContactTable'
 
 
 const LocaReq = () => {

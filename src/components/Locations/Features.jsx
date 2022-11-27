@@ -10,38 +10,86 @@ import {
 	DialogTitle,
 	TextField,
 } from "@mui/material";
+import { toast } from "react-toastify";
+import { updateLocation } from "../../services/api";
 
 const Features = ({ data }) => {
-	const [open, setOpen] = useState(false);
-	const [open2, setOpen2] = useState(false);
+	// console.log(data);
 
+	const initialState = data?.features;
+
+	const [features, setFeatures] = useState(initialState);
 	const [feature, setFeature] = useState("");
 
-	const handleClickOpen = () => {
-		if (feature !== "") {
-			setOpen(true);
-		}
+	const [openDelete, setOpenDelete] = useState(false);
+	const [openCreate, setOpenCreate] = useState(false);
+
+	const handleDeletePopUp = () => {
+		setOpenDelete(true);
 	};
-	const handleClose = () => {
-		console.log("Delete this feature");
-		setOpen(false);
+	const handleCloseDelete = () => {
+		setOpenDelete(false);
 	};
 
-	const handleClickOpen2 = () => {
+	const handleDelete = async () => {
+		setFeatures((prev) => prev.filter((element) => element !== feature));
+		console.log(features);
+		const form = {
+			newLocData: {
+				...data,
+				features,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		// try {
+		// 	const response = await updateLocation(form);
+		// 	window.location.reload(true);
+		// 	toast.success(response.data);
+		// } catch (error) {
+		// 	toast.error(error.response.data);
+		// }
+		setOpenDelete(false);
+	};
+
+	const handleCreatePopUp = () => {
 		if (feature !== "") {
-			setOpen2(true);
+			setOpenCreate(true);
 		}
 	};
-	const handleClose2 = () => {
-		console.log("Add this feature", feature);
-		setOpen2(false);
+	const handleCloseCreate = () => {
+		setOpenCreate(false);
+	};
+	const handleCreate = async () => {
+		if (features.includes(feature)) {
+			setOpenCreate(false);
+			return toast.error("Feature Already Exsist");
+		}
+		setFeatures((prev) => [...prev, feature]);
+		console.log(features);
+		const form = {
+			newLocData: {
+				...data,
+				features,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		// try {
+		// 	const response = await updateLocation(form);
+		// 	window.location.reload(true);
+		// 	toast.success(response.data);
+		// } catch (error) {
+		// 	toast.error(error.response.data);
+		// }
+		setOpenCreate(false);
 	};
 
 	return (
 		<div>
 			<div className="location-primary-heading">Features</div>
 			<div className="location-content">
-				{data?.features?.map((item, index) => (
+				{features?.map((item, index) => (
 					<div
 						key={index}
 						style={{
@@ -49,7 +97,8 @@ const Features = ({ data }) => {
 							gridTemplateColumns: "0.01fr 0.5fr auto",
 							gap: "5px",
 							marginBottom: "15px",
-						}}>
+						}}
+					>
 						<FiberManualRecordIcon
 							sx={{
 								marginTop: "6px",
@@ -65,7 +114,10 @@ const Features = ({ data }) => {
 								marginLeft: "10px",
 								cursor: "pointer",
 							}}
-							onClick={handleClickOpen}
+							onClick={() => {
+								setFeature(item);
+								handleDeletePopUp();
+							}}
 						/>
 					</div>
 				))}
@@ -87,15 +139,17 @@ const Features = ({ data }) => {
 						color: "#fff",
 						marginTop: "10px",
 					}}
-					onClick={handleClickOpen2}>
+					onClick={handleCreatePopUp}
+				>
 					Add new Feature
 				</Button>
 
 				<Dialog
-					open={open}
-					onClose={handleClose}
+					open={openDelete}
+					onClose={handleCloseDelete}
 					aria-labelledby="alert-dialog-title"
-					aria-describedby="alert-dialog-description">
+					aria-describedby="alert-dialog-description"
+				>
 					<DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
 					<DialogContent>
 						<DialogContentText id="alert-dialog-description">
@@ -103,22 +157,24 @@ const Features = ({ data }) => {
 						</DialogContentText>
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={handleClose}>Disagree</Button>
+						<Button onClick={handleCloseDelete}>Disagree</Button>
 						<Button
-							onClick={handleClose}
+							onClick={handleDelete}
 							autoFocus
 							color="error"
-							variant="outlined">
+							variant="outlined"
+						>
 							Delete
 						</Button>
 					</DialogActions>
 				</Dialog>
 
 				<Dialog
-					open={open2}
-					onClose={handleClose2}
+					open={openCreate}
+					onClose={handleCloseCreate}
 					aria-labelledby="alert-dialog-title"
-					aria-describedby="alert-dialog-description">
+					aria-describedby="alert-dialog-description"
+				>
 					<DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
 					<DialogContent>
 						<DialogContentText id="alert-dialog-description">
@@ -126,10 +182,10 @@ const Features = ({ data }) => {
 						</DialogContentText>
 					</DialogContent>
 					<DialogActions>
-						<Button onClick={handleClose2} color="error">
+						<Button onClick={handleCloseCreate} color="error">
 							No
 						</Button>
-						<Button onClick={handleClose2} autoFocus variant="contained">
+						<Button onClick={handleCreate} autoFocus variant="contained">
 							Yes
 						</Button>
 					</DialogActions>

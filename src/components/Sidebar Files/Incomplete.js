@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../sidebar/Sidebar'
 import Navbar from "../navbar/Navbar"
-import Incomplete1 from '../datatable/Incomplete1'
+import Incomplete1 from '../datatable/IncompleteTable'
 
 const Incomplete = () => {
   return (

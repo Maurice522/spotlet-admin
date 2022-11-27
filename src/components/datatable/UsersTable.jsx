@@ -1,11 +1,10 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Datatable = () => {
+const IncompleteTable = () => {
 	const userColumns = [
 		{ field: "id", headerName: "ID", width: 250 },
 		{
@@ -37,7 +36,7 @@ const Datatable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://gorecce-backend.herokuapp.com/users")
+			.get("https://nipunbacky.herokuapp.com/users")
 			.then((response) => {
 				const data = response.data;
 				console.log(data);
@@ -106,4 +105,4 @@ const Datatable = () => {
 	);
 };
 
-export default Datatable;
+export default IncompleteTable;
