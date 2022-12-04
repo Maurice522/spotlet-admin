@@ -13,7 +13,7 @@ import {
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
 
-const Features = ({ data }) => {
+const Features = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = data?.features;
@@ -32,23 +32,25 @@ const Features = ({ data }) => {
 	};
 
 	const handleDelete = async () => {
-		setFeatures((prev) => prev.filter((element) => element !== feature));
-		console.log(features);
+		const newFeatures = features.filter((element) => element !== feature);
+		setFeatures(newFeatures);
+
 		const form = {
 			newLocData: {
 				...data,
-				features,
+				features: newFeatures,
 			},
 			location_id: data.location_id,
 		};
 		console.log(form);
-		// try {
-		// 	const response = await updateLocation(form);
-		// 	window.location.reload(true);
-		// 	toast.success(response.data);
-		// } catch (error) {
-		// 	toast.error(error.response.data);
-		// }
+		try {
+			const response = await updateLocation(form);
+			await fetchData();
+			// window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 		setOpenDelete(false);
 	};
 
@@ -65,23 +67,25 @@ const Features = ({ data }) => {
 			setOpenCreate(false);
 			return toast.error("Feature Already Exsist");
 		}
-		setFeatures((prev) => [...prev, feature]);
-		console.log(features);
+		const newFeatures = [...features, feature];
+		setFeatures(newFeatures);
+
 		const form = {
 			newLocData: {
 				...data,
-				features,
+				features: newFeatures,
 			},
 			location_id: data.location_id,
 		};
 		console.log(form);
-		// try {
-		// 	const response = await updateLocation(form);
-		// 	window.location.reload(true);
-		// 	toast.success(response.data);
-		// } catch (error) {
-		// 	toast.error(error.response.data);
-		// }
+		try {
+			const response = await updateLocation(form);
+			await fetchData();
+			// window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 		setOpenCreate(false);
 	};
 

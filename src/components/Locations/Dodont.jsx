@@ -13,7 +13,7 @@ import {
 import { updateLocation } from "../../services/api";
 import { toast } from "react-toastify";
 
-const Dodont = ({ data }) => {
+const Dodont = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = data?.do_and_dont;
@@ -34,30 +34,39 @@ const Dodont = ({ data }) => {
 	};
 
 	const handleDelete = async () => {
-		console.log(do_);
-		console.log(dont_);
+		let newDo = do_s;
+		let newDont = dont_s;
+
 		if (!do_) {
-			setDont_s((prev) => prev.filter((element) => element !== dont_));
+			newDont = dont_s.filter((element) => element !== dont_);
+			setDont_s(newDont);
+			setDo_("");
 		}
 		if (!dont_) {
-			setDo_s((prev) => prev.filter((element) => element !== do_));
+			newDo = do_s.filter((element) => element !== do_);
+			setDo_s(newDo);
+			setDont_("");
 		}
-		// console.log(do_and_dont);
-		// const form = {
-		// 	newLocData: {
-		// 		...data,
-		// 		do_and_dont,
-		// 	},
-		// 	location_id: data.location_id,
-		// };
-		// console.log(form);
-		// try {
-		// 	const response = await updateLocation(form);
-		// 	window.location.reload(true);
-		// 	toast.success(response.data);
-		// } catch (error) {
-		// 	toast.error(error.response.data);
-		// }
+
+		const form = {
+			newLocData: {
+				...data,
+				do_and_dont: {
+					do_s: newDo,
+					dont_s: newDont,
+				},
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		try {
+			const response = await updateLocation(form);
+			await fetchData();
+			// window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 		setOpenDelete(false);
 	};
 
@@ -74,9 +83,6 @@ const Dodont = ({ data }) => {
 	};
 
 	const handleCreate = async () => {
-		console.log(do_);
-		console.log(dont_);
-
 		if (do_s.includes(do_)) {
 			setOpenCreate(false);
 			return toast.error("Rule Already Exsist");
@@ -85,31 +91,38 @@ const Dodont = ({ data }) => {
 			setOpenCreate(false);
 			return toast.error("Rule Already Exsist");
 		}
+		let newDo = do_s;
+		let newDont = dont_s;
 		if (do_ !== "") {
-			console.log("do");
-			setDo_s((prev) => [...prev, do_]);
+			newDo = [...do_s, do_];
+			setDo_s(newDo);
+			setDo_("");
 		}
 		if (dont_ !== "") {
-			console.log("dont");
-			setDont_s((prev) => [...prev, dont_]);
+			newDont = [...dont_s, dont_];
+			setDont_s(newDont);
+			setDont_("");
 		}
 
-		// console.log(do_and_dont);
-		// const form = {
-		// 	newLocData: {
-		// 		...data,
-		// 		do_and_dont,
-		// 	},
-		// 	location_id: data.location_id,
-		// };
-		// console.log(form);
-		// try {
-		// 	const response = await updateLocation(form);
-		// 	window.location.reload(true);
-		// 	toast.success(response.data);
-		// } catch (error) {
-		// 	toast.error(error.response.data);
-		// }
+		const form = {
+			newLocData: {
+				...data,
+				do_and_dont: {
+					do_s: newDo,
+					dont_s: newDont,
+				},
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		try {
+			const response = await updateLocation(form);
+			await fetchData();
+			// window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 		setOpenCreate(false);
 	};
 

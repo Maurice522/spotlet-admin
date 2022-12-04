@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 import { updateLocation } from "../../services/api";
 import { toast } from "react-toastify";
 
-const Location = ({ data }) => {
+const Location = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = {
@@ -50,7 +50,8 @@ const Location = ({ data }) => {
 		console.log(form);
 		try {
 			const response = await updateLocation(form);
-			window.location.reload(true);
+			await fetchData();
+			// window.location.reload(true);
 			toast.success(response.data);
 		} catch (error) {
 			toast.error(error.response.data);
@@ -74,7 +75,11 @@ const Location = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_address?.address ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading">Address:</div>
 					</div>
 
@@ -104,7 +109,11 @@ const Location = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_address?.area ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading">Area:</div>
 					</div>
 					<div className="location-info">
@@ -133,7 +142,11 @@ const Location = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_address?.city ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading">City:</div>
 					</div>
 					<div className="location-info">
@@ -162,7 +175,11 @@ const Location = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_address?.state ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading">State:</div>
 					</div>
 					<div className="location-info">
@@ -191,7 +208,11 @@ const Location = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_address?.country ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading">Country:</div>
 					</div>
 					<div className="location-info">
@@ -220,7 +241,11 @@ const Location = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_address?.landmark ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading">Landmark:</div>
 					</div>
 					<div className="location-info">
@@ -250,7 +275,11 @@ const Location = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_address?.pincode ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading">Pincode:</div>
 					</div>
 					<div className="location-info">

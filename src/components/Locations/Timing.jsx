@@ -2,174 +2,125 @@ import React, { useState } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import Buttons from "./Buttons";
 import { TextField } from "@mui/material";
+import { updateLocation } from "../../services/api";
+import { toast } from "react-toastify";
 
-const Timing = ({ data }) => {
+const Timing = ({ data, fetchData }) => {
+	// console.log(data);
+
+	const [monOpen, setMonOpen] = useState(
+		data?.timings?.monday?.open ? "Open" : "Closed"
+	);
 	const [monTimings, setMonTimings] = useState(
-		data.timings.monday.open === false
-			? "Closed"
-			: data.timings.monday.isSetHours === false
+		data?.timings?.monday?.isSetHours === false
 			? "Open all day"
-			: `Open from ${data.timings.monday.time.start} to ${data.timings.monday.time.end}`
+			: data?.timings?.monday?.time
 	);
-	let tmp_monTimings =
-		data.timings.monday.open === false
-			? "Closed"
-			: data.timings.monday.isSetHours === false
-			? "Open all day"
-			: `Open from ${data.timings.monday.time.start} to ${data.timings.monday.time.end}`;
-	const handleClickMonTimings = (e) => {
-		tmp_monTimings = e.target.value;
-	};
-	const handleSaveMonTimings = () => {
-		console.log("Edit data in backend");
-		tmp_monTimings = monTimings;
-	};
-	const handleDiscardMonTimings = () => {
-		setMonTimings(tmp_monTimings);
-	};
-
+	const [tueOpen, setTueOpen] = useState(
+		data?.timings?.tuesday?.open ? "Open" : "Closed"
+	);
 	const [tueTimings, setTueTimings] = useState(
-		data.timings.tuesday.open === false
-			? "Closed"
-			: data.timings.tuesday.isSetHours === false
+		data?.timings?.tuesday?.isSetHours === false
 			? "Open all day"
-			: `Open from ${data.timings.tuesday.time.start} to ${data.timings.tuesday.time.end}`
+			: data?.timings?.tuesday.time
 	);
-	let tmp_tueTimings =
-		data.timings.tuesday.open === false
-			? "Closed"
-			: data.timings.tuesday.isSetHours === false
-			? "Open all day"
-			: `Open from ${data.timings.tuesday.time.start} to ${data.timings.tuesday.time.end}`;
-	const handleClickTueTimings = (e) => {
-		tmp_tueTimings = e.target.value;
-	};
-	const handleSaveTueTimings = () => {
-		console.log("Edit data in backend");
-		tmp_tueTimings = tueTimings;
-	};
-	const handleDiscardTueTimings = () => {
-		setTueTimings(tmp_tueTimings);
-	};
-
+	const [wedOpen, setWedOpen] = useState(
+		data?.timings?.wednesday?.open ? "Open" : "Closed"
+	);
 	const [wedTimings, setWedTimings] = useState(
-		data.timings.wednesday.open === false
-			? "Closed"
-			: data.timings.wednesday.isSetHours === false
+		data?.timings?.wednesday?.isSetHours === false
 			? "Open all day"
-			: `Open from ${data.timings.wednesday.time.start} to ${data.timings.wednesday.time.end}`
+			: data?.timings?.wednesday.time
 	);
-	let tmp_wedTimings =
-		data.timings.wednesday.open === false
-			? "Closed"
-			: data.timings.wednesday.isSetHours === false
-			? "Open all day"
-			: `Open from ${data.timings.wednesday.time.start} to ${data.timings.wednesday.time.end}`;
-	const handleClickWedTimings = (e) => {
-		tmp_wedTimings = e.target.value;
-	};
-	const handleSaveWedTimings = () => {
-		console.log("Edit data in backend");
-		tmp_wedTimings = wedTimings;
-	};
-	const handleDiscardWedTimings = () => {
-		setWedTimings(tmp_wedTimings);
-	};
-
+	const [thuOpen, setThuOpen] = useState(
+		data?.timings?.thursday?.open ? "Open" : "Closed"
+	);
 	const [thuTimings, setThuTimings] = useState(
-		data.timings.thursday.open === false
-			? "Closed"
-			: data.timings.thursday.isSetHours === false
+		data?.timings?.thursday?.isSetHours === false
 			? "Open all day"
-			: `Open from ${data.timings.thursday.time.start} to ${data.timings.thursday.time.end}`
+			: data?.timings?.thursday.time
 	);
-	let tmp_thuTimings =
-		data.timings.thursday.open === false
-			? "Closed"
-			: data.timings.thursday.isSetHours === false
-			? "Open all day"
-			: `Open from ${data.timings.thursday.time.start} to ${data.timings.thursday.time.end}`;
-	const handleClickThuTimings = (e) => {
-		tmp_thuTimings = e.target.value;
-	};
-	const handleSaveThuTimings = () => {
-		console.log("Edit data in backend");
-		tmp_thuTimings = thuTimings;
-	};
-	const handleDiscardThuTimings = () => {
-		setThuTimings(tmp_thuTimings);
-	};
-
+	const [friOpen, setFriOpen] = useState(
+		data?.timings?.friday?.open ? "Open" : "Closed"
+	);
 	const [friTimings, setFriTimings] = useState(
-		data.timings.friday.open === false
-			? "Closed"
-			: data.timings.friday.isSetHours === false
+		data?.timings?.friday?.isSetHours === false
 			? "Open all day"
-			: `Open from ${data.timings.friday.time.start} to ${data.timings.friday.time.end}`
+			: data?.timings?.friday.time
 	);
-	let tmp_friTimings =
-		data.timings.friday.open === false
-			? "Closed"
-			: data.timings.friday.isSetHours === false
-			? "Open all day"
-			: `Open from ${data.timings.friday.time.start} to ${data.timings.friday.time.end}`;
-	const handleClickFriTimings = (e) => {
-		tmp_friTimings = e.target.value;
-	};
-	const handleSaveFriTimings = () => {
-		console.log("Edit data in backend");
-		tmp_friTimings = friTimings;
-	};
-	const handleDiscardFriTimings = () => {
-		setFriTimings(tmp_friTimings);
-	};
-
+	const [satOpen, setSatOpen] = useState(
+		data?.timings?.saturday?.open ? "Open" : "Closed"
+	);
 	const [satTimings, setSatTimings] = useState(
-		data.timings.saturday.open === false
-			? "Closed"
-			: data.timings.saturday.isSetHours === false
+		data?.timings?.saturday?.isSetHours === false
 			? "Open all day"
-			: `Open from ${data.timings.saturday.time.start} to ${data.timings.saturday.time.end}`
+			: data?.timings?.saturday.time
 	);
-	let tmp_satTimings =
-		data.timings.saturday.open === false
-			? "Closed"
-			: data.timings.saturday.isSetHours === false
+	const [sunOpen, setSunOpen] = useState(
+		data?.timings?.sunday?.open ? "Open" : "Closed"
+	);
+	const [sunTimings, setSunTimings] = useState(
+		data?.timings?.sunday?.isSetHours === false
 			? "Open all day"
-			: `Open from ${data.timings.saturday.time.start} to ${data.timings.saturday.time.end}`;
-	const handleClickSatTimings = (e) => {
-		tmp_satTimings = e.target.value;
-	};
-	const handleSaveSatTimings = () => {
-		console.log("Edit data in backend");
-		tmp_satTimings = satTimings;
-	};
-	const handleDiscardSatTimings = () => {
-		setSatTimings(tmp_satTimings);
+			: data?.timings?.sunday.time
+	);
+	const initialState = {
+		monday: data?.timings?.monday,
+		tuesday: data?.timings?.tuesday,
+		wednesday: data?.timings?.wednesday,
+		thursday: data?.timings?.thursday,
+		friday: data?.timings?.friday,
+		saturday: data?.timings?.saturday,
+		sunday: data?.timings?.sunday,
 	};
 
-	const [sunTimings, setSunTimings] = useState(
-		data.timings.sunday.open === false
-			? "Closed"
-			: data.timings.sunday.isSetHours === false
-			? "Open all day"
-			: `Open from ${data.timings.sunday.time.start} to ${data.timings.sunday.time.end}`
-	);
-	let tmp_sunTimings =
-		data.timings.sunday.open === false
-			? "Closed"
-			: data.timings.sunday.isSetHours === false
-			? "Open all day"
-			: `Open from ${data.timings.sunday.time.start} to ${data.timings.sunday.time.end}`;
-	const handleClickSunTimings = (e) => {
-		tmp_sunTimings = e.target.value;
+	const [timings, setTimings] = useState(initialState);
+
+	const changeMon = (e) => {
+		setTimings({
+			...timings,
+			monday: {
+				open: timings.monday.open,
+				isSetHours: timings.open.isSetHours,
+				time: {
+					start: timings.open.time.start,
+					end: timings.open.time.end
+				},
+			},
+		});
 	};
-	const handleSaveSunTimings = () => {
-		console.log("Edit data in backend");
-		tmp_sunTimings = sunTimings;
+
+	const handleSave = async (e) => {
+		e.preventDefault();
+		if (
+			!timings?.monday &&
+			!timings?.tuesday &&
+			!timings?.wednesday &&
+			!timings?.thursday &&
+			!timings?.friday &&
+			!timings?.saturday &&
+			!timings?.sunday
+		)
+			return toast.error("Please fill timings!!!");
+		const form = {
+			newLocData: {
+				...data,
+				timings,
+			},
+			location_id: data.location_id,
+		};
+		console.log(form);
+		// try {
+		// 	const response = await updateLocation(form);
+		// 	// window.location.reload(true);
+		// 	toast.success(response.data);
+		// } catch (error) {
+		// 	toast.error(error.response.data);
+		// }
 	};
-	const handleDiscardSunTimings = () => {
-		setSunTimings(tmp_sunTimings);
+
+	const handleDiscard = (e) => {
+		setTimings(initialState);
 	};
 
 	return (
@@ -185,30 +136,87 @@ const Timing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#ff6767" />
+						{timings?.monday?.open ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}
 						<div className="location-secondary-heading ">Monday:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={monTimings}
-							onClick={handleClickMonTimings}
+							value={monOpen}
+							// onClick={handleClickMonTimings}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
 							onChange={(e) => {
-								console.log(e.target.value);
-								setMonTimings(e.target.value);
+								// console.log(e.target.value);
+								// setMonTimings(e.target.value);
 							}}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveMonTimings}
-							discard={handleDiscardMonTimings}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					{timings?.monday?.isSetHours ? (
+						<div className="location-info">
+							<TextField
+								id="filled-select-currency"
+								value={monTimings.start}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<TextField
+								id="filled-select-currency"
+								value={monTimings.end}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<Buttons save={handleSave} discard={handleDiscard} />
+						</div>
+					) : (
+						timings?.monday?.open && (
+							<div className="location-info">
+								<TextField
+									id="filled-select-currency"
+									value={monTimings}
+									// onClick={handleClickMonTimings}
+									fullWidth
+									size="small"
+									sx={{
+										padding: "8px",
+									}}
+									onChange={(e) => {
+										// console.log(e.target.value);
+										// setMonTimings(e.target.value);
+									}}
+									variant="outlined"
+								/>
+								<Buttons save={handleSave} discard={handleDiscard} />
+							</div>
+						)
+					)}
 				</div>
 				<div className="location-subcontent-wrapper">
 					<div
@@ -219,30 +227,87 @@ const Timing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#ff6767" />
+						{timings?.tuesday?.open ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Tuesday:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={tueTimings}
-							onClick={handleClickTueTimings}
+							value={tueOpen}
+							// onClick={handleClickTueTimings}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
 							onChange={(e) => {
-								console.log(e.target.value);
-								setTueTimings(e.target.value);
+								// console.log(e.target.value);
+								// setTueTimings(e.target.value);
 							}}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveTueTimings}
-							discard={handleDiscardTueTimings}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					{timings?.tuesday?.isSetHours ? (
+						<div className="location-info">
+							<TextField
+								id="filled-select-currency"
+								value={tueTimings.start}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<TextField
+								id="filled-select-currency"
+								value={tueTimings.end}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<Buttons save={handleSave} discard={handleDiscard} />
+						</div>
+					) : (
+						timings?.tuesday?.open && (
+							<div className="location-info">
+								<TextField
+									id="filled-select-currency"
+									value={tueTimings}
+									// onClick={handleClickMonTimings}
+									fullWidth
+									size="small"
+									sx={{
+										padding: "8px",
+									}}
+									onChange={(e) => {
+										// console.log(e.target.value);
+										// setMonTimings(e.target.value);
+									}}
+									variant="outlined"
+								/>
+								<Buttons save={handleSave} discard={handleDiscard} />
+							</div>
+						)
+					)}
 				</div>
 				<div className="location-subcontent-wrapper">
 					<div
@@ -253,30 +318,87 @@ const Timing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#ff6767" />
+						{timings?.wednesday?.open ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Wednesday:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={wedTimings}
-							onClick={handleClickWedTimings}
+							value={wedOpen}
+							// onClick={handleClickWedTimings}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
 							onChange={(e) => {
-								console.log(e.target.value);
-								setWedTimings(e.target.value);
+								// console.log(e.target.value);
+								// setWedTimings(e.target.value);
 							}}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveWedTimings}
-							discard={handleDiscardWedTimings}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					{timings?.wednesday?.isSetHours ? (
+						<div className="location-info">
+							<TextField
+								id="filled-select-currency"
+								value={wedTimings.start}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<TextField
+								id="filled-select-currency"
+								value={wedTimings.end}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<Buttons save={handleSave} discard={handleDiscard} />
+						</div>
+					) : (
+						timings?.wednesday?.open && (
+							<div className="location-info">
+								<TextField
+									id="filled-select-currency"
+									value={wedTimings}
+									// onClick={handleClickMonTimings}
+									fullWidth
+									size="small"
+									sx={{
+										padding: "8px",
+									}}
+									onChange={(e) => {
+										// console.log(e.target.value);
+										// setMonTimings(e.target.value);
+									}}
+									variant="outlined"
+								/>
+								<Buttons save={handleSave} discard={handleDiscard} />
+							</div>
+						)
+					)}
 				</div>
 				<div className="location-subcontent-wrapper">
 					<div
@@ -287,30 +409,87 @@ const Timing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#ff6767" />
+						{timings?.thursday?.open ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Thursday:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={thuTimings}
-							onClick={handleClickThuTimings}
+							value={thuOpen}
+							// onClick={handleClickThuTimings}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
 							onChange={(e) => {
-								console.log(e.target.value);
-								setThuTimings(e.target.value);
+								// console.log(e.target.value);
+								// setThuTimings(e.target.value);
 							}}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveThuTimings}
-							discard={handleDiscardThuTimings}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					{timings?.thursday?.isSetHours ? (
+						<div className="location-info">
+							<TextField
+								id="filled-select-currency"
+								value={thuTimings.start}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<TextField
+								id="filled-select-currency"
+								value={thuTimings.end}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<Buttons save={handleSave} discard={handleDiscard} />
+						</div>
+					) : (
+						timings?.thursday?.open && (
+							<div className="location-info">
+								<TextField
+									id="filled-select-currency"
+									value={thuTimings}
+									// onClick={handleClickMonTimings}
+									fullWidth
+									size="small"
+									sx={{
+										padding: "8px",
+									}}
+									onChange={(e) => {
+										// console.log(e.target.value);
+										// setMonTimings(e.target.value);
+									}}
+									variant="outlined"
+								/>
+								<Buttons save={handleSave} discard={handleDiscard} />
+							</div>
+						)
+					)}
 				</div>
 				<div className="location-subcontent-wrapper">
 					<div
@@ -321,30 +500,87 @@ const Timing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#ff6767" />
+						{timings?.friday?.open ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Friday:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={friTimings}
-							onClick={handleClickFriTimings}
+							value={friOpen}
+							// onClick={handleClickFriTimings}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
 							onChange={(e) => {
-								console.log(e.target.value);
-								setFriTimings(e.target.value);
+								// console.log(e.target.value);
+								// setFriTimings(e.target.value);
 							}}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveFriTimings}
-							discard={handleDiscardFriTimings}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					{timings?.friday?.isSetHours ? (
+						<div className="location-info">
+							<TextField
+								id="filled-select-currency"
+								value={friTimings.start}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<TextField
+								id="filled-select-currency"
+								value={friTimings.end}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<Buttons save={handleSave} discard={handleDiscard} />
+						</div>
+					) : (
+						timings?.friday?.open && (
+							<div className="location-info">
+								<TextField
+									id="filled-select-currency"
+									value={friTimings}
+									// onClick={handleClickMonTimings}
+									fullWidth
+									size="small"
+									sx={{
+										padding: "8px",
+									}}
+									onChange={(e) => {
+										// console.log(e.target.value);
+										// setMonTimings(e.target.value);
+									}}
+									variant="outlined"
+								/>
+								<Buttons save={handleSave} discard={handleDiscard} />
+							</div>
+						)
+					)}
 				</div>
 				<div className="location-subcontent-wrapper">
 					<div
@@ -355,30 +591,87 @@ const Timing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#ff6767" />
+						{timings?.saturday?.open ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Saturday:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={satTimings}
-							onClick={handleClickSatTimings}
+							value={satOpen}
+							// onClick={handleClickSatTimings}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
 							onChange={(e) => {
-								console.log(e.target.value);
-								setSatTimings(e.target.value);
+								// console.log(e.target.value);
+								// setSatTimings(e.target.value);
 							}}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveSatTimings}
-							discard={handleDiscardSatTimings}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					{timings?.saturday?.isSetHours ? (
+						<div className="location-info">
+							<TextField
+								id="filled-select-currency"
+								value={satTimings.start}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<TextField
+								id="filled-select-currency"
+								value={satTimings.end}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<Buttons save={handleSave} discard={handleDiscard} />
+						</div>
+					) : (
+						timings?.saturday?.open && (
+							<div className="location-info">
+								<TextField
+									id="filled-select-currency"
+									value={satTimings}
+									// onClick={handleClickMonTimings}
+									fullWidth
+									size="small"
+									sx={{
+										padding: "8px",
+									}}
+									onChange={(e) => {
+										// console.log(e.target.value);
+										// setMonTimings(e.target.value);
+									}}
+									variant="outlined"
+								/>
+								<Buttons save={handleSave} discard={handleDiscard} />
+							</div>
+						)
+					)}
 				</div>
 				<div className="location-subcontent-wrapper">
 					<div
@@ -389,30 +682,87 @@ const Timing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#ff6767" />
+						{timings?.sunday?.open ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Sunday:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
-							value={sunTimings}
-							onClick={handleClickSunTimings}
+							value={sunOpen}
+							// onClick={handleClickSunTimings}
 							fullWidth
 							size="small"
 							sx={{
 								padding: "8px",
 							}}
 							onChange={(e) => {
-								console.log(e.target.value);
-								setSunTimings(e.target.value);
+								// console.log(e.target.value);
+								// setSunTimings(e.target.value);
 							}}
 							variant="outlined"
 						/>
-						<Buttons
-							save={handleSaveSunTimings}
-							discard={handleDiscardSunTimings}
-						/>
+						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					{timings?.sunday?.isSetHours ? (
+						<div className="location-info">
+							<TextField
+								id="filled-select-currency"
+								value={sunTimings.start}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<TextField
+								id="filled-select-currency"
+								value={sunTimings.end}
+								// onClick={handleClickMonTimings}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={(e) => {
+									// console.log(e.target.value);
+									// setMonTimings(e.target.value);
+								}}
+								variant="outlined"
+							/>
+							<Buttons save={handleSave} discard={handleDiscard} />
+						</div>
+					) : (
+						timings?.sunday?.open && (
+							<div className="location-info">
+								<TextField
+									id="filled-select-currency"
+									value={sunTimings}
+									// onClick={handleClickMonTimings}
+									fullWidth
+									size="small"
+									sx={{
+										padding: "8px",
+									}}
+									onChange={(e) => {
+										// console.log(e.target.value);
+										// setMonTimings(e.target.value);
+									}}
+									variant="outlined"
+								/>
+								<Buttons save={handleSave} discard={handleDiscard} />
+							</div>
+						)
+					)}
 				</div>
 			</div>
 		</div>

@@ -25,7 +25,7 @@ const CreateBlog = () => {
         today = mm + '/' + dd + '/' + yyyy;
         setblog({ ...blog, date: today })
         console.log(blog);
-        axios.post('https://nipunbacky.herokuapp.com/createblog',blog)
+        axios.post('http://localhost:8000/createblog',blog)
         .then((response)=>console.log(response.status))
     }
     return (

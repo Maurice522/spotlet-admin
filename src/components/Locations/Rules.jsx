@@ -13,7 +13,7 @@ import {
 import { updateLocation } from "../../services/api";
 import { toast } from "react-toastify";
 
-const Rules = ({ data }) => {
+const Rules = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = data?.rules;
@@ -32,23 +32,25 @@ const Rules = ({ data }) => {
 	};
 
 	const handleDelete = async () => {
-		setRules((prev) => prev.filter((element) => element !== rule));
-		console.log(rules);
+		const newRules = rules.filter((element) => element !== rule);
+		setRules(newRules);
+
 		const form = {
 			newLocData: {
 				...data,
-				rules,
+				rules: newRules,
 			},
 			location_id: data.location_id,
 		};
 		console.log(form);
-		// try {
-		// 	const response = await updateLocation(form);
-		// 	window.location.reload(true);
-		// 	toast.success(response.data);
-		// } catch (error) {
-		// 	toast.error(error.response.data);
-		// }
+		try {
+			const response = await updateLocation(form);
+			await fetchData();
+			// window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 		setOpenDelete(false);
 	};
 
@@ -65,23 +67,25 @@ const Rules = ({ data }) => {
 			setOpenCreate(false);
 			return toast.error("Rule Already Exsist");
 		}
-		setRules((prev) => [...prev, rule]);
-		console.log(rules);
+		const newRules = [...rules, rule];
+		setRules(newRules);
+
 		const form = {
 			newLocData: {
 				...data,
-				rules,
+				rules: newRules,
 			},
 			location_id: data.location_id,
 		};
 		console.log(form);
-		// try {
-		// const response = await updateLocation(form);
-		// 	window.location.reload(true);
-		// 	toast.success(response.data);
-		// } catch (error) {
-		// toast.error(error.response.data);
-		// }
+		try {
+			const response = await updateLocation(form);
+			await fetchData();
+			// window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 		setOpenCreate(false);
 	};
 

@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 import { updateLocation } from "../../services/api";
 import { toast } from "react-toastify";
 
-const Bank = ({ data }) => {
+const Bank = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = {
@@ -27,10 +27,10 @@ const Bank = ({ data }) => {
 	const handleSave = async (e) => {
 		e.preventDefault();
 		if (
-			!bankDetails.account_holder_name.length ||
-			!bankDetails.account_number.length ||
-			!bankDetails.bank_name.length ||
-			!bankDetails.ifsc_code.length
+			!bankDetails?.account_holder_name?.length ||
+			!bankDetails?.account_number?.length ||
+			!bankDetails?.bank_name?.length ||
+			!bankDetails?.ifsc_code?.length
 		)
 			return toast.error("Please fill all required fields!!!");
 		const form = {
@@ -43,7 +43,8 @@ const Bank = ({ data }) => {
 		console.log(form);
 		try {
 			const response = await updateLocation(form);
-			window.location.reload(true);
+			await fetchData();
+			// window.location.reload(true);
 			toast.success(response.data);
 		} catch (error) {
 			toast.error(error.response.data);
@@ -67,7 +68,11 @@ const Bank = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{bankDetails?.account_holder_name ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}
 						<div className="location-secondary-heading ">
 							Account Holder Name:
 						</div>
@@ -76,7 +81,7 @@ const Bank = ({ data }) => {
 						<TextField
 							id="filled-select-currency"
 							name="account_holder_name"
-							value={bankDetails.account_holder_name}
+							value={bankDetails?.account_holder_name}
 							// onClick={handleClickname}
 							fullWidth
 							size="small"
@@ -98,14 +103,18 @@ const Bank = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{bankDetails?.account_number ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Account Number:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="account_number"
-							value={bankDetails.account_number}
+							value={bankDetails?.account_number}
 							// onClick={handleClickmobile_no}
 							fullWidth
 							size="small"
@@ -127,14 +136,18 @@ const Bank = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{bankDetails?.bank_name ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Bank Name:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="bank_name"
-							value={bankDetails.bank_name}
+							value={bankDetails?.bank_name}
 							// onClick={handleClickemail}
 							fullWidth
 							size="small"
@@ -156,14 +169,18 @@ const Bank = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{bankDetails?.ifsc_code ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">IFSC Code:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="ifsc_code"
-							value={bankDetails.ifsc_code}
+							value={bankDetails?.ifsc_code}
 							// onClick={handleClickemail}
 							fullWidth
 							size="small"

@@ -42,7 +42,7 @@ const LocationsTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://nipunbacky.herokuapp.com/getlocations")
+			.get("http://localhost:8000/getlocations")
 			.then((response) => {
 				const data = response.data;
 				console.log("Location Data", data);

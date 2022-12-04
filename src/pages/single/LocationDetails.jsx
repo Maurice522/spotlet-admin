@@ -44,9 +44,9 @@ const ListingPlace = () => {
 	const [data, setData] = useState("");
 	const [tempData, setTempData] = useState("");
 
-	useEffect(() => {
+	const fetchData = () => {
 		axios
-			.get("https://nipunbacky.herokuapp.com/listalllocatons")
+			.get("http://localhost:8000/listalllocatons")
 			.then((response) => {
 				const data = response.data;
 				// console.log("Response", data);
@@ -65,7 +65,11 @@ const ListingPlace = () => {
 						setTempData(data);
 					})
 			);
-	}, [params]);
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	if (data === "") {
 		return "";
@@ -93,6 +97,7 @@ const ListingPlace = () => {
 							{section === "Details & Description" ? (
 								<Details
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -101,6 +106,7 @@ const ListingPlace = () => {
 							{section === "Location" ? (
 								<Location
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -109,6 +115,7 @@ const ListingPlace = () => {
 							{section === "Contact Details" ? (
 								<Contact
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -117,6 +124,7 @@ const ListingPlace = () => {
 							{section === "Bank Details" ? (
 								<Bank
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -125,6 +133,7 @@ const ListingPlace = () => {
 							{section === "Amenities" ? (
 								<Amenities
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -133,6 +142,7 @@ const ListingPlace = () => {
 							{section === "Photo" ? (
 								<Photo
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -141,6 +151,7 @@ const ListingPlace = () => {
 							{section === "Features" ? (
 								<Features
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -149,6 +160,7 @@ const ListingPlace = () => {
 							{section === "Do's & Don'ts" ? (
 								<Dondont
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -157,6 +169,7 @@ const ListingPlace = () => {
 							{section === "Pricing" ? (
 								<Pricing
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -165,6 +178,7 @@ const ListingPlace = () => {
 							{section === "Rules of the Host" ? (
 								<Rules
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -173,6 +187,7 @@ const ListingPlace = () => {
 							{section === "Timings" ? (
 								<Timings
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (
@@ -182,6 +197,7 @@ const ListingPlace = () => {
 							{section === "GST Details" ? (
 								<Gst
 									showSection={handlesection}
+									fetchData={fetchData}
 									data={data ? data : tempData}
 								/>
 							) : (

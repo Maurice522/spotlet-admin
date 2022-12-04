@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // const server_domain = "https://gorecceback.herokuapp.com";
-const server_domain = "https://nipunbacky.herokuapp.com"; //TEMP HOSTED SERVER
-// const server_domain = "http://localhost:8000";
+// const server_domain = "https://nipunbacky.herokuapp.com"; //TEMP HOSTED SERVER
+const server_domain = "http://localhost:8000";
 
 //get no of users
 export const noOfUsers = () => {
@@ -54,3 +54,26 @@ export const getTempLocation = (location_id) => {
 export const updateLocation = (data) => {
     return axios.post(server_domain + "/updatelocation/", data);
 }
+
+//upload location pics
+export const uploadLocationPics = (formData) => {
+    return axios.post(server_domain + "/uploadlocpic", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+//upload gst docs
+export const uploadGstDocs = (formData) => {
+    return axios.post(server_domain + "/uploadgst", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+
+//delete files from storage
+export const deleteFiles = (form) => {
+    return axios.delete(server_domain + `/deletefile`, { data: form });
+};

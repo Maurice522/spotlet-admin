@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import { updateLocation } from "../../services/api";
 import { toast } from "react-toastify";
 
-const Contact = ({ data }) => {
+const Contact = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = {
@@ -51,7 +51,8 @@ const Contact = ({ data }) => {
 		console.log(form);
 		try {
 			const response = await updateLocation(form);
-			window.location.reload(true);
+			await fetchData();
+			// window.location.reload(true);
 			toast.success(response.data);
 		} catch (error) {
 			toast.error(error.response.data);
@@ -85,14 +86,18 @@ const Contact = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{contact_det?.contact_name ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Name:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="contact_name"
-							value={contact_det.contact_name}
+							value={contact_det?.contact_name}
 							// onClick={handleClickname}
 							fullWidth
 							size="small"
@@ -114,14 +119,18 @@ const Contact = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{contact_det?.mobile_num ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Mobile Number:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="mobile_num"
-							value={contact_det.mobile_num}
+							value={contact_det?.mobile_num}
 							// onClick={handleClickmobile_no}
 							fullWidth
 							size="small"
@@ -143,14 +152,18 @@ const Contact = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{contact_det?.email ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Email:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="email"
-							value={contact_det.email}
+							value={contact_det?.email}
 							// onClick={handleClickemail}
 							fullWidth
 							size="small"
@@ -172,14 +185,18 @@ const Contact = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{contact_det?.designation ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Designation:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="designation"
-							value={contact_det.designation}
+							value={contact_det?.designation}
 							// onClick={handleClickemail}
 							fullWidth
 							size="small"
@@ -201,14 +218,18 @@ const Contact = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{contact_det?.pan_no ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Pan Noumber:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="pan_no"
-							value={contact_det.pan_no}
+							value={contact_det?.pan_no}
 							// onClick={handleClickemail}
 							fullWidth
 							size="small"
@@ -230,14 +251,18 @@ const Contact = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{contact_det?.aadhar_no ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Aadhar Number:</div>
 					</div>
 					<div className="location-info">
 						<TextField
 							id="filled-select-currency"
 							name="aadhar_no"
-							value={contact_det.aadhar_no}
+							value={contact_det?.aadhar_no}
 							// onClick={handleClickemail}
 							fullWidth
 							size="small"
@@ -260,14 +285,18 @@ const Contact = ({ data }) => {
 								marginBottom: "0px",
 							}}
 						>
-							<GoPrimitiveDot color="#6439ff" />
+							{contact_det?.alt_name ? (
+								<GoPrimitiveDot color="#6439ff" />
+							) : (
+								<GoPrimitiveDot color="#ff6767" />
+							)}{" "}
 							<div className="location-secondary-heading ">Alternate Name:</div>
 						</div>
 						<div className="location-info">
 							<TextField
 								id="filled-select-currency"
 								name="alt_name"
-								value={contact_det.alt_name}
+								value={contact_det?.alt_name}
 								// onClick={handleClickalt_name}
 								fullWidth
 								size="small"
@@ -291,7 +320,11 @@ const Contact = ({ data }) => {
 								marginBottom: "0px",
 							}}
 						>
-							<GoPrimitiveDot color="#6439ff" />
+							{contact_det?.alt_mobile ? (
+								<GoPrimitiveDot color="#6439ff" />
+							) : (
+								<GoPrimitiveDot color="#ff6767" />
+							)}{" "}
 							<div className="location-secondary-heading "></div>
 							Alternate Mobile Number:
 						</div>
@@ -299,7 +332,7 @@ const Contact = ({ data }) => {
 							<TextField
 								id="filled-select-currency"
 								name="alt_mobile"
-								value={contact_det.alt_mobile}
+								value={contact_det?.alt_mobile}
 								// onClick={handleClickalt_mobile}
 								fullWidth
 								size="small"

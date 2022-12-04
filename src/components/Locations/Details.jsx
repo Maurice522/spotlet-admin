@@ -5,7 +5,7 @@ import { TextField, MenuItem, Select } from "@mui/material";
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
 
-const Details = ({ data }) => {
+const Details = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = {
@@ -56,7 +56,8 @@ const Details = ({ data }) => {
 		console.log(form);
 		try {
 			const response = await updateLocation(form);
-			window.location.reload(true);
+			await fetchData();
+			// window.location.reload(true);
 			toast.success(response.data);
 		} catch (error) {
 			toast.error(error.response.data);
@@ -80,7 +81,11 @@ const Details = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_desc?.location_type ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Location Type:</div>
 					</div>
 					<div className="location-info">
@@ -111,7 +116,11 @@ const Details = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_desc?.property_name ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Property Name:</div>
 					</div>
 					<div className="location-info">
@@ -141,7 +150,11 @@ const Details = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_desc?.property_info ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Proprty Info:</div>
 					</div>
 					<div className="location-info">
@@ -171,7 +184,11 @@ const Details = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_desc?.property_size ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Property Size:</div>
 					</div>
 					<div className="location-info">
@@ -202,7 +219,11 @@ const Details = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_desc?.security_camera ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Security Camera:</div>
 					</div>
 					<div className="location-info">
@@ -232,7 +253,11 @@ const Details = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_desc?.street_parking ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Street Parking:</div>
 					</div>
 					<div className="location-info">
@@ -262,7 +287,11 @@ const Details = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_desc?.house_parking ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">House Parking:</div>
 					</div>
 					<div className="location-info">
@@ -292,7 +321,11 @@ const Details = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{property_desc?.user_id ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">User Id:</div>
 					</div>
 					<div className="location-info">

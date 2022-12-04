@@ -102,7 +102,7 @@ const UserDetails = () => {
 	const [value, setValue] = useState({});
 
 	useEffect(() => {
-		axios.get("https://nipunbacky.herokuapp.com/users").then((response) => {
+		axios.get("http://localhost:8000/users").then((response) => {
 			const data = response.data;
 			const result = data.filter((item) => item.id === params.userId);
 			const user = {

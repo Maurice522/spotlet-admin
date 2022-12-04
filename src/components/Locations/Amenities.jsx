@@ -13,7 +13,7 @@ import {
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
 
-const Amenities = ({ data }) => {
+const Amenities = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = data?.amenities;
@@ -32,23 +32,25 @@ const Amenities = ({ data }) => {
 	};
 
 	const handleDelete = async () => {
-		setAmenities((prev) => prev.filter((element) => element !== amenity));
-		console.log(amenities);
+		const newAmenities = amenities?.filter((element) => element !== amenity);
+		setAmenities(newAmenities);
+
 		const form = {
 			newLocData: {
 				...data,
-				amenities,
+				amenities: newAmenities,
 			},
 			location_id: data.location_id,
 		};
 		console.log(form);
-		// try {
-		// 	const response = await updateLocation(form);
-		// 	window.location.reload(true);
-		// 	toast.success(response.data);
-		// } catch (error) {
-		// 	toast.error(error.response.data);
-		// }
+		try {
+			const response = await updateLocation(form);
+			await fetchData();
+			// window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 		setOpenDelete(false);
 	};
 
@@ -65,23 +67,25 @@ const Amenities = ({ data }) => {
 			setOpenCreate(false);
 			return toast.error("Amenity Already Exsist");
 		}
-		setAmenities((prev) => [...prev, amenity]);
-		console.log(amenities);
+		const newAmenities = [...amenities, amenity];
+		setAmenities(newAmenities);
+
 		const form = {
 			newLocData: {
 				...data,
-				amenities,
+				amenities: newAmenities,
 			},
 			location_id: data.location_id,
 		};
 		console.log(form);
-		// try {
-		// 	const response = await updateLocation(form);
-		// 	window.location.reload(true);
-		// 	toast.success(response.data);
-		// } catch (error) {
-		// 	toast.error(error.response.data);
-		// }
+		try {
+			const response = await updateLocation(form);
+			await fetchData();
+			// window.location.reload(true);
+			toast.success(response.data);
+		} catch (error) {
+			toast.error(error.response.data);
+		}
 		setOpenCreate(false);
 	};
 
@@ -89,7 +93,7 @@ const Amenities = ({ data }) => {
 		<div>
 			<div className="location-primary-heading">Amenities</div>
 			<div className="location-content">
-				{amenities.map((item, index) => (
+				{amenities?.map((item, index) => (
 					<div
 						key={index}
 						style={{

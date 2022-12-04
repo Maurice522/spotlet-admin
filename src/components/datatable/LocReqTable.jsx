@@ -8,7 +8,7 @@ const LocReqTable = () => {
 	const approveUser = (id, userid) => {
 		// console.log(userid);
 		axios
-			.put("https://nipunbacky.herokuapp.com/approveloc/" + id, {
+			.put("http://localhost:8000/approveloc/" + id, {
 				userid: userid,
 			})
 			.then(console.log("Approve Location"));
@@ -49,7 +49,7 @@ const LocReqTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://nipunbacky.herokuapp.com/locreqs")
+			.get("http://localhost:8000/locreqs")
 			.then((response) => {
 				const data = response.data;
 				for (let i = 0; i < data.locations.length; i++) {
@@ -77,7 +77,7 @@ const LocReqTable = () => {
 			.then(() => {
 				setData(data2);
 			});
-	}, [data]);
+	}, []);
 
 	const actionColumn = [
 		{

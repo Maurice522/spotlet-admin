@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
 
-const Pricing = ({ data }) => {
+const Pricing = ({ data, fetchData }) => {
 	// console.log(data);
 
 	const initialState = {
@@ -96,7 +96,8 @@ const Pricing = ({ data }) => {
 		console.log(form);
 		try {
 			const response = await updateLocation(form);
-			window.location.reload(true);
+			await fetchData();
+			// window.location.reload(true);
 			toast.success(response.data);
 		} catch (error) {
 			toast.error(error.response.data);
@@ -119,7 +120,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.cleaningFee ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Cleaning Fee:</div>
 					</div>
 					<div className="location-info">
@@ -151,7 +156,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.corporate.isPresent ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Availability:</div>
 					</div>
 					<div className="location-info">
@@ -180,7 +189,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.corporate.isPresent ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading">Hourly Rates:</div>
 					</div>
 					<div className="location-info">
@@ -248,7 +261,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.film_webseries_ad.isPresent ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Availability:</div>
 					</div>
 					<div className="location-info">
@@ -277,7 +294,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.film_webseries_ad.isPresent ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Hourly Rates:</div>
 					</div>
 					<div className="location-info">
@@ -343,7 +364,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.individual.isPresent ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Availability:</div>
 					</div>
 					<div className="location-info">
@@ -372,7 +397,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.individual.isPresent ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Hourly Rates:</div>
 					</div>
 					<div className="location-info">
@@ -435,7 +464,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.tv_series_other.isPresent ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Availability:</div>
 					</div>
 					<div className="location-info">
@@ -464,7 +497,11 @@ const Pricing = ({ data }) => {
 							marginBottom: "0px",
 						}}
 					>
-						<GoPrimitiveDot color="#6439ff" />
+						{pricing.tv_series_other.isPresent ? (
+							<GoPrimitiveDot color="#6439ff" />
+						) : (
+							<GoPrimitiveDot color="#ff6767" />
+						)}{" "}
 						<div className="location-secondary-heading ">Hourly Rates:</div>
 					</div>
 					<div className="location-info">
