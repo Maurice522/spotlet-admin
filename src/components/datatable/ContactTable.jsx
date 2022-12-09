@@ -5,7 +5,7 @@ import axios from "axios";
 
 const ContactTable = () => {
 	const userColumns = [
-		{ field: "id", headerName: "ID", width: 250 },
+		{ field: "id", headerName: "ID", width: 220 },
 		{
 			field: "user",
 			headerName: "User",
@@ -24,6 +24,11 @@ const ContactTable = () => {
 			headerName: "Phone Number",
 			width: 150,
 		},
+		// {
+		// 	field: "date",
+		// 	headerName: "Date",
+		// 	width: 150,
+		// },
 		{
 			field: "message",
 			headerName: "Message",

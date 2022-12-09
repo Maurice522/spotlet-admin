@@ -98,7 +98,7 @@ const LocReqTable = () => {
 						>
 							Approve
 						</div>
-						<div className="deleteButton">Incomplete</div>
+						{/* <div className="deleteButton">Incomplete</div> */}
 					</div>
 				);
 			},

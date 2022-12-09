@@ -132,7 +132,7 @@ const UserDetails = () => {
 				<Navbar />
 				<div className="top">
 					<div className="left">
-						<div className="editButton">Edit</div>
+						{/* <div className="editButton">Edit</div> */}
 						<h1 className="title"> Personal Information</h1>
 						<div className="item">
 							{value.image === "" ? (
@@ -214,9 +214,9 @@ const UserDetails = () => {
 								<TableHead>
 									<TableRow>
 										<TableCell className="tableCell">Booking ID</TableCell>
-										<TableCell className="tableCell">Owner ID</TableCell>
-										<TableCell className="tableCell">User Name</TableCell>
+										<TableCell className="tableCell">Location ID</TableCell>
 										<TableCell className="tableCell">Date</TableCell>
+										<TableCell className="tableCell">Status</TableCell>
 
 										{/* <TableCell className="tableCell">Action</TableCell> */}
 									</TableRow>
@@ -224,17 +224,18 @@ const UserDetails = () => {
 								<TableBody>
 									{bookingsData.map((booking) => (
 										<TableRow key={booking.bookingId}>
+											{console.log(booking)}
 											<TableCell className="tableCell">
 												{booking.bookingId}
 											</TableCell>
 											<TableCell className="tableCell">
-												{booking.owner_id}
-											</TableCell>
-											<TableCell className="tableCell">
-												{booking.user_data.fullName}
+												{booking.property_id}
 											</TableCell>
 											<TableCell className="tableCell">
 												{booking.date}
+											</TableCell>
+											<TableCell className="tableCell">
+												{booking.payment_status}
 											</TableCell>
 											{/* <TableCell className="tableCell">
 												{gridActionButton(booking.bookingId)}

@@ -7,6 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Sidebar from '../sidebar/Sidebar'
 import Navbar from "../navbar/Navbar"
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 const CreateBlog = () => {
     const [blog, setblog] = useState({
@@ -27,6 +28,8 @@ const CreateBlog = () => {
         console.log(blog);
         axios.post('https://spotlet.onrender.com/createblog',blog)
         .then((response)=>console.log(response.status))
+        toast.success("Blog Created!")
+        window.location.reload()
     }
     return (
         <div>

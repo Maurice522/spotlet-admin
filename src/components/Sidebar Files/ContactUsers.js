@@ -58,7 +58,7 @@ const ContactUsers = () => {
             const res = await Announcement({ form, data });
             toast.success(res.data)
             console.log(res.data);
-            window.location.reload(true);
+            window.location.reload();
         } catch (error) {
             console.log(error);
         }
