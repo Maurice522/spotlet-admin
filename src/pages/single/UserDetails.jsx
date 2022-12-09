@@ -102,7 +102,7 @@ const UserDetails = () => {
 	const [value, setValue] = useState({});
 
 	useEffect(() => {
-		axios.get("http://localhost:8000/users").then((response) => {
+		axios.get("https://spotlet.onrender.com/users").then((response) => {
 			const data = response.data;
 			const result = data.filter((item) => item.id === params.userId);
 			const user = {

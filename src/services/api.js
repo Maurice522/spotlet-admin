@@ -2,7 +2,8 @@ import axios from "axios";
 
 // const server_domain = "https://gorecceback.herokuapp.com";
 // const server_domain = "https://nipunbacky.herokuapp.com"; //TEMP HOSTED SERVER
-const server_domain = "http://localhost:8000";
+// const server_domain = "http://localhost:8000";
+const server_domain = "https://spotlet.onrender.com"; //NEW HOSTED SERVER
 
 //get no of users
 export const noOfUsers = () => {

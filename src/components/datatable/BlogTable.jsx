@@ -31,7 +31,7 @@ const BlogTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:8000/getBlogs")
+			.get("https://spotlet.onrender.com/getBlogs")
 			.then((response) => {
 				const data = response.data;
 				console.log(data);

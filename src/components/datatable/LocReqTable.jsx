@@ -8,7 +8,7 @@ const LocReqTable = () => {
 	const approveUser = (id, userid) => {
 		// console.log(userid);
 		axios
-			.put("http://localhost:8000/approveloc/" + id, {
+			.put("https://spotlet.onrender.com/approveloc/" + id, {
 				userid: userid,
 			})
 			.then(console.log("Approve Location"));
@@ -49,7 +49,7 @@ const LocReqTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:8000/locreqs")
+			.get("https://spotlet.onrender.com/locreqs")
 			.then((response) => {
 				const data = response.data;
 				for (let i = 0; i < data.locations.length; i++) {

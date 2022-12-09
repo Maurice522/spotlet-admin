@@ -41,10 +41,12 @@ const Dodont = ({ data, fetchData }) => {
 			newDont = dont_s.filter((element) => element !== dont_);
 			setDont_s(newDont);
 			setDo_("");
+			setDont_("");
 		}
 		if (!dont_) {
 			newDo = do_s.filter((element) => element !== do_);
 			setDo_s(newDo);
+			setDo_("");
 			setDont_("");
 		}
 
@@ -83,6 +85,7 @@ const Dodont = ({ data, fetchData }) => {
 	};
 
 	const handleCreate = async () => {
+		console.log(do_, dont_);
 		if (do_s.includes(do_)) {
 			setOpenCreate(false);
 			return toast.error("Rule Already Exsist");

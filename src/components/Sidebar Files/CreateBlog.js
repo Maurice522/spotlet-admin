@@ -25,7 +25,7 @@ const CreateBlog = () => {
         today = mm + '/' + dd + '/' + yyyy;
         setblog({ ...blog, date: today })
         console.log(blog);
-        axios.post('http://localhost:8000/createblog',blog)
+        axios.post('https://spotlet.onrender.com/createblog',blog)
         .then((response)=>console.log(response.status))
     }
     return (
