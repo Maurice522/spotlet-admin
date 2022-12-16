@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./datatable.scss";
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize'
@@ -8,26 +8,49 @@ import Sidebar from '../sidebar/Sidebar'
 import Navbar from "../navbar/Navbar"
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { uploadBlogPics } from '../../services/api';
 
 const CreateBlog = () => {
     const [blog, setblog] = useState({
         title: "",
         subheading: "",
         date: "",
-        img: "",
+        image: {},
         content: ""
     });
-    const onSubmit = () => {
+
+    useEffect(() => {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
 
-        today = mm + '/' + dd + '/' + yyyy;
+        today = dd + '/' + mm + '/' + yyyy;
         setblog({ ...blog, date: today })
+
+    }, [])
+
+    const handleClick = () => {
+        document.getElementById("imageUploadBlog").click();
+    };
+
+    const handleChange = async (e) => {
+        try {
+            console.log(e.target.files);
+            let formData = new FormData();
+            formData = { "pic": e.target.files[0] }
+            const response = await uploadBlogPics(formData);
+            console.log(response);
+            setblog({ ...blog, image: { url: response.data.url, imageRef: response.data.fileRef } });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const onSubmit = () => {
         console.log(blog);
-        axios.post('https://spotlet.onrender.com/createblog',blog)
-        .then((response)=>console.log(response.status))
+        axios.post('http://localhost:8000/createblog', blog)
+            .then((response) => console.log(response.status))
         toast.success("Blog Created!")
         window.location.reload()
     }
@@ -54,9 +77,20 @@ const CreateBlog = () => {
                             onChange={(e) => { setblog({ ...blog, content: e.target.value }) }}
                         />
                         <br />
-                        <Button variant="contained" component="label">
+                        <Button
+                            variant="contained"
+                            component="label"
+                            onClick={handleClick}
+                        >
                             Upload Image
-                            <input hidden accept="image/*" multiple type="file" />
+                            <input
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                id="imageUploadBlog"
+                                style={{ display: "none" }}
+                                onChange={handleChange}
+                            />
                         </Button>
                         <br />
                         <Button variant="contained" endIcon={<SendIcon />} onClick={onSubmit}>

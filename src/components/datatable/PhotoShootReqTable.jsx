@@ -35,7 +35,7 @@ const PhotoShootReqTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://spotlet.onrender.com/getPhotoshoot")
+			.get("http://localhost:8000/getPhotoshoot")
 			.then((response) => {
 				const data = response.data;
 				console.log(data);

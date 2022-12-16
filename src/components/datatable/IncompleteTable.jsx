@@ -37,7 +37,7 @@ const IncompleteTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://spotlet.onrender.com/incomplist")
+			.get("http://localhost:8000/incomplist")
 			.then((response) => {
 				const data = response.data;
 				console.log(data);

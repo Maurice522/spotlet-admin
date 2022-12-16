@@ -40,7 +40,7 @@ const ContactTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://spotlet.onrender.com/getContact")
+			.get("http://localhost:8000/getContact")
 			.then((response) => {
 				const data = response.data;
 				console.log(data);

@@ -46,7 +46,7 @@ const ListingPlace = () => {
 
 	const fetchData = () => {
 		axios
-			.get("https://spotlet.onrender.com/listalllocatons")
+			.get("http://localhost:8000/listalllocatons")
 			.then((response) => {
 				const data = response.data;
 				// console.log("Response", data);
