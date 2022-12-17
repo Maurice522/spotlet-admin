@@ -18,6 +18,8 @@ import Contactus from "./components/Sidebar Files/Contactus";
 import Blogs from "./components/Sidebar Files/Blogs";
 import CreateBlog from "./components/Sidebar Files/CreateBlog";
 import ContactUsers from "./components/Sidebar Files/ContactUsers";
+import Transactions from "./components/Sidebar Files/Transactions";
+import AddTransaction from "./components/Sidebar Files/AddTransaction";
 
 // const express = require("express");
 // const app = express();
@@ -54,6 +56,9 @@ function App() {
 						<Route path="incomp">
 							<Route index element={<Incomplete />} />
 						</Route>
+						<Route path="transactions">
+							<Route index element={<Transactions />} />
+						</Route>
 						<Route path="contactus">
 							<Route index element={<Contactus />} />
 						</Route>
@@ -68,6 +73,9 @@ function App() {
 						</Route>
 						<Route path="createblog">
 							<Route index element={<CreateBlog />} />
+						</Route>
+						<Route path="addtransaction">
+							<Route index element={<AddTransaction />} />
 						</Route>
 					</Route>
 				</Routes>

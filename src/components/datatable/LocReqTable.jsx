@@ -12,6 +12,7 @@ const LocReqTable = () => {
 				userid: userid,
 			})
 			.then(console.log("Approve Location"));
+		window.location.reload();
 	};
 	const userColumns = [
 		{ field: "id", headerName: "ID", width: 150 },

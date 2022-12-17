@@ -10,6 +10,7 @@ import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import EditLocationAltIcon from "@mui/icons-material/EditLocationAlt";
 import ContactMailSharpIcon from "@mui/icons-material/ContactMailSharp";
+import ReceiptLong from "@mui/icons-material/ReceiptLong";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -76,6 +77,12 @@ const Sidebar = () => {
 						<li>
 							<EditLocationAltIcon className="icon" />
 							<span>Incomplete Listings</span>
+						</li>
+					</Link>
+					<Link to="/transactions" style={{ textDecoration: "none" }}>
+						<li>
+							<ReceiptLong className="icon" />
+							<span>Transactions</span>
 						</li>
 					</Link>
 					<p className="title">Blogs Management</p>
