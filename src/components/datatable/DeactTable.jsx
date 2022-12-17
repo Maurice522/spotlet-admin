@@ -33,19 +33,19 @@ const DeactTable = () => {
 	];
 	const deleteUser = (id) => {
 		axios
-			.delete("https://spotlet.onrender.com/delete/" + id)
+			.delete("http://localhost:8000/delete/" + id)
 			.then(console.log("Delete Successfull"));
 	};
 	const rejectUser = (id) => {
 		axios
-			.delete("https://spotlet.onrender.com/rejectdeac/" + id)
+			.delete("http://localhost:8000/rejectdeac/" + id)
 			.then(console.log("Rejected Successfull"));
 	};
 	const [data, setData] = useState([]);
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("https://spotlet.onrender.com/deletereq")
+			.get("http://localhost:8000/deletereq")
 			.then((response) => {
 				const data = response.data;
 				for (let i = 0; i < data.length; i++) {

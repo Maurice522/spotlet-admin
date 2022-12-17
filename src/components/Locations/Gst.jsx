@@ -81,6 +81,7 @@ const Gst = ({ data, fetchData }) => {
 
 				try {
 					const response = await updateLocation(form);
+					await fetchData();
 					toast.success(response.data);
 				} catch (error) {
 					toast.error(error.response.data);
@@ -119,6 +120,7 @@ const Gst = ({ data, fetchData }) => {
 
 			try {
 				const response = await updateLocation(form);
+				await fetchData();
 				toast.success(response.data);
 			} catch (error) {
 				toast.error(error.response.data);
@@ -180,7 +182,7 @@ const Gst = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading ">Documents:</div>
 					</div>
-					{gstData?.docs?.map((doc, index) => (
+					{gstDocs.map((doc, index) => (
 						<div
 							className="location-info"
 							key={index}

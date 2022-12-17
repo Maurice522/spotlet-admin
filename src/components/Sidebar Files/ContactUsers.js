@@ -22,7 +22,7 @@ const ContactUsers = () => {
     useEffect(() => {
         var data2 = [];
         axios
-            .get("https://spotlet.onrender.com/users")
+            .get("http://localhost:8000/users")
             .then((response) => {
                 const data = response.data;
                 for (let i = 0; i < data.length; i++) {
