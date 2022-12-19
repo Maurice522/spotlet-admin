@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./datatable.scss";
-import TextField from '@mui/material/TextField';
+import { MenuItem, TextField } from '@mui/material';
 import TextareaAutosize from '@mui/material/TextareaAutosize'
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
@@ -33,7 +33,7 @@ const AddTransaction = () => {
                         <TextField fullWidth id="fullWidth" style={{ fontSize: 20 }} />
                         <br />
                         <h3>Booking Date</h3>
-                        <TextField fullWidth id="fullWidth" style={{ fontSize: 20 }} />
+                        <TextField type="date" fullWidth id="fullWidth" style={{ fontSize: 20 }} />
                         <br />
                         <h3>Amount</h3>
                         <TextField fullWidth id="fullWidth" style={{ fontSize: 20 }} />
@@ -48,10 +48,13 @@ const AddTransaction = () => {
                         <TextField fullWidth id="fullWidth" style={{ fontSize: 20 }} />
                         <br />
                         <h3>Date</h3>
-                        <TextField fullWidth id="fullWidth" style={{ fontSize: 20 }} />
+                        <TextField type="date" fullWidth id="fullWidth" style={{ fontSize: 20 }} />
                         <br />
                         <h3>Status</h3>
-                        <TextField fullWidth id="fullWidth" style={{ fontSize: 20 }} />
+                        <TextField select defaultValue="pending" fullWidth id="fullWidth" style={{ fontSize: 20 }}>
+                            <MenuItem value="approved">Approved</MenuItem>
+                            <MenuItem value="pending">Pending</MenuItem>
+                        </TextField>
                         <br />
                         <Button variant="contained" endIcon={<SendIcon />} onClick={onSubmit}>
                             Add Transaction

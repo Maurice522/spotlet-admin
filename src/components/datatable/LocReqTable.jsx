@@ -13,6 +13,7 @@ const LocReqTable = () => {
 			})
 			.then(console.log("Approve Location"));
 		window.location.reload();
+		alert("The location has been approved");
 	};
 	const userColumns = [
 		{ field: "id", headerName: "ID", width: 150 },
