@@ -79,7 +79,7 @@ const BlogTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Blogs
+                Transactions
                 <Link to="/addtransaction" className="link">
                     Add
                 </Link>
