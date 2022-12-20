@@ -182,7 +182,7 @@ const Gst = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading ">Documents:</div>
 					</div>
-					{gstDocs.map((doc, index) => (
+					{gstDocs?.map((doc, index) => (
 						<div
 							className="location-info"
 							key={index}

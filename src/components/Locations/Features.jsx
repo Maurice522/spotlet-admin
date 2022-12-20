@@ -12,9 +12,10 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
+import Select from "react-select";
 
 const Features = ({ data, fetchData }) => {
-	// console.log(data);
+
 
 	const initialState = data?.features;
 
@@ -23,6 +24,103 @@ const Features = ({ data, fetchData }) => {
 
 	const [openDelete, setOpenDelete] = useState(false);
 	const [openCreate, setOpenCreate] = useState(false);
+
+
+	const options = [
+		{ value: "Alarm system", label: " Alarm system" },
+		{
+			value: "Architectural details, such as crown moldings, chair rails, etc.",
+			label:
+				" Architectural details, such as crown moldings, chair rails, etc.",
+		},
+		{
+			value: "Builder’s name, if well known in the area",
+			label: " Builder’s name, if well known in the area",
+		},
+		{ value: "Central air conditioning", label: " Central air conditioning" },
+		{ value: "Deck", label: " Deck" },
+		{ value: "Energy efficiency", label: " Energy efficiency" },
+		{ value: "Exercise room", label: " Exercise room" },
+		{ value: "Exterior lighting", label: " Exterior lighting" },
+		{ value: "Finished basement", label: " Finished basement" },
+		{
+			value: "Fireplaces and wood-burning stoves",
+			label: " Fireplaces and wood-burning stoves",
+		},
+		{
+			value: "Garage – heated, three-car, etc.",
+			label: " Garage – heated, three-car, etc.",
+		},
+		{
+			value: "Granite countertops in kitchen",
+			label: " Granite countertops in kitchen",
+		},
+		{ value: "Great for entertaining", label: " Great for entertaining" },
+		{
+			value: "Heat pump or other energy-efficient systems",
+			label: " Heat pump or other energy-efficient systems",
+		},
+		{ value: "Home theater", label: " Home theater" },
+		{ value: "Hot tub", label: " Hot tub" },
+		{ value: "In-ground pool", label: " In-ground pool" },
+		{
+			value: "In-law or extra apartment with rental potential",
+			label: " In-law or extra apartment with rental potential",
+		},
+		{
+			value: "Kitchen – gourmet, great for entertaining, etc.",
+			label: " Kitchen – gourmet, great for entertaining, etc.",
+		},
+		{ value: "Landscaping", label: " Landscaping" },
+		{ value: "Light-filled or bright", label: " Light-filled or bright" },
+		{
+			value: "Master suite with separate bath",
+			label: " Master suite with separate bath",
+		},
+		{ value: "Move-in condition", label: " Move-in condition" },
+		{ value: "New bathrooms or kitchen", label: " New bathrooms or kitchen" },
+		{
+			value:
+				"New improvements, such as roof, furnace, electrical service or wiring",
+			label:
+				" New improvements, such as roof, furnace, electrical service or wiring",
+		},
+		{ value: "New septic system", label: " New septic system" },
+		{ value: "Open floor plan", label: " Open floor plan" },
+		{
+			value:
+				"Outbuildings that can be used for shops, storage, rental income, etc.",
+			label:
+				" Outbuildings that can be used for shops, storage, rental income, etc.",
+		},
+		{
+			value: "Pride of ownership that shows",
+			label: " Pride of ownership that shows",
+		},
+		{
+			value: "Solar heating or electrical",
+			label: " Solar heating or electrical",
+		},
+		{
+			value: "Square footage (if it represents a good value for your price)",
+			label: " Square footage (if it represents a good value for your price)",
+		},
+		{ value: "Town sewers", label: " Town sewers" },
+		{
+			value: "Upscale appliances that appeal to luxury-oriented buyers",
+			label: " Upscale appliances that appeal to luxury-oriented buyers",
+		},
+		{
+			value: "Views of mountains, lakes, sunsets, sunrises",
+			label: " Views of mountains, lakes, sunsets, sunrises",
+		},
+		{
+			value: "Window – new and energy efficient",
+			label: " Window – new and energy efficient",
+		},
+		{ value: "Wood floors", label: " Wood floors" },
+	];
+
 
 	const handleDeletePopUp = () => {
 		setOpenDelete(true);
@@ -69,6 +167,7 @@ const Features = ({ data, fetchData }) => {
 		}
 		const newFeatures = [...features, feature];
 		setFeatures(newFeatures);
+		setFeature("")
 
 		const form = {
 			newLocData: {
@@ -126,14 +225,16 @@ const Features = ({ data, fetchData }) => {
 					</div>
 				))}
 
-				<TextField
+				<Select
 					fullWidth
 					size="small"
+					options={options}
 					variant="outlined"
 					label="Type in new Features"
 					sx={{ marginTop: "10px" }}
+					defaultValue={feature}
 					onChange={(e) => {
-						setFeature(e.target.value);
+						setFeature(e.value);
 					}}
 				/>
 				<Button

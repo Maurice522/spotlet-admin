@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import Buttons from "./Buttons";
-import { TextField } from "@mui/material";
+import { TextField, MenuItem, Select } from "@mui/material";
 import { updateLocation } from "../../services/api";
 import { toast } from "react-toastify";
+import { Country, State, City } from "country-state-city";
 
 const Location = ({ data, fetchData }) => {
 	// console.log(data);
@@ -61,6 +62,28 @@ const Location = ({ data, fetchData }) => {
 	const handleDiscard = (e) => {
 		setProperty_address(initialState);
 	};
+
+	const [country, setCountry] = useState("");
+	const [state, setState] = useState("");
+	const [city, setCity] = useState("");
+
+	const changeCountry = (id) => {
+		setCountry(id);
+	};
+	const changeState = (id) => {
+		setState(id);
+	};
+	const changeCity = (name) => {
+		setCity(name);
+	};
+
+	let stateArray = State.getAllStates().filter(
+		(item) => item.countryCode === country
+	);
+	let cityArray = City.getCitiesOfState(country, state).filter(
+		(item) => item.countryCode === country
+	);
+
 
 	return (
 		<div>
@@ -142,19 +165,18 @@ const Location = ({ data, fetchData }) => {
 							marginBottom: "0px",
 						}}
 					>
-						{property_address?.city ? (
+						{property_address?.country ? (
 							<GoPrimitiveDot color="#6439ff" />
 						) : (
 							<GoPrimitiveDot color="#ff6767" />
 						)}{" "}
-						<div className="location-secondary-heading">City:</div>
+						<div className="location-secondary-heading">Country:</div>
 					</div>
 					<div className="location-info">
-						<TextField
+						<Select
 							id="filled-select-currency"
-							name="city"
-							value={property_address.city}
-							// onClick={handleClickCity}
+							name="country"
+							value={property_address.country}
 							fullWidth
 							size="small"
 							sx={{
@@ -162,7 +184,17 @@ const Location = ({ data, fetchData }) => {
 							}}
 							onChange={handleChange}
 							variant="outlined"
-						/>
+						>
+							{Country.getAllCountries().map((item) => (
+								<MenuItem
+									value={item.name}
+									onClick={changeCountry.bind(this, item.isoCode)}
+									key={item.name}
+								>
+									{item.name}
+								</MenuItem>
+							))}
+						</Select>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
@@ -182,20 +214,43 @@ const Location = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading">State:</div>
 					</div>
-					<div className="location-info">
-						<TextField
-							id="filled-select-currency"
-							name="state"
-							value={property_address.state}
-							// onClick={handleClickState}
-							fullWidth
-							size="small"
-							sx={{
-								padding: "8px",
-							}}
-							onChange={handleChange}
-							variant="outlined"
-						/>
+					<div className="location-info">{ stateArray.length ?
+							<Select
+								id="filled-select-currency"
+								name="state"
+								value={property_address.state}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={handleChange}
+								variant="outlined"
+							>
+								{stateArray.map((item) => (
+									<MenuItem
+										value={item.name}
+										onClick={changeState.bind(this, item.isoCode)}
+										key={item.name}
+									>
+										{item.name}
+									</MenuItem>
+								))
+								}
+							</Select> :
+							<TextField
+								id="filled-select-currency"
+								name="state"
+								value={property_address.state}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								disabled
+								variant="outlined"
+							/>
+					}
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
@@ -208,19 +263,18 @@ const Location = ({ data, fetchData }) => {
 							marginBottom: "0px",
 						}}
 					>
-						{property_address?.country ? (
+						{property_address?.city ? (
 							<GoPrimitiveDot color="#6439ff" />
 						) : (
 							<GoPrimitiveDot color="#ff6767" />
 						)}{" "}
-						<div className="location-secondary-heading">Country:</div>
+						<div className="location-secondary-heading">City:</div>
 					</div>
-					<div className="location-info">
-						<TextField
+					<div className="location-info">{ cityArray.length ? 
+						<Select
 							id="filled-select-currency"
-							name="country"
-							value={property_address.country}
-							// onClick={handleClickCountry}
+							name="city"
+							value={property_address.city}
 							fullWidth
 							size="small"
 							sx={{
@@ -228,7 +282,31 @@ const Location = ({ data, fetchData }) => {
 							}}
 							onChange={handleChange}
 							variant="outlined"
-						/>
+						>
+							{cityArray.map((item) => (
+								<MenuItem
+									value={item.name}
+									onClick={changeCity.bind(this, item.name)}
+									key={item.name}
+								>
+									{item.name}
+								</MenuItem>
+							))
+							}
+						</Select> : 
+						 <TextField
+							 id="filled-select-currency"
+							 name="city"
+							 value={property_address.city}
+							 fullWidth
+							 size="small"
+							 sx={{
+								 padding: "8px",
+							 }}
+							 disabled
+							 variant="outlined"
+						 />
+				 }
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>

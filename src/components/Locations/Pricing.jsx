@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import Buttons from "./Buttons";
-import { TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
 
@@ -167,6 +167,8 @@ const Pricing = ({ data, fetchData }) => {
 						<TextField
 							id="filled-select-currency"
 							name="isPresent"
+							select
+							defaultValue={pricing.corporate.isPresent}
 							value={pricing.corporate.isPresent}
 							// onClick={handleClickCorp_availability}
 							fullWidth
@@ -176,7 +178,10 @@ const Pricing = ({ data, fetchData }) => {
 							}}
 							onChange={corporateChange}
 							variant="outlined"
-						/>
+						>
+							<MenuItem value="true">true</MenuItem>
+                            <MenuItem value="false">false</MenuItem>
+						</TextField>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
@@ -272,6 +277,8 @@ const Pricing = ({ data, fetchData }) => {
 						<TextField
 							id="filled-select-currency"
 							name="isPresent"
+							select
+							defaultValue={pricing.film_webseries_ad.isPresent}
 							value={pricing.film_webseries_ad.isPresent}
 							// onClick={handleClickFilm_availability}
 							fullWidth
@@ -281,7 +288,10 @@ const Pricing = ({ data, fetchData }) => {
 							}}
 							onChange={film_webseries_adChange}
 							variant="outlined"
-						/>
+						>
+							<MenuItem value="true">true</MenuItem>
+                            <MenuItem value="false">false</MenuItem>
+						</TextField>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
@@ -375,6 +385,8 @@ const Pricing = ({ data, fetchData }) => {
 						<TextField
 							id="filled-select-currency"
 							name="isPresent"
+							select
+							defaultValue={pricing.individual.isPresent}
 							value={pricing.individual.isPresent}
 							// onClick={handleClickTv_availability}
 							fullWidth
@@ -384,7 +396,10 @@ const Pricing = ({ data, fetchData }) => {
 							}}
 							onChange={individualChange}
 							variant="outlined"
-						/>
+						>
+							<MenuItem value="true">true</MenuItem>
+                            <MenuItem value="false">false</MenuItem>
+						</TextField>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
@@ -475,6 +490,8 @@ const Pricing = ({ data, fetchData }) => {
 						<TextField
 							id="filled-select-currency"
 							name="isPresent"
+							select
+							defaultValue={pricing.tv_series_other.isPresent}
 							value={pricing.tv_series_other.isPresent}
 							// onClick={handleClickTv_availability}
 							fullWidth
@@ -484,7 +501,10 @@ const Pricing = ({ data, fetchData }) => {
 							}}
 							onChange={tv_series_otherChange}
 							variant="outlined"
-						/>
+						>
+							<MenuItem value="true">true</MenuItem>
+                            <MenuItem value="false">false</MenuItem>
+						</TextField>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
