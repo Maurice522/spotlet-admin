@@ -55,22 +55,22 @@ const TransactionTable = () => {
 			.get("http://localhost:8000/gettransactions")
 			.then((response) => {
 				const data = response.data;
+				console.log(data)
 
-				// for (let i = 0; i < data.length; i++) {
-				// 	console.log(data[i].portfolio);
-				// 	for (let j = 0; j < data[i].portfolio.length; j++) {
-				// 		console.log(data[i]);
-				// 		const user = {
-				// 			id: data[i].portfolio[j].bookingId,
-				// 			bookingDate: data[i].portfolio[j].date,
-				// 			amount: data[i].portfolio[j].final_amount,
-				// 			locId: data[i].portfolio[j].property_id,
-				// 			hostName: data[i].personalInfo.fullName,
-				// 			status: data[i].portfolio[j].status,
-				// 		};
-				// 		data2 = [...data2, user];
-				// 	}
-				// }
+				for (let i = 0; i < data.length; i++) {
+					console.log(data[i].portfolio);
+					const user = {
+						id: data[i].bookingid,
+						bookingDate: data[i].bookingdate,
+						amount: data[i].amount,
+						locId: data[i].locationid,
+						hostName: data[i].hostname,
+						bookingName: data[i].bookingname,
+						date: data[i].date,
+						status: data[i].status,
+					};
+					data2 = [...data2, user];
+				}
 			})
 			.then(() => {
 				setData(data2);

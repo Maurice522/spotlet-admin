@@ -174,7 +174,7 @@ const Location = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading">Country:</div>
 					</div>
-					<div className="location-info">
+					<div className="location-info" style={{gap: "20px"}}>
 						<Select
 							id="filled-select-currency"
 							name="country"
@@ -216,7 +216,7 @@ const Location = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading">State:</div>
 					</div>
-					<div className="location-info">
+					<div className="location-info" style={{gap: stateArray.length ? "20px" : "10px"}}>
 						{stateArray.length ? (
 							<Select
 								id="filled-select-currency"
@@ -273,7 +273,7 @@ const Location = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading">City:</div>
 					</div>
-					<div className="location-info">
+					<div className="location-info" style={{gap: cityArray.length ? "20px" : "10px"}}>
 						{cityArray.length ? (
 							<Select
 								id="filled-select-currency"

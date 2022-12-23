@@ -24,11 +24,11 @@ const ContactTable = () => {
 			headerName: "Phone Number",
 			width: 150,
 		},
-		// {
-		// 	field: "date",
-		// 	headerName: "Date",
-		// 	width: 150,
-		// },
+		{
+			field: "date",
+			headerName: "Date",
+			width: 150,
+		},
 		{
 			field: "message",
 			headerName: "Message",
@@ -45,12 +45,24 @@ const ContactTable = () => {
 				const data = response.data;
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
+
+					const date = new Date(data[i].timestamp?._seconds * 1000);
+					const yyyy = date.getFullYear();
+					let mm = date.getMonth() + 1; // Months start at 0!
+					let dd = date.getDate();
+
+					if (dd && dd < 10) dd = "0" + dd;
+					if (mm && mm < 10) mm = "0" + mm;
+
+					const formattedToday = dd + "/" + mm + "/" + yyyy
+
 					const user = {
 						id: data[i].id,
 						email: data[i].email,
 						username: data[i].fullName,
 						mobile: data[i].mobile,
 						message: data[i].message,
+						date : formattedToday
 					};
 					data2 = [...data2, user];
 				}

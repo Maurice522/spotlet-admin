@@ -5,6 +5,7 @@ import { TextField, MenuItem } from "@mui/material";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
+import { useEffect } from "react";
 
 const Details = ({ data, fetchData }) => {
 	// console.log(data);
@@ -21,7 +22,6 @@ const Details = ({ data, fetchData }) => {
 	};
 
 	const [property_desc, setPropertyDescr] = useState(initialState);
-	const [lType, setLType] = useState(0);
 
 	const opt = [
 		{ value: "Apartment Parking", label: "Apartment Parking" },
@@ -109,6 +109,18 @@ const Details = ({ data, fetchData }) => {
 		setPropertyDescr(initialState);
 	};
 
+	const [lType, setLType] = useState(0);
+
+	useEffect(() => {
+		console.log(property_desc.location_type);
+		opt.map((item, index) => {
+			if (property_desc.location_type === item.value) {
+				setLType(index);
+			}
+		});
+	}, [property_desc.location_type])
+	
+
 	return (
 		<div>
 			<div className="location-primary-heading">Property Description</div>
@@ -129,8 +141,7 @@ const Details = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading ">Location Type:</div>
 					</div>
-					<div className="location-info">
-						{console.log(property_desc.location_type)}
+					<div className="location-info" style={{gap: "20px"}}>
 						<Select
 							id="filled-select-currency"
 							name="location_type"

@@ -30,11 +30,11 @@ const IncompleteTable = () => {
 			headerName: "Phone Number",
 			width: 150,
 		},
-		// {
-		// 	field: "date",
-		// 	headerName: "Date Of Creation",
-		// 	width: 200,
-		// },
+		{
+			field: "date",
+			headerName: "Date Of Creation",
+			width: 200,
+		},
 	];
 	const [data, setData] = useState([]);
 
@@ -46,6 +46,17 @@ const IncompleteTable = () => {
 				const data = response.data;
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
+
+					const date = new Date(data[i].timestamp?._seconds * 1000);
+					const yyyy = date.getFullYear();
+					let mm = date.getMonth() + 1; // Months start at 0!
+					let dd = date.getDate();
+
+					if (dd && dd < 10) dd = "0" + dd;
+					if (mm && mm < 10) mm = "0" + mm;
+
+					const formattedToday = dd + "/" + mm + "/" + yyyy
+
 					const user = {
 						id: data[i].id,
 						email: data[i].personalInfo.email,
@@ -61,6 +72,7 @@ const IncompleteTable = () => {
 						UPI: "ABC123",
 						UserID: data[i].id,
 						bookingInfo: data[i].listedLocations,
+						date: formattedToday
 					};
 					data2 = [...data2, user];
 				}
