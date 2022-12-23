@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import Buttons from "./Buttons";
 import { TextField, MenuItem, Select } from "@mui/material";
@@ -61,6 +61,9 @@ const Location = ({ data, fetchData }) => {
 
 	const handleDiscard = (e) => {
 		setProperty_address(initialState);
+		setCountry("");
+		setState("");
+		setCity("");
 	};
 
 	const [country, setCountry] = useState("");
@@ -83,7 +86,6 @@ const Location = ({ data, fetchData }) => {
 	let cityArray = City.getCitiesOfState(country, state).filter(
 		(item) => item.countryCode === country
 	);
-
 
 	return (
 		<div>
@@ -214,7 +216,8 @@ const Location = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading">State:</div>
 					</div>
-					<div className="location-info">{ stateArray.length ?
+					<div className="location-info">
+						{stateArray.length ? (
 							<Select
 								id="filled-select-currency"
 								name="state"
@@ -235,9 +238,9 @@ const Location = ({ data, fetchData }) => {
 									>
 										{item.name}
 									</MenuItem>
-								))
-								}
-							</Select> :
+								))}
+							</Select>
+						) : (
 							<TextField
 								id="filled-select-currency"
 								name="state"
@@ -250,7 +253,7 @@ const Location = ({ data, fetchData }) => {
 								disabled
 								variant="outlined"
 							/>
-					}
+						)}
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>
@@ -270,43 +273,44 @@ const Location = ({ data, fetchData }) => {
 						)}{" "}
 						<div className="location-secondary-heading">City:</div>
 					</div>
-					<div className="location-info">{ cityArray.length ? 
-						<Select
-							id="filled-select-currency"
-							name="city"
-							value={property_address.city}
-							fullWidth
-							size="small"
-							sx={{
-								padding: "8px",
-							}}
-							onChange={handleChange}
-							variant="outlined"
-						>
-							{cityArray.map((item) => (
-								<MenuItem
-									value={item.name}
-									onClick={changeCity.bind(this, item.name)}
-									key={item.name}
-								>
-									{item.name}
-								</MenuItem>
-							))
-							}
-						</Select> : 
-						 <TextField
-							 id="filled-select-currency"
-							 name="city"
-							 value={property_address.city}
-							 fullWidth
-							 size="small"
-							 sx={{
-								 padding: "8px",
-							 }}
-							 disabled
-							 variant="outlined"
-						 />
-				 }
+					<div className="location-info">
+						{cityArray.length ? (
+							<Select
+								id="filled-select-currency"
+								name="city"
+								value={property_address.city}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								onChange={handleChange}
+								variant="outlined"
+							>
+								{cityArray.map((item) => (
+									<MenuItem
+										value={item.name}
+										onClick={changeCity.bind(this, item.name)}
+										key={item.name}
+									>
+										{item.name}
+									</MenuItem>
+								))}
+							</Select>
+						) : (
+							<TextField
+								id="filled-select-currency"
+								name="city"
+								value={property_address.city}
+								fullWidth
+								size="small"
+								sx={{
+									padding: "8px",
+								}}
+								disabled
+								variant="outlined"
+							/>
+						)}
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 				</div>

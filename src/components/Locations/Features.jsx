@@ -8,15 +8,12 @@ import {
 	DialogContent,
 	DialogContentText,
 	DialogTitle,
-	TextField,
 } from "@mui/material";
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
 import Select from "react-select";
 
 const Features = ({ data, fetchData }) => {
-
-
 	const initialState = data?.features;
 
 	const [features, setFeatures] = useState(initialState);
@@ -24,7 +21,6 @@ const Features = ({ data, fetchData }) => {
 
 	const [openDelete, setOpenDelete] = useState(false);
 	const [openCreate, setOpenCreate] = useState(false);
-
 
 	const options = [
 		{ value: "Alarm system", label: " Alarm system" },
@@ -121,7 +117,6 @@ const Features = ({ data, fetchData }) => {
 		{ value: "Wood floors", label: " Wood floors" },
 	];
 
-
 	const handleDeletePopUp = () => {
 		setOpenDelete(true);
 	};
@@ -167,7 +162,7 @@ const Features = ({ data, fetchData }) => {
 		}
 		const newFeatures = [...features, feature];
 		setFeatures(newFeatures);
-		setFeature("")
+		setFeature("");
 
 		const form = {
 			newLocData: {

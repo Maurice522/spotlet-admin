@@ -18,8 +18,6 @@ const List = () => {
 			.catch((err) => console.log(err));
 	}, []);
 
-	console.log(locations);
-
 	// const locations = [
 	// 	{
 	// 		id: 1143155,

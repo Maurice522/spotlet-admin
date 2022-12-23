@@ -1,27 +1,21 @@
 import "./widget.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { CalendarMonth, ListAlt, LocationOnOutlined, PersonOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Widget = ({ type, count }) => {
-	let data;
 
-	//temporary
-	// const amount = 100;
+	let data;
 	const diff = 20;
 
 	switch (type) {
-		case "user":
+		case "users":
 			data = {
 				title: "USERS",
-				isMoney: false,
 				to: "/users",
-				link: "See all users",
+				link: "See all Users",
 				icon: (
-					<PersonOutlinedIcon
+					<PersonOutlined
 						className="icon"
 						style={{
 							color: "crimson",
@@ -31,14 +25,13 @@ const Widget = ({ type, count }) => {
 				),
 			};
 			break;
-		case "order":
+		case "locations":
 			data = {
 				title: "LOCATIONS",
-				isMoney: false,
 				link: "View all Locations",
-				to: "locations",
+				to: "/locations",
 				icon: (
-					<ShoppingCartOutlinedIcon
+					<LocationOnOutlined
 						className="icon"
 						style={{
 							backgroundColor: "rgba(218, 165, 32, 0.2)",
@@ -48,28 +41,26 @@ const Widget = ({ type, count }) => {
 				),
 			};
 			break;
-		case "earning":
+		case "bookings":
 			data = {
 				title: "BOOKINGS",
-				isMoney: true,
 				to: "/",
-				link: "View net bookings",
+				link: "View Bookings",
 				icon: (
-					<MonetizationOnOutlinedIcon
+					<CalendarMonth
 						className="icon"
 						style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
 					/>
 				),
 			};
 			break;
-		case "balance":
+		case "requests":
 			data = {
 				title: "LISTINGS",
-				isMoney: true,
-				to: "/",
-				link: "See details",
+				to: "/locreq",
+				link: "See Location Requests",
 				icon: (
-					<AccountBalanceWalletOutlinedIcon
+					<ListAlt
 						className="icon"
 						style={{
 							backgroundColor: "rgba(128, 0, 128, 0.2)",
@@ -88,8 +79,7 @@ const Widget = ({ type, count }) => {
 			<div className="left">
 				<span className="title">{data.title}</span>
 				<span className="counter">
-					{console.log(data)}
-					{count}
+					{count.count}
 				</span>
 				<Link to={data.to}>
 					<span className="link">{data.link}</span>

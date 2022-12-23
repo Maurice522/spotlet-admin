@@ -6,22 +6,35 @@ import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table";
 import { useEffect, useState } from "react";
-import { noOfLocations, noOfUsers } from "../../services/api";
+import {
+	noOfBookings,
+	noOfLocations,
+	noOfRequests,
+	noOfUsers,
+} from "../../services/api";
 
 const Home = () => {
-	const [users, setUsers] = useState(0);
-	const [locations, setLocations] = useState(0);
-	const [bookings, setBookings] = useState(0);
-	const [requests, setRequests] = useState(0);
+	const [users, setUsers] = useState({});
+	const [locations, setLocations] = useState({});
+	const [bookings, setBookings] = useState({});
+	const [requests, setRequests] = useState({});
 
 	useEffect(() => {
-		noOfUsers()
-			.then((res) => setUsers(res.data.size))
-			.catch((err) => console.log(err));
-
-    noOfLocations()
-			.then((res) => setLocations(res.data.size))
-			.catch((err) => console.log(err));
+		const fetchData = async () => {
+			try {
+				const usersRes = await noOfUsers();
+				setUsers(usersRes.data);
+				const locationsRes = await noOfLocations();
+				setLocations(locationsRes.data);
+				const bookingsRes = await noOfBookings();
+				setBookings(bookingsRes.data);
+				const requestsRes = await noOfRequests();
+				setRequests(requestsRes.data);
+			} catch (error) {
+				console.log(error.message);
+			}
+		};
+		fetchData();
 	}, []);
 
 	return (
@@ -30,10 +43,10 @@ const Home = () => {
 			<div className="homeContainer">
 				<Navbar />
 				<div className="widgets">
-					<Widget type="user" count={users}/>
-					<Widget type="order" count={locations}/>
-					<Widget type="earning" count={bookings}/>
-					<Widget type="balance" count={requests}/>
+					<Widget type="users" count={users} />
+					<Widget type="locations" count={locations} />
+					<Widget type="bookings" count={bookings} />
+					<Widget type="requests" count={requests} />
 				</div>
 				<div className="charts">
 					<Featured />

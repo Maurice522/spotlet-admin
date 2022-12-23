@@ -28,8 +28,6 @@ const UserDetails = () => {
 			const res = await getUserData(userId);
 			setBookingsData(res.data.portfolio);
 			setListingsData(res.data.listedLocations);
-			console.log(bookingsData);
-			console.log(listingsData);
 		};
 		fetchData();
 	}, []);
@@ -235,7 +233,7 @@ const UserDetails = () => {
 												{booking.date}
 											</TableCell>
 											<TableCell className="tableCell">
-												{booking.payment_status}
+												{booking.status}
 											</TableCell>
 											{/* <TableCell className="tableCell">
 												{gridActionButton(booking.bookingId)}

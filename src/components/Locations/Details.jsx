@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Buttons from "./Buttons";
 import { GoPrimitiveDot } from "react-icons/go";
-import { TextField, MenuItem} from "@mui/material";
+import { TextField, MenuItem } from "@mui/material";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { updateLocation } from "../../services/api";
@@ -146,11 +146,11 @@ const Details = ({ data, fetchData }) => {
 							onChange={(e) => {
 								opt.map((item, index) => {
 									if (e.value === item.value) {
-									  setLType(index);
+										setLType(index);
 									}
-								  });
-								  setPropertyDescr({ ...property_desc, location_type: e.value });
-								}}
+								});
+								setPropertyDescr({ ...property_desc, location_type: e.value });
+							}}
 							variant="outlined"
 						/>
 						<Buttons save={handleSave} discard={handleDiscard} />
@@ -293,7 +293,7 @@ const Details = ({ data, fetchData }) => {
 							onChange={handleChange}
 						>
 							<MenuItem value="yes">yes</MenuItem>
-                            <MenuItem value="no">no</MenuItem>
+							<MenuItem value="no">no</MenuItem>
 						</TextField>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
@@ -332,7 +332,7 @@ const Details = ({ data, fetchData }) => {
 							variant="outlined"
 						>
 							<MenuItem value="yes">yes</MenuItem>
-                            <MenuItem value="no">no</MenuItem>
+							<MenuItem value="no">no</MenuItem>
 						</TextField>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
@@ -371,7 +371,7 @@ const Details = ({ data, fetchData }) => {
 							variant="outlined"
 						>
 							<MenuItem value="yes">yes</MenuItem>
-                            <MenuItem value="no">no</MenuItem>
+							<MenuItem value="no">no</MenuItem>
 						</TextField>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
@@ -407,8 +407,8 @@ const Details = ({ data, fetchData }) => {
 						/>
 						<Buttons
 							styles={{ cursor: "not-allowed" }}
-							save={() => { }}
-							discard={() => { }}
+							save={() => {}}
+							discard={() => {}}
 						/>
 					</div>
 				</div>
