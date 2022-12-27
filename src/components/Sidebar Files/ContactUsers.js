@@ -20,27 +20,6 @@ const ContactUsers = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        var data2 = [];
-        axios
-            .get("http://localhost:8000/users")
-            .then((response) => {
-                const data = response.data;
-                for (let i = 0; i < data.length; i++) {
-                    const user = {
-                        id: data[i].id,
-                        email: data[i].personalInfo.email,
-                        username: data[i].personalInfo.fullName,
-                        mobile: data[i].personalInfo.mobile,
-                    };
-                    data2 = [...data2, user];
-                }
-            })
-            .then(() => {
-                setData(data2);
-            });
-    }, []);
-
-    useEffect(() => {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -55,7 +34,7 @@ const ContactUsers = () => {
     const onSubmit = async () => {
         try {
             // console.log(form);
-            const res = await Announcement({ form, data });
+            const res = await Announcement({ form });
             toast.success(res.data)
             console.log(res.data);
             window.location.reload();

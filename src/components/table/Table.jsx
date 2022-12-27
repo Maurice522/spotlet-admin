@@ -93,7 +93,7 @@ const List = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{locations.map((location) => (
+					{locations?.map((location) => (
 						<TableRow key={location.location_id}>
 							<TableCell className="tableCell">
 								{location.location_id}

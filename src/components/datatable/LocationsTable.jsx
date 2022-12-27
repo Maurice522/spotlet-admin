@@ -42,12 +42,12 @@ const LocationsTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:8000/getlocations")
+			.get("http://localhost:7000/getlocations")
 			.then((response) => {
 				const data = response.data;
 				console.log("Location Data", data);
-				for (let i = 0; i < data.locations.length; i++) {
-					const date = new Date(data.locations[i]?.timestamp?._seconds * 1000);
+				for (let i = 0; i < data?.length; i++) {
+					const date = new Date(data[i]?.createdAt);
 					const yyyy = date.getFullYear();
 					let mm = date.getMonth() + 1; // Months start at 0!
 					let dd = date.getDate();
@@ -57,12 +57,12 @@ const LocationsTable = () => {
 
 					const formattedToday = dd + "/" + mm + "/" + yyyy;
 					const user = {
-						id: data.locations[i].location_id,
-						email: data.locations[i].contact_det.email,
-						username: data.locations[i].contact_det.name,
-						mobile: data.locations[i].contact_det.mobile_num,
+						id: data[i].location_id,
+						email: data[i].contact_det.email,
+						username: data[i].contact_det.contact_name,
+						mobile: data[i].contact_det.mobile_num,
 						date: formattedToday,
-						img: data.locations[i].contact_det.img,
+						img: data[i].contact_det.img,
 					};
 					data2 = [...data2, user];
 				}

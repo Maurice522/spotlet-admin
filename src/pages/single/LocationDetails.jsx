@@ -46,12 +46,13 @@ const ListingPlace = () => {
 
 	const fetchData = () => {
 		axios
-			.get("http://localhost:8000/listalllocatons")
+			.get("http://localhost:7000/listalllocatons")
 			.then((response) => {
 				const data = response.data;
 				// console.log("Response", data);
 				// console.log(params);
-				const loc = data.locations.filter(
+				console.log(data)
+				const loc = data?.filter(
 					(item) => item.location_id === params?.locationId
 				);
 				// console.log(loc[0]);

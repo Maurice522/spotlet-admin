@@ -8,7 +8,7 @@ const LocReqTable = () => {
 	const approveUser = (id, userid) => {
 		// console.log(userid);
 		axios
-			.put("http://localhost:8000/approveloc/" + id, {
+			.put("http://localhost:7000/approveloc/" + id, {
 				userid: userid,
 			})
 			.then(console.log("Approve Location"));
@@ -51,11 +51,12 @@ const LocReqTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:8000/locreqs")
+			.get("http://localhost:7000/locreqs")
 			.then((response) => {
 				const data = response.data;
-				for (let i = 0; i < data.locations.length; i++) {
-					const date = new Date(data.locations[i]?.timestamp?._seconds * 1000);
+				console.log(data)
+				for (let i = 0; i < data?.length; i++) {
+					const date = new Date(data[i]?.createdAt);
 					const yyyy = date.getFullYear();
 					let mm = date.getMonth() + 1; // Months start at 0!
 					let dd = date.getDate();
@@ -65,13 +66,13 @@ const LocReqTable = () => {
 
 					const formattedToday = dd + "/" + mm + "/" + yyyy;
 					const user = {
-						userid: data.locations[i]?.property_desc?.user_id,
-						id: data.locations[i]?.location_id,
-						email: data.locations[i]?.contact_det?.email,
-						username: data.locations[i]?.contact_det?.name,
-						mobile: data.locations[i]?.contact_det?.mobile_num,
+						userid: data[i]?.property_desc?.user_id,
+						id: data[i]?.location_id,
+						email: data[i]?.contact_det?.email,
+						username: data[i]?.contact_det?.contact_name,
+						mobile: data[i]?.contact_det?.mobile_num,
 						date: formattedToday,
-						img: data.locations[i]?.contact_det?.img,
+						img: data[i]?.contact_det?.img,
 					};
 					data2 = [...data2, user];
 				}
