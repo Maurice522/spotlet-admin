@@ -48,13 +48,14 @@ const DeactTable = () => {
 			.get("http://localhost:7000/deletereq")
 			.then((response) => {
 				const data = response.data;
+				console.log(data)
 				for (let i = 0; i < data.length; i++) {
 					const user = {
-						id: data[i].id,
-						email: data[i].CustomerEmail,
-						username: data[i].CustomerName,
-						mobile: data[i].Mobile,
-						img: data[i].CustomerImage,
+						id: data[i]?._id,
+						email: data[i]?.CustomerEmail,
+						username: data[i]?.CustomerName,
+						mobile: data[i]?.Mobile,
+						img: data[i]?.CustomerImage,
 					};
 					data2 = [...data2, user];
 				}
@@ -89,7 +90,7 @@ const DeactTable = () => {
 							className="deleteButton"
 							onClick={() => {
 								rejectUser(params.row.id);
-								window.location.reload(true);
+								// window.location.reload(true);
 							}}
 						>
 							Reject

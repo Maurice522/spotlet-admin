@@ -47,7 +47,7 @@ const IncompleteTable = () => {
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 
-					const date = new Date(data[i].timestamp?._seconds * 1000);
+					const date = new Date(data[i].createdAt);
 					const yyyy = date.getFullYear();
 					let mm = date.getMonth() + 1; // Months start at 0!
 					let dd = date.getDate();
@@ -58,12 +58,12 @@ const IncompleteTable = () => {
 					const formattedToday = dd + "/" + mm + "/" + yyyy
 
 					const user = {
-						id: data[i].id,
-						email: data[i].personalInfo.email,
-						username: data[i].personalInfo.fullName,
-						mobile: data[i].personalInfo.mobile,
-						img: data[i].personalInfo.profile_pic,
-						JoinedAs: data[i].personalInfo.booking_type,
+						id: data[i]._id,
+						email: data[i]?.personalInfo?.email,
+						username: data[i]?.personalInfo?.fullName,
+						mobile: data[i]?.personalInfo?.mobile,
+						img: data[i]?.personalInfo?.profile_pic,
+						JoinedAs: data[i]?.personalInfo?.booking_type,
 						Address: "",
 						Country: "India",
 						BankName: "lorem ipsum 1",

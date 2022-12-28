@@ -41,11 +41,11 @@ const PhotoShootReqTable = () => {
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 					const user = {
-						id: data[i].id,
-						email: data[i].email,
-						username: data[i].fullName,
-						mobile: data[i].mobile,
-						address: data[i].address,
+						id: data[i]?._id,
+						email: data[i]?.email,
+						username: data[i]?.fullName,
+						mobile: data[i]?.mobile,
+						address: data[i]?.address,
 					};
 					data2 = [...data2, user];
 				}

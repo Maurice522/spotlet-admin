@@ -37,10 +37,10 @@ const BlogTable = () => {
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 					const user = {
-						id: data[i].id,
-						title: data[i].title,
-						subheading: data[i].subheading,
-						date: data[i].date,
+						id: data[i]?._id,
+						title: data[i]?.title,
+						subheading: data[i]?.subheading,
+						date: data[i]?.date,
 					};
 					data2 = [...data2, user];
 				}

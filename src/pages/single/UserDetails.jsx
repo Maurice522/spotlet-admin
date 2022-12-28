@@ -33,7 +33,7 @@ const UserDetails = () => {
 	}, []);
 
 	const getDate = (timestamp) => {
-		const date = new Date(timestamp * 1000);
+		const date = new Date(timestamp);
 		const yyyy = date.getFullYear();
 		let mm = date.getMonth() + 1; // Months start at 0!
 		let dd = date.getDate();
@@ -98,17 +98,18 @@ const UserDetails = () => {
 	};
 
 	const [value, setValue] = useState({});
+	console.log(value)
 
 	useEffect(() => {
 		axios.get("http://localhost:7000/users").then((response) => {
 			const data = response.data;
-			const result = data.filter((item) => item.id === params.userId);
+			const result = data.filter((item) => item._id === params.userId);
 			const user = {
-				email: result[0].personalInfo.email,
-				userName: result[0].personalInfo.fullName,
-				mobile: result[0].personalInfo.mobile,
-				image: result[0].personalInfo.profile_pic,
-				joinedAs: result[0].personalInfo.booking_type,
+				email: result[0]?.personalInfo?.email,
+				userName: result[0]?.personalInfo?.fullName,
+				mobile: result[0]?.personalInfo?.mobile,
+				image: result[0]?.personalInfo?.profile_pic,
+				joinedAs: result[0]?.personalInfo?.booking_type,
 				address: "",
 				country: "India",
 				bankName: "lorem ipsum 1",
@@ -142,29 +143,29 @@ const UserDetails = () => {
 									}}
 								/>
 							) : (
-								<img src={value.image} alt="" className="itemImg" />
+								<img src={value?.image} alt="" className="itemImg" />
 							)}
 							<div className="details">
-								<h1 className="itemTitle">{value.userName}</h1>
+								<h1 className="itemTitle">{value?.userName}</h1>
 								<div className="detailItem">
 									<span className="itemKey">Email:</span>
-									<span className="itemValue">{value.email}</span>
+									<span className="itemValue">{value?.email}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Phone:</span>
-									<span className="itemValue">{value.mobile}</span>
+									<span className="itemValue">{value?.mobile}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Address:</span>
-									<span className="itemValue">{value.address}</span>
+									<span className="itemValue">{value?.address}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Country:</span>
-									<span className="itemValue">{value.country}</span>
+									<span className="itemValue">{value?.country}</span>
 								</div>
 								<div className="detailItem">
 									<span className="itemKey">Joined As:</span>
-									<span className="itemValue">{value.joinedAs}</span>
+									<span className="itemValue">{value?.joinedAs}</span>
 								</div>
 							</div>
 						</div>
@@ -221,19 +222,19 @@ const UserDetails = () => {
 								</TableHead>
 								<TableBody>
 									{bookingsData.map((booking) => (
-										<TableRow key={booking.bookingId}>
-											{console.log(booking)}
+										<TableRow key={booking?._id}>
+											{/* {console.log(booking)} */}
 											<TableCell className="tableCell">
-												{booking.bookingId}
+												{booking?._id}
 											</TableCell>
 											<TableCell className="tableCell">
-												{booking.property_id}
+												{booking?.property_id}
 											</TableCell>
 											<TableCell className="tableCell">
-												{booking.date}
+												{booking?.date}
 											</TableCell>
 											<TableCell className="tableCell">
-												{booking.status}
+												{booking?.status}
 											</TableCell>
 											{/* <TableCell className="tableCell">
 												{gridActionButton(booking.bookingId)}
@@ -273,21 +274,22 @@ const UserDetails = () => {
 								</TableHead>
 								<TableBody>
 									{listingsData.map((location) => (
-										<TableRow key={location.location_id}>
+										<TableRow key={location?.location_id}>
+											{/* {console.log(location)} */}
 											<TableCell className="tableCell">
-												{location.property_address?.address}
+												{location?.property_address?.address}
 											</TableCell>
 											<TableCell className="tableCell">
-												{location.location_id}
+												{location?.location_id}
 											</TableCell>
 											<TableCell className="tableCell">
-												{getDate(location.timestamp?._seconds)}
+												{getDate(location?.createdAt)}
 											</TableCell>
 											<TableCell className="tableCell">
-												{gridBookingStatus(location.verified)}
+												{gridBookingStatus(location?.verified)}
 											</TableCell>
 											<TableCell className="tableCell">
-												{gridActionButton(location.location_id)}
+												{gridActionButton(location?.location_id)}
 											</TableCell>
 										</TableRow>
 									))}

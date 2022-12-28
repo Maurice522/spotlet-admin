@@ -48,11 +48,11 @@ const IncompleteTable = () => {
 							console.log(res.data);
 							const userData = res.data;
 							const user = {
-								id: data[i].id,
-								user: userData.personalInfo.fullName,
-								email: userData.personalInfo.email,
-								mobile: userData.personalInfo.mobile,
-								img: userData.personalInfo.profile_pic,
+								id: data[i]?._id,
+								user: userData?.personalInfo?.fullName,
+								email: userData?.personalInfo?.email,
+								mobile: userData?.personalInfo?.mobile,
+								img: userData?.personalInfo?.profile_pic,
 							};
 							data2 = [...data2, user];
 							console.log(data2);

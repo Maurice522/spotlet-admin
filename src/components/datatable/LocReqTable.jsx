@@ -11,7 +11,7 @@ const LocReqTable = () => {
 			.put("http://localhost:7000/approveloc/" + id, {
 				userid: userid,
 			})
-			.then(console.log("Approve Location"));
+			.then(console.log("Approved Location"));
 		window.location.reload();
 		alert("The location has been approved");
 	};
@@ -88,6 +88,7 @@ const LocReqTable = () => {
 			headerName: "View",
 			width: 250,
 			renderCell: (params) => {
+				console.log(params.row.id)
 				const link = `/locations/${params.id}`;
 				// console.log(link);
 				return (

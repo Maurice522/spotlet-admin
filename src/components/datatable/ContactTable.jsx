@@ -46,7 +46,7 @@ const ContactTable = () => {
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 
-					const date = new Date(data[i].timestamp?._seconds * 1000);
+					const date = new Date(data[i]?.createdAt);
 					const yyyy = date.getFullYear();
 					let mm = date.getMonth() + 1; // Months start at 0!
 					let dd = date.getDate();
@@ -57,11 +57,11 @@ const ContactTable = () => {
 					const formattedToday = dd + "/" + mm + "/" + yyyy
 
 					const user = {
-						id: data[i].id,
-						email: data[i].email,
-						username: data[i].fullName,
-						mobile: data[i].mobile,
-						message: data[i].message,
+						id: data[i]?._id,
+						email: data[i]?.email,
+						username: data[i]?.fullName,
+						mobile: data[i]?.mobile,
+						message: data[i]?.message,
 						date : formattedToday
 					};
 					data2 = [...data2, user];

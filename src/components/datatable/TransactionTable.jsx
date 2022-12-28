@@ -58,16 +58,16 @@ const TransactionTable = () => {
 				console.log(data)
 
 				for (let i = 0; i < data.length; i++) {
-					console.log(data[i].portfolio);
+					console.log(data[i]?.portfolio);
 					const user = {
-						id: data[i].bookingid,
-						bookingDate: data[i].bookingdate,
-						amount: data[i].amount,
-						locId: data[i].locationid,
-						hostName: data[i].hostname,
-						bookingName: data[i].bookingname,
-						date: data[i].date,
-						status: data[i].status,
+						id: data[i]?._id,
+						bookingDate: data[i]?.bookingdate,
+						amount: data[i]?.amount,
+						locId: data[i]?.locationid,
+						hostName: data[i]?.hostname,
+						bookingName: data[i]?.bookingname,
+						date: data[i]?.date,
+						status: data[i]?.status,
 					};
 					data2 = [...data2, user];
 				}
