@@ -51,7 +51,7 @@ const DeactTable = () => {
 				console.log(data)
 				for (let i = 0; i < data.length; i++) {
 					const user = {
-						id: data[i]?._id,
+						id: data[i]?.user_id,
 						email: data[i]?.CustomerEmail,
 						username: data[i]?.CustomerName,
 						mobile: data[i]?.Mobile,
@@ -90,7 +90,7 @@ const DeactTable = () => {
 							className="deleteButton"
 							onClick={() => {
 								rejectUser(params.row.id);
-								// window.location.reload(true);
+								window.location.reload(true);
 							}}
 						>
 							Reject

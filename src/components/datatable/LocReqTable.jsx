@@ -9,7 +9,7 @@ const LocReqTable = () => {
 		// console.log(userid);
 		axios
 			.put("http://localhost:7000/approveloc/" + id, {
-				userid: userid,
+				user_id: userid,
 			})
 			.then(console.log("Approved Location"));
 		window.location.reload();
