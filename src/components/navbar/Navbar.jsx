@@ -3,6 +3,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 	const { dispatch } = useContext(DarkModeContext);
@@ -23,6 +24,9 @@ const Navbar = () => {
 							alt=""
 							className="avatar"
 						/>
+						<Link to="/login" className="logout">
+							Logout
+						</Link>
 					</div>
 				</div>
 			</div>
