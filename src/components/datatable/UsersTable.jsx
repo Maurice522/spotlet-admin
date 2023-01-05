@@ -41,7 +41,7 @@ const IncompleteTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:7000/users")
+			.get(`${process.env.REACT_APP_API_URL}/users`)
 			.then((response) => {
 				const data = response.data;
 				console.log(data);

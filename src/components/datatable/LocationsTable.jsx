@@ -42,7 +42,7 @@ const LocationsTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:7000/getlocations")
+			.get(`${process.env.REACT_APP_API_URL}/getlocations`)
 			.then((response) => {
 				const data = response.data;
 				console.log("Location Data", data);

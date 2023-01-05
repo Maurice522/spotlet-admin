@@ -52,7 +52,7 @@ const TransactionTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:7000/gettransactions")
+			.get(`${process.env.REACT_APP_API_URL}/gettransactions`)
 			.then((response) => {
 				const data = response.data;
 				console.log(data)

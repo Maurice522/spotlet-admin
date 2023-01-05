@@ -8,7 +8,7 @@ const LocReqTable = () => {
 	const approveUser = (id, userid) => {
 		// console.log(userid);
 		axios
-			.put("http://localhost:7000/approveloc/" + id, {
+			.put(`${process.env.REACT_APP_API_URL}/approveloc/` + id, {
 				user_id: userid,
 			})
 			.then(console.log("Approved Location"));
@@ -51,7 +51,7 @@ const LocReqTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:7000/locreqs")
+			.get(`${process.env.REACT_APP_API_URL}/locreqs`)
 			.then((response) => {
 				const data = response.data;
 				console.log(data)

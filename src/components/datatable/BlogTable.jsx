@@ -31,7 +31,7 @@ const BlogTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:7000/getBlogs")
+			.get(`${process.env.REACT_APP_API_URL}/getBlogs`)
 			.then((response) => {
 				const data = response.data;
 				console.log(data);

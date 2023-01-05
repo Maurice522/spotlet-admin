@@ -22,7 +22,7 @@ const AddTransaction = () => {
 
     const onSubmit = () => {
         console.log(transaction);
-        axios.post('http://localhost:7000/createtransaction', transaction)
+        axios.post(`${process.env.REACT_APP_API_URL}/createtransaction`, transaction)
             .then((response) => console.log(response.status))
         toast.success("Transaction Created!")
         window.location.reload()

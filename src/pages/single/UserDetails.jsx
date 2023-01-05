@@ -101,7 +101,7 @@ const UserDetails = () => {
 	console.log(value)
 
 	useEffect(() => {
-		axios.get("http://localhost:7000/users").then((response) => {
+		axios.get(`${process.env.REACT_APP_API_URL}/users`).then((response) => {
 			const data = response.data;
 			const result = data.filter((item) => item._id === params.userId);
 			const user = {

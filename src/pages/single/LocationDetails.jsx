@@ -46,7 +46,7 @@ const ListingPlace = () => {
 
 	const fetchData = () => {
 		axios
-			.get("http://localhost:7000/listalllocatons")
+			.get(`${process.env.REACT_APP_API_URL}/listalllocatons`)
 			.then((response) => {
 				const data = response.data;
 				// console.log("Response", data);

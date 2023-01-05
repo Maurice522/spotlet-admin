@@ -33,19 +33,19 @@ const DeactTable = () => {
 	];
 	const deleteUser = (id) => {
 		axios
-			.delete("http://localhost:7000/delete/" + id)
+			.delete(`${process.env.REACT_APP_API_URL}/delete/` + id)
 			.then(console.log("Delete Successfull"));
 	};
 	const rejectUser = (id) => {
 		axios
-			.delete("http://localhost:7000/rejectdeac/" + id)
+			.delete(`${process.env.REACT_APP_API_URL}/rejectdeac/` + id)
 			.then(console.log("Rejected Successfull"));
 	};
 	const [data, setData] = useState([]);
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:7000/deletereq")
+			.get(`${process.env.REACT_APP_API_URL}/deletereq`)
 			.then((response) => {
 				const data = response.data;
 				console.log(data)

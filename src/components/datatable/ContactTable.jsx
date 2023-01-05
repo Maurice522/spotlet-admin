@@ -40,7 +40,7 @@ const ContactTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
-			.get("http://localhost:7000/getContact")
+			.get(`${process.env.REACT_APP_API_URL}/getContact`)
 			.then((response) => {
 				const data = response.data;
 				console.log(data);
