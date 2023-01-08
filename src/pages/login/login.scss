@@ -1,23 +1,22 @@
-.login{
+.login {
+	.heading {
+		font-size: 6rem;
+		color: #7451f8;
+		text-align: center;
+		margin-top: 4rem;
+	}
 
-    .heading {
-        font-size: 6rem;
-        color: #7451f8;
-        text-align: center;
-        margin-top: 4rem;
-    }
+	.container {
+		width: 50% !important;
+		margin: auto;
 
-    .container {
-        width: 50% !important;
-        margin: auto;
+		h2 {
+			text-align: center;
+			font-size: 2.5rem !important;
+		}
 
-        h2 {
-            text-align: center;
-            font-size: 2.5rem !important;
-        }
-
-        .css-12yjm75-MuiInputBase-input-MuiOutlinedInput-input {
-            padding: 16.5px 14px !important;
-        }
-    }
+		.css-12yjm75-MuiInputBase-input-MuiOutlinedInput-input {
+			padding: 16.5px 14px !important;
+		}
+	}
 }

@@ -106,10 +106,17 @@ const Sidebar = () => {
 						<AccountCircleOutlinedIcon className="icon" />
 						<span>Profile</span>
 					</li>
-					<li>
+					{/* <Link to="/" style={{ textDecoration: "none" }}> */}
+					<li
+						onClick={() => {
+							localStorage.removeItem("admin");
+							window.location.reload();
+						}}
+					>
 						<ExitToAppIcon className="icon" />
 						<span>Logout</span>
 					</li>
+					{/* </Link> */}
 				</ul>
 			</div>
 		</div>
