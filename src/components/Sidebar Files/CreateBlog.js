@@ -49,10 +49,11 @@ const CreateBlog = () => {
 
     const onSubmit = () => {
         console.log(blog);
-        axios.post(`${process.env.REACT_APP_API_URL}/createblog`, blog)
-            .then((response) => console.log(response.status))
+        // axios.post(`${process.env.REACT_APP_API_URL}/createblog`, blog)
+        axios.post("/createblog", blog)
+            .then((response) => console.log(response,response.status))
         toast.success("Blog Created!")
-        window.location.reload()
+        // window.location.reload()
     }
     return (
         <div>

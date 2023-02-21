@@ -4,6 +4,8 @@ import Buttons from "./Buttons";
 import { TextField } from "@mui/material";
 import { updateLocation } from "../../services/api";
 import { toast } from "react-toastify";
+import "react-toggle/style.css"
+import Toggle from "react-toggle";
 
 const Timing = ({ data, fetchData }) => {
 	console.log(data.timings);
@@ -123,6 +125,114 @@ const Timing = ({ data, fetchData }) => {
 		setTimings(initialState);
 	};
 
+
+const handleToggle=(day)=>{
+	if(day==="monday"){
+		setMonTimings(timings.monday?.isSetHours === false
+			? data.timings?.monday?.time:"Open all day" )
+		setTimings({
+			...timings,
+			monday: {
+				open: timings.monday.open,
+				isSetHours: !(timings.monday.isSetHours),
+				time: {
+					start: timings.tuesday.time.start,
+					end: timings.tuesday.time.end}
+				}
+		});
+	}
+	if(day==="tuesday"){
+		setTueTimings(timings.tuesday?.isSetHours === false
+			? data.timings?.tuesday?.time:"Open all day" )
+		setTimings({
+			...timings,
+			tuesday: {
+				open: timings.tuesday.open,
+				isSetHours: !(timings.tuesday.isSetHours),
+				time:{
+					start: timings.tuesday.time.start,
+					end: timings.tuesday.time.end}
+			},
+		});
+	}
+	if(day==="wednesday"){
+		setWedTimings(timings.wednesday?.isSetHours === false
+			? data?.timings?.wednesday?.time:"Open all day" )
+		setTimings({
+			...timings,
+			wednesday: {
+				open: timings.wednesday.open,
+				isSetHours: !(timings.wednesday.isSetHours),
+				time: {
+					start: timings.wednesday.time.start,
+					end: timings.wednesday.time.end
+				},
+			},
+		});
+	}
+	if(day==="thursday"){
+		setThuTimings(timings.thursday?.isSetHours === false
+			? data?.timings?.thursday?.time:"Open all day" )
+		setTimings({
+			...timings,
+			thursday: {
+				open: timings.thursday.open,
+				isSetHours: !(timings.thursday.isSetHours),
+				time: {
+					start: timings.thursday.time.start,
+					end: timings.thursday.time.end
+				},
+			},
+		});
+	}
+	if(day==="friday"){
+		setFriTimings(timings.friday?.isSetHours === false
+			? data?.timings?.friday?.time:"Open all day" )
+		setTimings({
+			...timings,
+			friday: {
+				open: timings.friday.open,
+				isSetHours: !(timings.friday.isSetHours),
+				time: {
+					start: timings.friday.time.start,
+					end: timings.friday.time.end
+				},
+			},
+		});
+	}
+	if(day==="saturday"){
+		setSatTimings(timings.saturday?.isSetHours === false
+			? data?.timings?.saturday?.time:"Open all day" )
+		setTimings({
+			...timings,
+			saturday: {
+				open: timings.saturday.open,
+				isSetHours: !(timings.saturday.isSetHours),
+				time: {
+					start: timings.saturday.time.start,
+					end: timings.saturday.time.end
+				},
+			},
+		});
+	}
+	if(day==="sunday"){
+		setSunTimings(timings.sunday?.isSetHours === false
+			? data?.timings?.sunday?.time:"Open all day" )
+		setTimings({
+			...timings,
+			sunday: {
+				open: timings.sunday.open,
+				isSetHours: !(timings.sunday.isSetHours),
+				time: {
+					start: timings.sunday.time.start,
+					end: timings.sunday.time.end
+				},
+			},
+		});
+	}
+	
+}
+
 	return (
 		<div>
 			<div className="location-primary-heading">Timings</div>
@@ -161,6 +271,16 @@ const Timing = ({ data, fetchData }) => {
 						/>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					<div className="location-info">
+						<div style={{display:"flex",padding:".5rem 0 .5rem 1rem"}}>Is Open 24 hrs?
+						<span style={{marginLeft:"1rem"}}>
+						<Toggle
+    					defaultChecked={!(timings?.monday?.isSetHours)}
+    					icons={false}
+   					 onChange={()=>handleToggle("monday")} />
+					 </span>
+						</div>
+					</div>
 					{timings?.monday?.isSetHours ? (
 						<>
 						<div className="location-info">
@@ -196,7 +316,7 @@ const Timing = ({ data, fetchData }) => {
 							/>
 							<Buttons save={handleSave} discard={handleDiscard} />
 						</div>
-						<div className="location-info">
+						{/* <div className="location-info">
 								<TextField
 									id="filled-select-currency"
 									value={monTimings}
@@ -213,7 +333,7 @@ const Timing = ({ data, fetchData }) => {
 									variant="outlined"
 								/>
 								<Buttons save={handleSave} discard={handleDiscard} />
-							</div>
+							</div> */}
 						</>
 					) : (
 						timings?.monday?.open && (
@@ -271,6 +391,17 @@ const Timing = ({ data, fetchData }) => {
 							variant="outlined"
 						/>
 						<Buttons save={handleSave} discard={handleDiscard} />
+						
+					</div>
+					<div className="location-info">
+						<div style={{display:"flex",padding:".5rem 0 .5rem 1rem"}}>Is Open 24 hrs?
+						<span style={{marginLeft:"1rem"}}>
+						<Toggle
+    					defaultChecked={!(timings.tuesday?.isSetHours)}
+    					icons={false}
+   					 onChange={()=>handleToggle("tuesday")} />
+					 </span>
+						</div>
 					</div>
 					{timings?.tuesday?.isSetHours ? (
 						<div className="location-info">
@@ -363,6 +494,16 @@ const Timing = ({ data, fetchData }) => {
 						/>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					<div className="location-info">
+						<div style={{display:"flex",padding:".5rem 0 .5rem 1rem"}}>Is Open 24 hrs?
+						<span style={{marginLeft:"1rem"}}>
+						<Toggle
+    					defaultChecked={!(timings.wednesday?.isSetHours)}
+    					icons={false}
+   					 onChange={()=>handleToggle("wednesday")} />
+					 </span>
+						</div>
+					</div>
 					{timings?.wednesday?.isSetHours ? (
 						<div className="location-info">
 							<TextField
@@ -429,6 +570,7 @@ const Timing = ({ data, fetchData }) => {
 							marginBottom: "0px",
 						}}
 					>
+					
 						{timings?.thursday?.open ? (
 							<GoPrimitiveDot color="#6439ff" />
 						) : (
@@ -453,6 +595,16 @@ const Timing = ({ data, fetchData }) => {
 							variant="outlined"
 						/>
 						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+					<div className="location-info">
+						<div style={{display:"flex",padding:".5rem 0 .5rem 1rem"}}>Is Open 24 hrs?
+						<span style={{marginLeft:"1rem"}}>
+						<Toggle
+    					defaultChecked={!(timings.thursday?.isSetHours)}
+    					icons={false}
+   					 onChange={()=>handleToggle("thursday")} />
+					 </span>
+						</div>
 					</div>
 					{timings?.thursday?.isSetHours ? (
 						<div className="location-info">
@@ -545,6 +697,16 @@ const Timing = ({ data, fetchData }) => {
 						/>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					<div className="location-info">
+						<div style={{display:"flex",padding:".5rem 0 .5rem 1rem"}}>Is Open 24 hrs?
+						<span style={{marginLeft:"1rem"}}>
+						<Toggle
+    					defaultChecked={!(timings.friday?.isSetHours)}
+    					icons={false}
+   					 onChange={()=>handleToggle("friday")} />
+					 </span>
+						</div>
+					</div>
 					{timings?.friday?.isSetHours ? (
 						<div className="location-info">
 							<TextField
@@ -636,6 +798,16 @@ const Timing = ({ data, fetchData }) => {
 						/>
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
+					<div className="location-info">
+						<div style={{display:"flex",padding:".5rem 0 .5rem 1rem"}}>Is Open 24 hrs?
+						<span style={{marginLeft:"1rem"}}>
+						<Toggle
+    					defaultChecked={!(timings.saturday?.isSetHours)}
+    					icons={false}
+   					 onChange={()=>handleToggle("saturday")} />
+					 </span>
+						</div>
+					</div>
 					{timings?.saturday?.isSetHours ? (
 						<div className="location-info">
 							<TextField
@@ -726,6 +898,16 @@ const Timing = ({ data, fetchData }) => {
 							variant="outlined"
 						/>
 						<Buttons save={handleSave} discard={handleDiscard} />
+					</div>
+					<div className="location-info">
+						<div style={{display:"flex",padding:".5rem 0 .5rem 1rem"}}>Is Open 24 hrs?
+						<span style={{marginLeft:"1rem"}}>
+						<Toggle
+    					defaultChecked={!(timings.sunday?.isSetHours)}
+    					icons={false}
+   					 onChange={()=>handleToggle("sunday")} />
+					 </span>
+						</div>
 					</div>
 					{timings?.sunday?.isSetHours ? (
 						<div className="location-info">
