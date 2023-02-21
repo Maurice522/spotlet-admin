@@ -6,7 +6,7 @@ import { updateLocation } from "../../services/api";
 import { toast } from "react-toastify";
 
 const Timing = ({ data, fetchData }) => {
-	// console.log(data);
+	console.log(data.timings);
 
 	const [monOpen, setMonOpen] = useState(
 		data?.timings?.monday?.open ? "Open" : "Closed"
@@ -162,6 +162,7 @@ const Timing = ({ data, fetchData }) => {
 						<Buttons save={handleSave} discard={handleDiscard} />
 					</div>
 					{timings?.monday?.isSetHours ? (
+						<>
 						<div className="location-info">
 							<TextField
 								id="filled-select-currency"
@@ -195,6 +196,25 @@ const Timing = ({ data, fetchData }) => {
 							/>
 							<Buttons save={handleSave} discard={handleDiscard} />
 						</div>
+						<div className="location-info">
+								<TextField
+									id="filled-select-currency"
+									value={monTimings}
+									// onClick={handleClickMonTimings}
+									fullWidth
+									size="small"
+									sx={{
+										padding: "8px",
+									}}
+									onChange={(e) => {
+										// console.log(e.target.value);
+										// setMonTimings(e.target.value);
+									}}
+									variant="outlined"
+								/>
+								<Buttons save={handleSave} discard={handleDiscard} />
+							</div>
+						</>
 					) : (
 						timings?.monday?.open && (
 							<div className="location-info">
