@@ -318,6 +318,7 @@ const LocReqTable = () => {
 				columns={userColumns.concat(actionColumn)}
 				pageSize={9}
 				rowsPerPageOptions={[9]}
+				getRowId={Math.random()}
 			/>
 		</div>
 	);
