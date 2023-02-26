@@ -111,14 +111,17 @@ const LocReqTable = () => {
 	return (
 		<div className="datatable">
 			<div className="datatableTitle">Requests</div>
-			<DataGrid
+			
+			{data&& data.length>0&&
+				<DataGrid
 				className="datagrid"
 				rows={data}
 				columns={userColumns.concat(actionColumn)}
 				pageSize={9}
 				rowsPerPageOptions={[9]}
-				getRowId={Math.random()}
-			/>
+				/>
+			}
+			
 		</div>
 	);
 };
