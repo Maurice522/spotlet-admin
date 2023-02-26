@@ -1,12 +1,10 @@
 import "./widget.scss";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { CalendarMonth, ListAlt, LocationOnOutlined, PersonOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Widget = ({ type, count }) => {
 
 	let data;
-	const diff = 20;
 
 	switch (type) {
 		case "users":
