@@ -249,7 +249,7 @@ const LocReqTable = () => {
 		var data2 = [];
 		// .get(`${process.env.REACT_APP_API_URL}/locreqs`)
 		axios
-			.get(`/locreqs`)
+			.get(`${process.env.REACT_APP_API_URL}/locreqs`)
 			.then((response) => {
 				const data = response.data;
 				console.log(data)
