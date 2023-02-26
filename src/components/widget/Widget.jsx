@@ -1,12 +1,10 @@
 import "./widget.scss";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { CalendarMonth, ListAlt, LocationOnOutlined, PersonOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Widget = ({ type, count }) => {
 
 	let data;
-	const diff = 20;
 
 	switch (type) {
 		case "users":
@@ -84,13 +82,6 @@ const Widget = ({ type, count }) => {
 				<Link to={data.to}>
 					<span className="link">{data.link}</span>
 				</Link>
-			</div>
-			<div className="right">
-				<div className="percentage positive">
-					<KeyboardArrowUpIcon />
-					{diff} %
-				</div>
-				{data.icon}
 			</div>
 		</div>
 	);

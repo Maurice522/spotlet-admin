@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { uploadBlogPics } from '../../services/api';
 
 const CreateBlog = () => {
+    const [files, setFiles] = useState({});
     const [blog, setblog] = useState({
         title: "",
         subheading: "",
@@ -18,6 +19,77 @@ const CreateBlog = () => {
         image: {},
         content: ""
     });
+
+   
+
+  //ON CHOOSING FILE
+const handleFileChoosen=(event)=>{
+    if (event.target.files && event.target.files.length > 0) {
+      setFiles((prevFiles) => {
+        const filesToAdd = [...event.target.files];
+        const imageObj = {};
+        filesToAdd.forEach((file) => {
+          imageObj[file.name] = {
+            file,
+            imageSrc: URL.createObjectURL(file),
+            croppedImage: "",
+            watermarkImage: "",
+            preview: false,
+            uploaded: false
+          };
+        });
+        return { ...prevFiles, ...imageObj };
+      });
+    }
+  }
+
+  useEffect(()=>{
+    if(JSON.stringify(files)==="{}"){return}
+    handleUpload()
+    },[files])
+
+
+
+
+  const handleUpload=async()=>{
+    try {
+      const fileNames = Object.keys(files);
+      for (let i = 0; i < fileNames.length; i++) {
+        const flobj = files[fileNames[i]];
+        console.log(fileNames[i])
+        console.log("flobj",flobj)
+        if (flobj.uploaded) continue;
+        const file = await urltoFile(
+          flobj.imageSrc,
+          fileNames[i],
+          "text/plain"
+        );
+        const formData = new FormData();
+        formData.append("pic", file);
+        const response = await uploadBlogPics(formData);
+        setblog({ ...blog, image: response.data.url });
+        setFiles((prevData) => {
+          prevData[fileNames[i]].uploaded = true;
+          return { ...prevData };
+        });
+        toast.success(`${fileNames[i]} has been uploaded`, 300);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //CONVERT IMG TO URL
+function urltoFile(url, filename, mimeType) {
+    console.log(url, filename, mimeType)
+    return fetch(url)
+      .then(function (res) {
+        return res.arrayBuffer();
+      })
+      .then(function (buf) {
+        return new File([buf], Date.now() + filename, { type: mimeType });
+      });
+  }
 
     useEffect(() => {
         var today = new Date();
@@ -34,25 +106,26 @@ const CreateBlog = () => {
         document.getElementById("imageUploadBlog").click();
     };
 
-    const handleChange = async (e) => {
-        try {
-            console.log(e.target.files);
-            let formData = new FormData();
-            formData = { "pic": e.target.files[0] }
-            const response = await uploadBlogPics(formData);
-            console.log(response);
-            setblog({ ...blog, image: { url: response.data.url, imageRef: response.data.fileRef } });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const handleChange = async (e) => {
+    //     try {
+    //         console.log(e.target.files);
+    //         let formData = new FormData();
+    //         formData = { "pic": e.target.files[0] }
+    //         const response = await uploadBlogPics(formData);
+    //         console.log(response);
+    //         setblog({ ...blog, image: { url: response.data.url, imageRef: response.data.fileRef } });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     const onSubmit = () => {
         console.log(blog);
-        axios.post(`${process.env.REACT_APP_API_URL}/createblog`, blog)
-            .then((response) => console.log(response.status))
+        // axios.post(`${process.env.REACT_APP_API_URL}/createblog`, blog)
+        axios.post("/createblog", blog)
+            .then((response) => console.log(response,response.status))
         toast.success("Blog Created!")
-        window.location.reload()
+        // window.location.reload()
     }
     return (
         <div>
@@ -89,7 +162,7 @@ const CreateBlog = () => {
                                 multiple
                                 id="imageUploadBlog"
                                 style={{ display: "none" }}
-                                onChange={handleChange}
+                                onChange={handleFileChoosen}
                             />
                         </Button>
                         <br />

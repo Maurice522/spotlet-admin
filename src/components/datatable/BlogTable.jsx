@@ -31,6 +31,7 @@ const BlogTable = () => {
 	useEffect(() => {
 		var data2 = [];
 		axios
+			// .get(`${process.env.REACT_APP_API_URL}/getBlogs`)
 			.get(`${process.env.REACT_APP_API_URL}/getBlogs`)
 			.then((response) => {
 				const data = response.data;
