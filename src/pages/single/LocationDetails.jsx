@@ -44,18 +44,29 @@ const ListingPlace = () => {
 	const [data, setData] = useState("");
 	const [tempData, setTempData] = useState("");
 
+	const filtering =(data,id)=>{
+		var index=-1;
+		if(data && data instanceof Array && data.length>0){
+			data.map((item,idx)=>{
+				if(item.location_id===id)
+					index=idx;
+			})
+		}
+		if(index>-1)
+		return data[index];
+
+		return null;
+	}
+
 	const fetchData = () => {
-		// .get(`${process.env.REACT_APP_API_URL}/listalllocatons`)
 		axios
-			.get(`/listalllocatons`)
+		.get(`${process.env.REACT_APP_API_URL}/listalllocatons`)
 			.then((response) => {
 				const data = response.data;
 				// console.log("Response", data);
 				// console.log(params);
 				console.log(data)
-				const loc = data?.filter(
-					(item) => item.location_id === params?.locationId
-				);
+				const loc = filtering(data,params?.locationId)
 				// console.log(loc[0]);
 				setData(loc[0]);
 			})
