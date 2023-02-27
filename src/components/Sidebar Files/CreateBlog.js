@@ -38,7 +38,7 @@ const handleFileChoosen=(event)=>{
             uploaded: false
           };
         });
-        return { ...prevFiles, ...imageObj };
+        return {...imageObj };
       });
     }
   }
@@ -121,8 +121,8 @@ function urltoFile(url, filename, mimeType) {
 
     const onSubmit = () => {
         console.log(blog);
-        // axios.post(`${process.env.REACT_APP_API_URL}/createblog`, blog)
-        axios.post("/createblog", blog)
+        axios.post(`${process.env.REACT_APP_API_URL}/createblog`, blog)
+        // axios.post("/createblog", blog)
             .then((response) => console.log(response,response.status))
         toast.success("Blog Created!")
         // window.location.reload()
