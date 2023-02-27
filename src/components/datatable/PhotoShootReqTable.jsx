@@ -9,7 +9,7 @@ const PhotoShootReqTable = () => {
 		{
 			field: "user",
 			headerName: "User",
-			width: 200,
+			width: 150,
 			renderCell: (params) => {
 				return <div className="cellWithImg">{params.row.username}</div>;
 			},
@@ -22,6 +22,16 @@ const PhotoShootReqTable = () => {
 		{
 			field: "mobile",
 			headerName: "Phone Number",
+			width: 150,
+		},
+		{
+			field: "date",
+			headerName: "Date of booking",
+			width: 150,
+		},
+		{
+			field: "timestamp",
+			headerName: "Date of request",
 			width: 150,
 		},
 		{
@@ -46,11 +56,14 @@ const PhotoShootReqTable = () => {
 						username: data[i]?.fullName,
 						mobile: data[i]?.mobile,
 						address: data[i]?.address,
+						date:data[i]?.date,
+						timestamp:data[i]?.createdAt.substring(0,10)
 					};
 					data2 = [...data2, user];
 				}
 			})
 			.then(() => {
+				console.log(data2)
 				setData(data2);
 			});
 	}, []);
